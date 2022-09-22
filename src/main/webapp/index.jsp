@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Index</title>
+<title>Social Activity</title>
 </head>
 <body>
-<h3>Hello</h3>
+	<h1>소셜 액티비티</h1>
+	
+	<jsp:include page="top_menu.jsp"></jsp:include>
 </body>
 </html>
