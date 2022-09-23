@@ -10,7 +10,3 @@
 <br>
 <br>
 <hr>
-<a href="login.do">로그인</a>
-${user_id}
-<a href="logout.do">로그아웃</a>
-<a href="user_insert.do">회원가입</a>
