@@ -37,7 +37,6 @@ public class SearchListGatheringController extends HttpServlet {
 		if(sPath.equals("/g_searchList.do")) {
 			request.getRequestDispatcher("gathering/searchList.jsp").forward(request, response);
 		}else if(sPath.equals("/g_searchListOK.do")) {
-			//logic
 			PubGatheringDAO dao = new PubGatheringDAOimpl();
 			String minAge = request.getParameter("minAge");
 			String maxAge = request.getParameter("maxAge");
