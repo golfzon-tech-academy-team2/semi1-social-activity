@@ -27,9 +27,66 @@ public class PubGatheringDAOimpl implements PubGatheringDAO {
 	}
 
 	@Override
-	public List<GatheringVO> searchList(String searchKey, String searchWord) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<GatheringVO> searchList(String minAge, String maxAge, String sex) {
+		List<GatheringVO> vos = new ArrayList<>();
+		try {
+			conn = DriverManager.getConnection(
+					GatheringQuery.URL, 
+					GatheringQuery.USER, 
+					GatheringQuery.PASSWORD);
+			//�˻� : DQL
+			pstmt = conn.prepareStatement(GatheringQuery.GATHERING_SEARCHLIST);
+
+			pstmt.setString(1, minAge);
+			pstmt.setString(2, maxAge);
+			pstmt.setString(3, sex);
+			rs = pstmt.executeQuery();//������ ���� ���
+			
+			while(rs.next()) {//������ ����� �������� �𸣴ϱ�
+				GatheringVO vo = new GatheringVO();
+				vo.setgName(rs.getString("gName"));
+				vo.setgContent(rs.getString("gContent"));
+				vo.setgNum(Integer.parseInt(rs.getString("gNum")));
+				vo.setIsPublic(rs.getString("isPublic"));
+				vo.setLink(rs.getString("link"));
+				vo.setLogo(rs.getString("logo"));
+				vo.setMaxAge(Integer.parseInt(rs.getString("maxAge")));
+				vo.setMinAge(Integer.parseInt(rs.getString("minAge")));
+				vo.setPermission(rs.getString("permission"));
+				vo.setSex(rs.getString("sex"));
+				vos.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return vos;
 	}
 
 	@Override
