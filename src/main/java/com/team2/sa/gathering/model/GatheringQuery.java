@@ -13,5 +13,5 @@ public interface GatheringQuery {
 	String GATHERING_SELECTALL = "select * from gathering where ispublic = 'T'  ORDER BY gnum ASC";
 	String GATHERING_SELECTONE = "";
 	String GATHERING_SEARCHLIST = "select * from gathering where minAge>=? and maxAge<=? and sex=? and ispublic='T' order by gnum desc";
-
+	String PUBGATHERING_JOIN = "insert into gatheringuserinfo values(?,?,(select unum from userinfo where id=?))";
 }
