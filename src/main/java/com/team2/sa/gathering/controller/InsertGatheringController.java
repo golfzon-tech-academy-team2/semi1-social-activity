@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -45,15 +46,24 @@ public class InsertGatheringController extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String sPath = request.getServletPath();
-		if (sPath.equals("/create_gathering.do")) {// 메인페이지에서 모임 생성으로 넘어오면 공개형 모임 생성
-			request.getRequestDispatcher("gathering/pubInsert.jsp").forward(request, response);
-		} else if (sPath.equals("/insert_pubGathering.do")) {// 공개형 모임 생성 버튼 누르면 공개형 모임 생성
-			System.out.println("공개형");
-			request.getRequestDispatcher("gathering/pubInsert.jsp").forward(request, response);
-		} else if (sPath.equals("/insert_priGathering.do")) {// 비공개형 모임 생성 버튼 누르면 비공개형 모임 생성
-			System.out.println("비공개형");
-			request.getRequestDispatcher("gathering/priInsert.jsp").forward(request, response);
+		//add restrict access
+		HttpSession session = request.getSession();
+		String signedid = (String) session.getAttribute("signedid");
+		if(signedid != null) {
+			if (sPath.equals("/create_gathering.do")) {// 메인페이지에서 모임 생성으로 넘어오면 공개형 모임 생성
+				request.getRequestDispatcher("gathering/pubInsert.jsp").forward(request, response);
+			} else if (sPath.equals("/insert_pubGathering.do")) {// 공개형 모임 생성 버튼 누르면 공개형 모임 생성
+				System.out.println("공개형");
+				request.getRequestDispatcher("gathering/pubInsert.jsp").forward(request, response);
+			} else if (sPath.equals("/insert_priGathering.do")) {// 비공개형 모임 생성 버튼 누르면 비공개형 모임 생성
+				System.out.println("비공개형");
+				request.getRequestDispatcher("gathering/priInsert.jsp").forward(request, response);
+			}
+			
+		}else {
+			response.sendRedirect("login.do");
 		}
+		
 	}
 
 	/**
