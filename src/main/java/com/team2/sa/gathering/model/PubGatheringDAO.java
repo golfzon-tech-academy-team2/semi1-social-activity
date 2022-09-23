@@ -8,5 +8,5 @@ public interface PubGatheringDAO {
 	int delete(); //PubGathering 삭제
 	List<GatheringVO> selectAll(); //전체 모임 조회
 	GatheringVO selectOne(); //모임 상세 조회
-	public List<GatheringVO> searchList(String searchKey, String searchWord);
+	public List<GatheringVO> searchList(String minAge, String maxAge, String sex);
 }
