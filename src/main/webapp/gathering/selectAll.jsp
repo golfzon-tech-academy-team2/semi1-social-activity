@@ -30,7 +30,7 @@
 						<div class="card-body">
 							<h4 class="card-title">${vo.gName}</h4>
 							<p class="card-text">${vo.gContent}</p>
-							<a href="joinPubGathering.do" class="btn btn-primary">모임 가입하기</a>
+							<a href="joinPubGathering.do?gNum=${vo.gNum}" class="btn btn-primary">모임 가입하기</a>
 						</div>
 					</div>
 				</div>
