@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class JoinGatheringController
  */
-@WebServlet({ "/JoinPubGathering.do", "/JoinPriGathering.do", "/JoinPubGatheringOK.do", "/JoinPriGatheringOK.do" })
+@WebServlet({ "/joinPubGathering.do", "/joinPriGathering.do", "/joinPubGatheringOK.do", "/joinPriGatheringOK.do" })
 public class JoinGatheringController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -27,7 +27,10 @@ public class JoinGatheringController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String sPath = request.getServletPath();
+		if (sPath.equals("/joinPubGathering.do")) {
+			
+		}
 	}
 
 	/**

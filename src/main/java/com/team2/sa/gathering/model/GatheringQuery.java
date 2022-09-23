@@ -12,6 +12,6 @@ public interface GatheringQuery {
 	String GATHERING_DELETE = "";
 	String GATHERING_SELECTALL = "select * from gathering where ispublic = 'T'  ORDER BY gnum ASC";
 	String GATHERING_SELECTONE = "";
-	String PUBGATHERING = "insert into gatheringuserinfo values(?,?,(select unum from userinfo where id=?))";
+	String PUBGATHERING_JOIN = "insert into gatheringuserinfo values(?,?,(select unum from userinfo where id=?))";
 
 }
