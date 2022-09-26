@@ -256,7 +256,10 @@ public class InsertGatheringController extends HttpServlet {
 				vo.setIsPublic("F");
 				if (dao.insert(vo) == 1) {
 					System.out.println("success");
-					response.sendRedirect("index.do");
+					response.setContentType("text/html; charset=UTF-8");
+					PrintWriter writer = response.getWriter();
+					writer.println("<script>alert('비공개 모임이 생성되었습니다.');location.href='index.do';</script>");
+					writer.close();
 				} else {
 					System.out.println("안됨");
 					response.sendRedirect("insert_priGathering.do");
