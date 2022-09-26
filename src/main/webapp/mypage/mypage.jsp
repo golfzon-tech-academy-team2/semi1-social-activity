@@ -65,7 +65,6 @@
 			<td>최대 나이</td>
 			<td>가능 성별</td>
 			<td>상세페이지</td>
-			<td>액티비티 생성</td>
 		</tr>
 		<c:forEach var="vo2" items="${mygathering}">
         <tr>
