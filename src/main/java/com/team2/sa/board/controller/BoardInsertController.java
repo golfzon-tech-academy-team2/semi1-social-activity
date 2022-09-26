@@ -1,11 +1,17 @@
 package com.team2.sa.board.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.team2.sa.board.model.BoardDAO;
+import com.team2.sa.board.model.BoardDAOimpl;
+import com.team2.sa.board.model.BoardVO;
 
 /**
  * Servlet implementation class BoardInsertController
@@ -27,7 +33,17 @@ public class BoardInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String sPath = request.getServletPath();
+		System.out.println("doGet:" + sPath);
+		
+		HttpSession session = request.getSession();
+		String user_id = (String) session.getAttribute("signedid");
+		System.out.println("signedid: "+user_id);
+		if(user_id != null) {
+			request.getRequestDispatcher("board/insert.jsp").forward(request, response);;
+		}else {
+			response.sendRedirect("login.do");
+		}
 	}
 
 	/**
@@ -35,7 +51,21 @@ public class BoardInsertController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		String sPath = request.getServletPath();
+		BoardDAO dao = new BoardDAOimpl();
+		BoardVO vo = new BoardVO();
+		vo.setbContent(request.getParameter("bContent"));
+		vo.setbTitle(request.getParameter("bTitle"));
+		vo.setgNum(Integer.parseInt(request.getParameter("gNum")));
+		vo.setWriter(request.getParameter("writer"));
+
+		int result = dao.insert(vo);
+		System.out.println("result: "+result);
+		if(result==1) {
+			response.sendRedirect("gatheringinfo.do");
+		}else {
+			response.sendRedirect("b_insert.do");
+		}
 	}
 
 }

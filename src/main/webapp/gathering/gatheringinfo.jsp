@@ -16,7 +16,7 @@
 <h3>~~모임에 오신걸 환영합니다</h3>
 <p>게시판</p>
 <div class="container">
-  <h2>모임</h2>${param.gNum}<h2>의 게시글 목록</h2>        
+  <h2>모임</h2>${param.gnum}<h2>의 게시글 목록</h2>        
   <table class="table">
     <thead>
       <tr>

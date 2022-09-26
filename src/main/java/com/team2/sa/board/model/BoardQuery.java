@@ -6,5 +6,6 @@ public interface BoardQuery {
 	String USER = "SYSTEM";
 	String PASSWORD = "admin1234";
 	String SELECTALLBOARD = "select * from board where gNum=? ORDER BY bnum ASC";
+	String INSERTBOARD = "insert into board values(seq_board.NEXTVAL,?,?,?,?,SYSDATE)";
 
 }
