@@ -7,7 +7,7 @@ public interface BoardDAO {
 	public int update(BoardVO vo);
 	public int delete(BoardVO vo);
 	public BoardVO selectOne(BoardVO vo);
-	public List<BoardVO> selectAll();
+	public List<BoardVO> selectAll(int gNum);
 	public List<BoardVO> searchList(String searchKey, String searchWord);
 
 }

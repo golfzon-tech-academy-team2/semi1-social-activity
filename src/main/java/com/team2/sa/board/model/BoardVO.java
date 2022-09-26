@@ -5,6 +5,7 @@ import java.util.Objects;
 
 public class BoardVO {
 	private int bNum;
+	private int tmpBnum;
 	private String bTitle;
 	private String bContent;
 	private int gNum;
@@ -15,6 +16,12 @@ public class BoardVO {
 	}
 	public void setbNum(int bNum) {
 		this.bNum = bNum;
+	}
+	public int getTmpBnum() {
+		return tmpBnum;
+	}
+	public void setTmpBnum(int tmpBnum) {
+		this.tmpBnum = tmpBnum;
 	}
 	public String getbTitle() {
 		return bTitle;
@@ -48,7 +55,7 @@ public class BoardVO {
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(bContent, bNum, bTitle, gNum, wDate, writer);
+		return Objects.hash(bContent, bNum, bTitle, gNum, tmpBnum, wDate, writer);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -60,12 +67,13 @@ public class BoardVO {
 			return false;
 		BoardVO other = (BoardVO) obj;
 		return Objects.equals(bContent, other.bContent) && bNum == other.bNum && Objects.equals(bTitle, other.bTitle)
-				&& gNum == other.gNum && Objects.equals(wDate, other.wDate) && Objects.equals(writer, other.writer);
+				&& gNum == other.gNum && tmpBnum == other.tmpBnum && Objects.equals(wDate, other.wDate)
+				&& Objects.equals(writer, other.writer);
 	}
 	@Override
 	public String toString() {
-		return "BoardVO [bNum=" + bNum + ", bTitle=" + bTitle + ", bContent=" + bContent + ", gNum=" + gNum
-				+ ", writer=" + writer + ", wDate=" + wDate + "]";
+		return "BoardVO [bNum=" + bNum + ", tmpBnum=" + tmpBnum + ", bTitle=" + bTitle + ", bContent=" + bContent
+				+ ", gNum=" + gNum + ", writer=" + writer + ", wDate=" + wDate + "]";
 	}
 	
 

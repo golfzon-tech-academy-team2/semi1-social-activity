@@ -43,7 +43,5 @@
 	<br><br>
 	
 	<p><a href="signout.do">회원탈퇴</a></p>
-	
-
 </body>
 </html>
