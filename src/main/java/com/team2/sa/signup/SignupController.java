@@ -17,7 +17,7 @@ import org.apache.catalina.Session;
 /**
  * Servlet implementation class SignupController
  */
-@WebServlet({ "/signup.do", "/signupOK.do", "/idCheck.do"})
+@WebServlet({ "/signup.do", "/signupOK.do", "/idCheck.do", "/modify.do"})
 public class SignupController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -50,6 +50,8 @@ public class SignupController extends HttpServlet {
 	        session.setAttribute("result", result);
 	        
 	        request.getRequestDispatcher("signup/dbCheckid.jsp").forward(request, response);
+		} else if (sPath.equals("/modify.do")) {
+			request.getRequestDispatcher("mypage/modify.do");
 		}
 	}
 
