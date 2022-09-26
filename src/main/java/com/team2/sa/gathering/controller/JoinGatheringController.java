@@ -1,6 +1,7 @@
 package com.team2.sa.gathering.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,6 +45,8 @@ public class JoinGatheringController extends HttpServlet {
 			GatheringUserInfoDAO dao = new GatheringUserInfoDAOimpl();
 			GatheringUserInfoVO vo = new GatheringUserInfoVO();
 			dao.insert(Integer.parseInt(request.getParameter("gNum")),"M",signedid);
+			
+
 		}
 		}else {
 			response.sendRedirect("login.do");

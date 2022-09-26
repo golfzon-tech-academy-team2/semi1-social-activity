@@ -2,6 +2,7 @@ package com.team2.sa.gathering.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -159,7 +160,12 @@ public class InsertGatheringController extends HttpServlet {
 				if (dao.insert(vo) == 1) {
 //			  			response.sendRedirect("s_selectAll_join.do");
 					System.out.println("success");
-					response.sendRedirect("g_selectAll.do");
+					response.setContentType("text/html; charset=UTF-8");
+					PrintWriter writer = response.getWriter();
+					writer.println("<script>alert('모임이 생성되었습니다.');location.href='g_selectAll.do';</script>");
+					writer.close();
+					//response.sendRedirect("g_selectAll.do");
+					
 				} else {
 					System.out.println("안됨");
 					response.sendRedirect("insert_pubGathering.do");
