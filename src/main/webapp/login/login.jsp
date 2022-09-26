@@ -8,7 +8,6 @@
 <title>로그인</title>
 <script>
 	function login() {
-		console.log("HH");
 		var signinForm = document.signin;
 		var id = signinForm.id.value;
 		var pw = signinForm.pw.value;
