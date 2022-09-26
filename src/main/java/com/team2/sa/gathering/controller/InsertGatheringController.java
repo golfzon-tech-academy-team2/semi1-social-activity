@@ -18,6 +18,8 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
 
+import com.team2.sa.gathering.model.GatheringUserInfoDAO;
+import com.team2.sa.gathering.model.GatheringUserInfoDAOimpl;
 import com.team2.sa.gathering.model.GatheringVO;
 import com.team2.sa.gathering.model.PriGatheringDAO;
 import com.team2.sa.gathering.model.PriGatheringDAOimpl;
@@ -157,9 +159,16 @@ public class InsertGatheringController extends HttpServlet {
 				vo.setPermission(permission);
 				vo.setLink("");
 				vo.setIsPublic("T");
+				
+				//test
+				GatheringUserInfoDAO dao2 = new GatheringUserInfoDAOimpl();
+				HttpSession session = request.getSession();
+				String signedid = (String) session.getAttribute("signedid");
 				if (dao.insert(vo) == 1) {
 //			  			response.sendRedirect("s_selectAll_join.do");
 					System.out.println("success");
+					int gnum = dao2.getGnum();
+					dao2.insert(gnum, "O", signedid);
 					response.setContentType("text/html; charset=UTF-8");
 					PrintWriter writer = response.getWriter();
 					writer.println("<script>alert('모임이 생성되었습니다.');location.href='g_selectAll.do';</script>");
