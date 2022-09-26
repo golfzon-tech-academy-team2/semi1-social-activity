@@ -18,6 +18,8 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
 
+import com.team2.sa.gathering.model.GatheringUserInfoDAO;
+import com.team2.sa.gathering.model.GatheringUserInfoDAOimpl;
 import com.team2.sa.gathering.model.GatheringVO;
 import com.team2.sa.gathering.model.PriGatheringDAO;
 import com.team2.sa.gathering.model.PriGatheringDAOimpl;
@@ -27,7 +29,8 @@ import com.team2.sa.gathering.model.PubGatheringDAOimpl;
 /**
  * Servlet implementation class InsertGatheringController
  */
-@WebServlet({ "/create_gathering.do", "/insert_pubGathering.do", "/insert_priGathering.do", "/insert_pubGOK.do","/insert_priGOK.do" })
+@WebServlet({ "/create_gathering.do", "/insert_pubGathering.do", "/insert_priGathering.do", "/insert_pubGOK.do",
+		"/insert_priGOK.do" })
 public class InsertGatheringController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -42,15 +45,15 @@ public class InsertGatheringController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
-	 */ 
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String sPath = request.getServletPath();
-		//add restrict access
+		// add restrict access
 		HttpSession session = request.getSession();
 		String signedid = (String) session.getAttribute("signedid");
-		if(signedid != null) {
+		if (signedid != null) {
 			if (sPath.equals("/create_gathering.do")) {// 메인페이지에서 모임 생성으로 넘어오면 공개형 모임 생성
 				request.getRequestDispatcher("gathering/pubInsert.jsp").forward(request, response);
 			} else if (sPath.equals("/insert_pubGathering.do")) {// 공개형 모임 생성 버튼 누르면 공개형 모임 생성
@@ -60,11 +63,11 @@ public class InsertGatheringController extends HttpServlet {
 				System.out.println("비공개형");
 				request.getRequestDispatcher("gathering/priInsert.jsp").forward(request, response);
 			}
-			
-		}else {
+
+		} else {
 			response.sendRedirect("login.do");
 		}
-		
+
 	}
 
 	/**
@@ -76,7 +79,7 @@ public class InsertGatheringController extends HttpServlet {
 		String sPath = request.getServletPath();
 		System.out.println("post:...");
 		System.out.println(sPath);
-		if(sPath.equals("/insert_pubGOK.do")) {
+		if (sPath.equals("/insert_pubGOK.do")) {
 			String dir_path = request.getServletContext().getRealPath("/gEmblem");
 			System.out.println(dir_path);
 			int fileSizeMax = 1024 * 1024 * 100;
@@ -157,15 +160,21 @@ public class InsertGatheringController extends HttpServlet {
 				vo.setPermission(permission);
 				vo.setLink("");
 				vo.setIsPublic("T");
+
+				GatheringUserInfoDAO dao2 = new GatheringUserInfoDAOimpl();
+				HttpSession session = request.getSession();
+				String signedid = (String) session.getAttribute("signedid");
 				if (dao.insert(vo) == 1) {
 //			  			response.sendRedirect("s_selectAll_join.do");
 					System.out.println("success");
+					int gnum = dao2.getGnum();
+					dao2.insert(gnum, "O", signedid);
 					response.setContentType("text/html; charset=UTF-8");
 					PrintWriter writer = response.getWriter();
 					writer.println("<script>alert('모임이 생성되었습니다.');location.href='g_selectAll.do';</script>");
 					writer.close();
-					//response.sendRedirect("g_selectAll.do");
-					
+					// response.sendRedirect("g_selectAll.do");
+
 				} else {
 					System.out.println("안됨");
 					response.sendRedirect("insert_pubGathering.do");
@@ -254,8 +263,13 @@ public class InsertGatheringController extends HttpServlet {
 				vo.setPermission("");
 				vo.setLink("");
 				vo.setIsPublic("F");
+				GatheringUserInfoDAO dao2 = new GatheringUserInfoDAOimpl();
+				HttpSession session = request.getSession();
+				String signedid = (String) session.getAttribute("signedid");
 				if (dao.insert(vo) == 1) {
 					System.out.println("success");
+					int gnum = dao2.getGnum();
+					dao2.insert(gnum, "O", signedid);
 					response.setContentType("text/html; charset=UTF-8");
 					PrintWriter writer = response.getWriter();
 					writer.println("<script>alert('비공개 모임이 생성되었습니다.');location.href='index.do';</script>");
@@ -263,7 +277,7 @@ public class InsertGatheringController extends HttpServlet {
 				} else {
 					System.out.println("안됨");
 					response.sendRedirect("insert_priGathering.do");
-					
+
 				}
 
 			}
