@@ -26,7 +26,7 @@ public class GatheringUserInfoDAOimpl implements GatheringUserInfoDAO {
 	}
 
 	@Override
-	public int insert(GatheringUserInfoVO vo) {
+	public int insert(int gNum, String roll, String signedid) {
 		int flag = 0;
 		try {
 			conn = DriverManager.getConnection(
@@ -35,9 +35,9 @@ public class GatheringUserInfoDAOimpl implements GatheringUserInfoDAO {
 					GatheringQuery.PASSWORD);
 			//DML
 			pstmt = conn.prepareStatement(GatheringQuery.PUBGATHERING_JOIN);
-			pstmt.setInt(1, vo.getgNum());
-			pstmt.setString(2, vo.getRoll());
-			pstmt.setInt(3, vo.getuNum());
+			pstmt.setInt(1, gNum);
+			pstmt.setString(2, roll);
+			pstmt.setString(3, signedid);
 			
 			
 			flag = pstmt.executeUpdate();
