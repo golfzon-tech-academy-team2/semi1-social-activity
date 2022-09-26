@@ -1,5 +1,8 @@
 package com.team2.sa.mypage;
 
+import java.util.List;
+
+import com.team2.sa.gathering.model.GatheringVO;
 import com.team2.sa.signup.UserinfoVO;
 
 public interface MypageDAO {
@@ -16,4 +19,6 @@ public interface MypageDAO {
 	public void modtel(String id, String tel);
 
 	public void signout(String id);
+
+	public List<MyGatheringInherited> mygathering(String name);
 }

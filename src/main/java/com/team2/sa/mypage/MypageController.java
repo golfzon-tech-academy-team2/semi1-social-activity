@@ -2,6 +2,7 @@ package com.team2.sa.mypage;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.team2.sa.gathering.model.GatheringVO;
 import com.team2.sa.signup.UserinfoVO;
 
 /**
@@ -17,7 +19,8 @@ import com.team2.sa.signup.UserinfoVO;
  */
 @WebServlet({"/pw_check.do", "/mypage.do", 
 	"/mod_name.do", "/mod_pw.do", "/mod_addr.do", "/mod_tel.do",
-	"/mod_nameOK.do", "/mod_pwOK.do", "/mod_addrOK.do", "/mod_telOK.do", "/signout.do"})
+	"/mod_nameOK.do", "/mod_pwOK.do", "/mod_addrOK.do", "/mod_telOK.do", "/signout.do",
+	})
 public class MypageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -73,7 +76,12 @@ public class MypageController extends HttpServlet {
 				
 				System.out.println(vo);
 				request.setAttribute("vo", vo);
-				request.getRequestDispatcher("mypage/mypage.jsp").forward(request, response);;
+
+				List<MyGatheringInherited> vos = dao.mygathering((String) session.getAttribute("signedid"));
+				request.setAttribute("mygathering", vos);
+				
+				request.getRequestDispatcher("mypage/mypage.jsp").forward(request, response);
+				
 			} else {
 				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter out = response.getWriter();

@@ -13,4 +13,6 @@ public interface MypageQuery {
 	String MOD_ADDR = "update userinfo set addr=? where id=?";
 	String MOD_TEL = "update userinfo set tel=? where id=?";
 	String SQL_SIGNOUT = "delete from userinfo where id=?";
+	String SQL_MYGATHERING = "select roll, g.gnum, gname, gcontent, logo, minage, maxage, sex from gatheringuserinfo ginfo left join gathering g"
+			+ " on ginfo.gnum = g.gnum where unum=(select unum from userinfo where id=?)";
 }
