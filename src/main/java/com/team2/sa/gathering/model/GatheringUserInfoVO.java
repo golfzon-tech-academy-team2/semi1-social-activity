@@ -3,9 +3,9 @@ package com.team2.sa.gathering.model;
 import java.util.Objects;
 
 public class GatheringUserInfoVO {
-	int gNum;
-	String roll;
-	int uNum;
+	private int gNum;
+	private String roll;
+	private int uNum;
 	public int getgNum() {
 		return gNum;
 	}

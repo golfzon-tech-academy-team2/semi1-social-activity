@@ -5,16 +5,16 @@ import java.util.Objects;
 
 public class GatheringVO {
 	
-	int gNum;
-	String gName;
-	String gContent;
-	String logo;
-	int minAge;
-	int maxAge;
-	String sex;
-	String permission;
-	String link;
-	String isPublic;
+	private int gNum;
+	private String gName;
+	private String gContent;
+	private String logo;
+	private int minAge;
+	private int maxAge;
+	private String sex;
+	private String permission;
+	private String link;
+	private String isPublic;
 	
 	public int getgNum() {
 		return gNum;
