@@ -43,5 +43,31 @@
 	<br><br>
 	
 	<p><a href="signout.do">회원탈퇴</a></p>
+		<p>내 모임</p>
+	
+	<table id="mygathering" border="1">
+		<tr>
+			<td>역할</td>
+			<td>모임 앰블럼</td>
+			<td>모임명</td>
+			<td>모임 내용</td>
+			<td>최소 나이</td>
+			<td>최대 나이</td>
+			<td>가능 성별</td>
+			<td>상세페이지</td>
+		</tr>
+		<c:forEach var="vo2" items="${mygathering}">
+        <tr>
+            <td>${vo2.roll }</td>
+            <td><img src="gEmblem/${vo2.logo }" height=60%></td>
+            <td>${vo2.gname }</td>
+            <td>${vo2.gcontent }</td>
+            <td>${vo2.minage }</td>
+            <td>${vo2.maxage }</td>
+            <td>${vo2.sex }</td>
+            <td><a href="gatheringinfo.do?gnum=${vo2.gnum }">상세 보기</a>
+        </tr>
+        </c:forEach>
+	</table>
 </body>
 </html>
