@@ -6,7 +6,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.team2.sa.gathering.model.GatheringVO;
 import com.team2.sa.signup.UserinfoVO;
 
 public class MypageDAOimpl implements MypageDAO {
@@ -228,6 +231,61 @@ public class MypageDAOimpl implements MypageDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public List<MyGatheringInherited> mygathering(String id) {
+		List<MyGatheringInherited> vos = new ArrayList<MyGatheringInherited>();
+		
+		try {
+			Class.forName(MypageQuery.DRIVER_NAME);
+			System.out.println("Driver successed..");
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			conn = DriverManager.getConnection(MypageQuery.URL, MypageQuery.USER, MypageQuery.PASSWORD);
+//			System.out.println("conn successed...");
+			//DQL
+			pstmt = conn.prepareStatement(MypageQuery.SQL_MYGATHERING);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				MyGatheringInherited vo = new MyGatheringInherited();
+				vo.setGname(rs.getString("gname"));
+				vo.setGcontent(rs.getString("gcontent"));
+				vo.setLogo(rs.getString("logo"));
+				vo.setMinage(rs.getInt("minage"));
+				vo.setMaxage(rs.getInt("maxage"));
+				vo.setGnum(rs.getInt("gnum"));
+				
+				if (rs.getString("roll").equals("A")) {
+					vo.setRoll("운영자");
+				} else if (rs.getString("roll").equals("L")) {
+					vo.setRoll("리더");
+				} else {
+					vo.setRoll("멤버");
+				}
+				
+				if (rs.getString("sex").equals("F")) {
+					vo.setSex("여자");
+				} else if (rs.getString("sex").equals("M")) {
+					vo.setSex("남자");
+				} else {
+					vo.setSex("상관 없음");
+				}
+				vos.add(vo);
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return vos;
 	}
 
 }
