@@ -44,6 +44,8 @@
 	
 	<p><a href="signout.do">회원탈퇴</a></p>
 		<p>내 모임</p>
+		
+		<p>내 모임</p>
 	
 	<table id="mygathering" border="1">
 		<tr>
