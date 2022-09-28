@@ -65,6 +65,7 @@
 			<td>최대 나이</td>
 			<td>가능 성별</td>
 			<td>상세페이지</td>
+			<td>액티비티 생성</td>
 		</tr>
 		<c:forEach var="vo2" items="${mygathering}">
         <tr>
@@ -76,6 +77,7 @@
             <td>${vo2.maxage }</td>
             <td>${vo2.sex }</td>
             <td><a href="gatheringinfo.do?gnum=${vo2.gnum }">상세 보기</a>
+            <td><a href="createActivity.do?gNum=${vo2.gnum }">액티비티 생성</a>
         </tr>
         </c:forEach>
 	</table>
