@@ -15,10 +15,6 @@ public class SignupDAOimpl implements SignupDAO {
 	
 	@Override
 	public int insert(UserinfoVO vo) {
-
-
-		System.out.println("insert()...");
-		System.out.println(vo);
 		
 		int flag = 0;
 		try {
