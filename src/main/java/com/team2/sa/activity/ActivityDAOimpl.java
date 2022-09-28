@@ -54,7 +54,10 @@ public class ActivityDAOimpl implements ActivityDAO {
 	}
 
 	@Override
-	public void insert(ActivityVO vo) {
+	public void insert(ActivityVO vo, String id) {
+		int uNum = 0;
+		int aNum = 0;
+		
 		try {
 			Class.forName(SignupQuery.DRIVER_NAME);
 			System.out.println("Driver successed..");
@@ -81,6 +84,30 @@ public class ActivityDAOimpl implements ActivityDAO {
 			pstmt.setInt(12, vo.getMaxPerson());
 			pstmt.executeUpdate();
 
+			pstmt = conn.prepareStatement(ActivityQuery.SQL_GET_UNUM);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				uNum = rs.getInt("unum");
+				if (rs.next() == true) {
+					break;
+				}
+			}
+			
+			pstmt = conn.prepareStatement(ActivityQuery.SQL_GET_ANUM);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				aNum = rs.getInt("currval");
+				if (rs.next() == true) {
+					break;
+				}
+			}
+			
+			pstmt = conn.prepareStatement(ActivityQuery.SQL_INSERT_ACTINFO);
+			pstmt.setInt(1, aNum);
+			pstmt.setInt(2, uNum);
+			rs = pstmt.executeQuery();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -108,6 +135,49 @@ public class ActivityDAOimpl implements ActivityDAO {
 				}
 			}
 		}
+	}
+
+	@Override
+	public ActivityVO selectOne(int aNum) {
+		ActivityVO result = new ActivityVO();
+		try {
+			Class.forName(ActivityQuery.DRIVER_NAME);
+			System.out.println("Driver successed..");
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			conn = DriverManager.getConnection(ActivityQuery.URL, ActivityQuery.USER, ActivityQuery.PASSWORD);
+//			System.out.println("conn successed...");
+			//DQL
+			pstmt = conn.prepareStatement(ActivityQuery.SQL_SELECT_ONE);
+			pstmt.setInt(1, aNum);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				result.setaName(rs.getString("aname"));
+				result.setaContent(rs.getString("acontent"));
+				result.setaStartDay(rs.getDate("astartday"));
+				result.setaEndDay(rs.getDate("aendday"));
+				result.setLocation(rs.getString("location"));
+				result.setStartDate(rs.getDate("startdate"));
+				result.setEndDate(rs.getDate("enddate"));
+				result.setPersonCnt(rs.getInt("personcnt"));
+				result.setIsEnd(rs.getString("isend"));
+				result.setMinAge(rs.getInt("minage"));
+				result.setMaxAge(rs.getInt("maxage"));
+				result.setSex(rs.getString("sex"));
+				result.setMaxPerson(rs.getInt("maxperson"));
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }

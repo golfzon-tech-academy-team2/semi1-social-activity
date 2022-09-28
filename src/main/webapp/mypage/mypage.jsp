@@ -53,17 +53,13 @@
 	
 	<p><a href="signout.do">회원탈퇴</a></p>
 	
-	<p>내 모임</p>
+	<p>내 모임 리스트</p>
 	
 	<table id="mygathering" border="1">
 		<tr>
 			<td>역할</td>
 			<td>모임 앰블럼</td>
 			<td>모임명</td>
-			<td>모임 내용</td>
-			<td>최소 나이</td>
-			<td>최대 나이</td>
-			<td>가능 성별</td>
 			<td>상세페이지</td>
 			<td>액티비티 생성</td>
 		</tr>
@@ -72,15 +68,43 @@
             <td>${vo2.roll }</td>
             <td><img src="gEmblem/${vo2.logo }" height=60%></td>
             <td>${vo2.gname }</td>
-            <td>${vo2.gcontent }</td>
-            <td>${vo2.minage }</td>
-            <td>${vo2.maxage }</td>
-            <td>${vo2.sex }</td>
             <td><a href="gatheringinfo.do?gnum=${vo2.gnum }">상세 보기</a>
             <td><a href="createActivity.do?gNum=${vo2.gnum }">액티비티 생성</a>
         </tr>
         </c:forEach>
 	</table>
+	
+	<p>내 액티비티 리스트</p>
 
+	<table id="myactivity" border="1">
+		<tr>
+			<td>모임명</td>
+			<td>엑티비티명</td>
+			<td>활동 지역</td>
+			<td>활동 시작 날짜</td>
+			<td>활동 마감 날짜</td>
+			<td>활동 상태</td>
+			<td>상세 페이지</td>
+		</tr>
+		<c:forEach var="vo3" items="${myactivity}">
+        <tr>
+        	<td>${vo3.gName }</td>
+            <td>${vo3.aName }</td>
+            <td>${vo3.location }</td>
+            <td>${vo3.aStartDay }</td>
+            <td>${vo3.aEndDay }</td>
+            <c:if test="${today lt vo3.aStartDay }">
+            	<td>활동 전</td>
+            </c:if>
+            <c:if test="${today ge vo3.aEndDay } || ${today le vo3.aEndDay }">
+            	<td>활동 중</td>
+            </c:if>
+            <c:if test="${today gt vo3.aEndDay }">
+            	<td>활동 후</td>
+            </c:if>
+            <td><a href="activityInfo.do?aNum=${vo3.aNum }">상세 보기</a></td>
+        </tr>
+        </c:forEach>
+	</table>
 </body>
 </html>

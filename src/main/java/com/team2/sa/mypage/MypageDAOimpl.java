@@ -9,6 +9,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.team2.sa.activity.ActivityDAO;
+import com.team2.sa.activity.ActivityDAOimpl;
+import com.team2.sa.activity.ActivityInhereted;
+import com.team2.sa.activity.ActivityVO;
 import com.team2.sa.gathering.model.GatheringVO;
 import com.team2.sa.signup.UserinfoVO;
 
@@ -279,6 +283,65 @@ public class MypageDAOimpl implements MypageDAO {
 				vos.add(vo);
 			}
 			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return vos;
+	}
+
+	@Override
+	public List<ActivityInhereted> myactivity(String id) {
+		List<ActivityInhereted> vos = new ArrayList<ActivityInhereted>();
+
+		try {
+			Class.forName(MypageQuery.DRIVER_NAME);
+			System.out.println("Driver successed..");
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			conn = DriverManager.getConnection(MypageQuery.URL, MypageQuery.USER, MypageQuery.PASSWORD);
+//			System.out.println("conn successed...");
+			// DQL
+			pstmt = conn.prepareStatement(MypageQuery.SQL_MYACTIVITY);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+
+			ActivityDAO dao = new ActivityDAOimpl();
+			while (rs.next()) {
+				ActivityInhereted vo = new ActivityInhereted();
+				vo.setgNum(rs.getInt("gnum"));
+				vo.setgName(dao.getGname(rs.getInt("gnum")).getgName());
+				vo.setaNum(rs.getInt("anum"));
+				vo.setaName(rs.getString("aname"));
+				vo.setaContent(rs.getString("acontent"));
+				vo.setLocation(rs.getString("location"));
+				vo.setaStartDay(rs.getDate("astartday"));
+				vo.setaEndDay(rs.getDate("aendday"));
+				vo.setStartDate(rs.getDate("startdate"));
+				vo.setEndDate(rs.getDate("enddate"));
+				vo.setPersonCnt(rs.getInt("personcnt"));
+				vo.setIsEnd(rs.getString("isend"));
+				vo.setMinAge(rs.getInt("minage"));
+				vo.setMaxAge(rs.getInt("maxage"));
+				
+				if (rs.getString("sex").equals("F")) {
+					vo.setSex("여자");
+				} else if (rs.getString("sex").equals("M")) {
+					vo.setSex("남자");
+				} else {
+					vo.setSex("상관없음");
+				}
+
+				vo.setMaxPerson(rs.getInt("maxperson"));
+
+				vos.add(vo);
+			}
+
 			rs.close();
 			pstmt.close();
 			conn.close();
