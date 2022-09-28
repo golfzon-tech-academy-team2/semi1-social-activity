@@ -28,6 +28,8 @@
 </script>
 </head>
 <body>
+	<a href="index.do">홈</a>
+	<hr>
 	<h3>비밀번호 수정</h3>
 	
 	<form id="modpw" name="modpw" method="post">

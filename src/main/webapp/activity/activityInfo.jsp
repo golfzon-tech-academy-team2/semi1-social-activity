@@ -6,8 +6,19 @@
 <head>
 <meta charset="UTF-8">
 <title>액티비티 상세페이지</title>
+<script>
+	function createEvent() {
+		var url = "createEvent.do?aNum=${vo.aNum}";
+		var name = "createEvent";
+		var option = "width = 500px, height = 400px location = no";
+		
+		window.open(url, name, option);
+	}
+</script>
 </head>
 <body>
+	<a href="index.do">홈</a>
+	<hr>
 	<h3>${vo.aName} 액티비티 정보</h3>
 	
 	<table>
@@ -74,5 +85,38 @@
 		</tr>
 		
 	</table>
+	
+	<p><a href="javascript:createEvent()">이벤트 생성</a></p>
+	
+	<hr>
+	
+	<h4>액티비티 조편성</h4>
+	
+	<hr>
+	
+	<h4>액티비티 이벤트</h4>
+	
+	<div style="overflow:auto; width:1000px; height:150px;">
+		<table border="1">
+			<c:if test="${vos.size() ne 0}">
+				<th>이벤트 제목</th>
+				<th>이벤트 내용</th>
+				<th>이벤트 상품</th>
+			</c:if>
+			<c:if test="${vos.size() eq 0}">
+				<p>생성된 이벤트 없음</p>
+			</c:if>
+			<c:forEach var="vo" items="${vos}">
+		        <tr>
+		            <td>${vo.eTitle }</td>
+		            <td>${vo.eContent }</td>
+		            <td>${vo.gift }</td>
+		            <td><a href="deleteEvent.do?eNum=${vo.eNum }&aNum=${vo.aNum}">이벤트 삭제하기</a>
+		        </tr>
+	        </c:forEach>
+		</table>
+	</div>
+	
+	<hr>
 </body>
 </html>

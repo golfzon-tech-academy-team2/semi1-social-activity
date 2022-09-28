@@ -113,6 +113,8 @@
 	}
 </script>
 <body>
+	<a href="index.do">홈</a>
+	<hr>
 	<h1>${vo.gName }</h1>
 	<h3> 모임의 액티비티 생성</h3>
 	

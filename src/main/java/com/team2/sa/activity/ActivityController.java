@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.team2.sa.event.EventDAO;
+import com.team2.sa.event.EventDAOimpl;
+import com.team2.sa.event.EventVO;
 import com.team2.sa.gathering.model.GatheringVO;
 
 /**
@@ -56,6 +59,11 @@ public class ActivityController extends HttpServlet {
 			Date date = new Date(System.currentTimeMillis());
 
 			request.setAttribute("today", date);
+			
+			ActivityDAO eDao = new ActivityDAOimpl();
+			List<EventVO> eventVos = eDao.selectAll(Integer.parseInt(request.getParameter("aNum")));
+					
+			request.setAttribute("vos", eventVos);
 			
 			request.getRequestDispatcher("activity/activityInfo.jsp").forward(request, response);
 		}

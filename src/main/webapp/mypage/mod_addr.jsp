@@ -21,6 +21,8 @@
 </script>
 </head>
 <body>
+	<a href="index.do">홈</a>
+	<hr>
 	<h3>주소 수정</h3>
 	
 	<form id="modaddr" name="modaddr" method="post">
