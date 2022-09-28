@@ -9,5 +9,9 @@ public interface ActivityQuery {
 	String SQL_GETGNAME = "select gnum, gname, logo from gathering where gnum=?";
 	String SQL_INSERT = "insert into activity(gnum, anum, aname, acontent, astartday, aendday, location, startdate, "
 			+ "enddate, personcnt, isend, minage, maxage, sex, maxperson)"
-			+ "values(?, seq_activity.nextval, ?, ?, ?, ?, ?, ?, ?, 0, 'F', ?, ?, ?, ?)";
+			+ "values(?, seq_activity.nextval, ?, ?, ?, ?, ?, ?, ?, 1, 'F', ?, ?, ?, ?)";
+	String SQL_GET_UNUM = "select unum from userinfo where id=?";
+	String SQL_GET_ANUM = "select seq_activity.currval from dual";
+	String SQL_INSERT_ACTINFO = "insert into activityuserinfo(anum, unum) values(?, ?)";
+	String SQL_SELECT_ONE = "select * from activity where anum=?";
 }

@@ -10,13 +10,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.team2.sa.gathering.model.GatheringVO;
 
 /**
  * Servlet implementation class ActivityController
  */
-@WebServlet({"/createActivity.do", "/creActOK.do"})
+@WebServlet({"/createActivity.do", "/creActOK.do", "/activityInfo.do"})
 public class ActivityController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -44,15 +45,19 @@ public class ActivityController extends HttpServlet {
 			request.setAttribute("vo", vo);
 			Date date = new Date(System.currentTimeMillis());
 
-			List<Integer> list = new ArrayList<Integer>();
-			for(int i = 2; i < 99; i++) {
-				list.add(i);
-			}
-			
-			request.setAttribute("list", list);
 			request.setAttribute("today", date);
 			
 			request.getRequestDispatcher("activity/createActivity.jsp").forward(request, response);
+		} else if(sPath.equals("/activityInfo.do")) {
+			ActivityDAO dao = new ActivityDAOimpl();
+			ActivityVO vo = dao.selectOne(Integer.parseInt(request.getParameter("aNum")));
+			
+			request.setAttribute("vo", vo);
+			Date date = new Date(System.currentTimeMillis());
+
+			request.setAttribute("today", date);
+			
+			request.getRequestDispatcher("activity/activityInfo.jsp").forward(request, response);
 		}
 	}
 
@@ -66,7 +71,7 @@ public class ActivityController extends HttpServlet {
 		
 		if(sPath.equals("/creActOK.do")) {
 			request.setCharacterEncoding("UTF-8");
-			ActivityVO vo = new ActivityVO();
+			ActivityInhereted vo = new ActivityInhereted();
 			
 			vo.setgNum(Integer.parseInt(request.getParameter("gNum")));
 			vo.setaName(request.getParameter("aName"));
@@ -86,8 +91,9 @@ public class ActivityController extends HttpServlet {
 				vo.setSex("X");
 			}
 			vo.setMaxPerson(Integer.parseInt(request.getParameter("maxPerson")));
-			
-			dao.insert(vo);
+
+			HttpSession session = request.getSession();
+			dao.insert(vo, (String) session.getAttribute("signedid"));
 			
 			response.sendRedirect("gatheringinfo.do?gnum=" + request.getParameter("gNum"));
 		}
