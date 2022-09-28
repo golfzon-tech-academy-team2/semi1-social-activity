@@ -1,5 +1,8 @@
 package com.team2.sa.activity;
 
+import java.util.List;
+
+import com.team2.sa.event.EventVO;
 import com.team2.sa.gathering.model.GatheringVO;
 
 public interface ActivityDAO {
@@ -9,5 +12,7 @@ public interface ActivityDAO {
 	public void insert(ActivityVO vo, String id);
 
 	public ActivityVO selectOne(int aNum);
+
+	public List<EventVO> selectAll(int aNum);
 
 }

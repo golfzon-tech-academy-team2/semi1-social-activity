@@ -22,7 +22,8 @@
 
 </head>
 <body>
-
+	<a href="index.do">홈</a>
+	<hr>
 	<h3>비밀번호 확인</h3>
 	<form id="pwcheck" name="pwcheck" method="post">
 		<input type="password" id="pw" name="pw" value="">

@@ -14,4 +14,6 @@ public interface ActivityQuery {
 	String SQL_GET_ANUM = "select seq_activity.currval from dual";
 	String SQL_INSERT_ACTINFO = "insert into activityuserinfo(anum, unum) values(?, ?)";
 	String SQL_SELECT_ONE = "select * from activity where anum=?";
+	String SQL_SELECT_EVENT = "select e.enum, a.anum, etitle, econtent, gift from event e left join activity a"
+			+ " on e.anum = a.anum where a.anum=?";
 }
