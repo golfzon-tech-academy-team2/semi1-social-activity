@@ -1,7 +1,6 @@
-package com.team2.sa.gathering.controller;
+package com.team2.sa.board.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,21 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.team2.sa.board.model.BoardJoinDAO;
 import com.team2.sa.board.model.BoardJoinDAOimpl;
 import com.team2.sa.board.model.BoardJoinVO;
-import com.team2.sa.board.model.BoardJoinDAO;
 
 /**
- * Servlet implementation class GatheringInfoController
+ * Servlet implementation class BoardSelectOneController
  */
-@WebServlet("/gatheringinfo.do")
-public class GatheringInfoController extends HttpServlet {
+@WebServlet("/b_selectOne.do")
+public class BoardSelectOneController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GatheringInfoController() {
+    public BoardSelectOneController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,14 +33,15 @@ public class GatheringInfoController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String sPath = request.getServletPath();
-		if(sPath.equals("/gatheringinfo.do")) {//selectAll추가
-			System.out.println(request.getParameter("gnum"));
-			BoardJoinDAO dao = new BoardJoinDAOimpl();
-			List<BoardJoinVO> vos = dao.selectAll(Integer.parseInt(request.getParameter("gnum")));
-			System.out.println("사이즈:"+vos.size());
-			request.setAttribute("vos", vos);
-			request.getRequestDispatcher("gathering/gatheringinfo.jsp").forward(request, response);
-		}
+		System.out.println("doGet:" + sPath);
+		System.out.println(request.getParameter("gNum"));
+		System.out.println(request.getParameter("bNum"));
+		int bNum = Integer.parseInt(request.getParameter("bNum"));
+		BoardJoinDAO dao = new BoardJoinDAOimpl();
+		BoardJoinVO vo = new BoardJoinVO();
+		vo = dao.selectOne(bNum);
+		request.setAttribute("vo",vo);
+		request.getRequestDispatcher("board/selectOne.jsp").forward(request, response);
 	}
 
 	/**
