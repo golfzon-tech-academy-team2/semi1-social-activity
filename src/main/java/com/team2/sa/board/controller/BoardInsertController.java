@@ -54,14 +54,20 @@ public class BoardInsertController extends HttpServlet {
 		String sPath = request.getServletPath();
 		BoardDAO dao = new BoardDAOimpl();
 		BoardVO vo = new BoardVO();
+		HttpSession session = request.getSession();
+		String signedid = (String) session.getAttribute("signedid");
+		int uNum = dao.findUnum(signedid);
+		
 		System.out.println("bTitle: "+request.getParameter("bTitle"));
 		System.out.println("bContent: "+request.getParameter("bContent"));
-		System.out.println("gNum: ");
-		System.out.println("writer: ");
-//		vo.setbContent(request.getParameter("bContent"));
-//		vo.setbTitle(request.getParameter("bTitle"));
-//		vo.setgNum(Integer.parseInt(request.getParameter("gNum")));
-//		vo.setWriter(Integer.parseInt(request.getParameter("writer")));
+		System.out.println("gNum: "+request.getParameter("gNum"));
+		System.out.println(signedid);
+		
+		vo.setbContent(request.getParameter("bContent"));
+		vo.setbTitle(request.getParameter("bTitle"));
+		vo.setgNum(Integer.parseInt(request.getParameter("gNum")));
+//		vo.setwName(signedid);
+//		vo.setwNum(0);
 //
 //		int result = dao.insert(vo);
 //		System.out.println("result: "+result);

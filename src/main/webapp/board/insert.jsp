@@ -14,7 +14,7 @@
 <h3>게시글 입력하숑~</h3>
 <div class="container">
   <h2>게시글 작성</h2>
-  <form action="/b_insertOK.do">
+  <form action="b_insertOK.do?gNum=${param.gNum}" method="post">
     <div class="form-group">
       <label for="btitle">게시글 제목:</label>
       <input type="text" class="form-control" id="bTitle" placeholder="제목을 입력하세요" name="bTitle">

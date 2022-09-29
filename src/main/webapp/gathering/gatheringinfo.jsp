@@ -32,14 +32,14 @@
         <tr>
             <td>${vo.tmpBnum}</td>
             <td>${vo.bTitle }</td>
-            <td>${vo.writer }</td>
+            <td>${vo.uName }</td>
             <td>${vo.wDate }</td>
             <td><a href="b_selectOne.do?num=${vo.bNum }">수정하기</a></td>
         </tr>
         </c:forEach>
     </tbody>
   </table>
-  <a href="b_insert.do?gNum=${pram.gnum}">글쓰기</a>
+  <a href="b_insert.do?gNum=${param.gnum}">글쓰기</a>
 </div>
 
 

@@ -9,9 +9,8 @@ public class BoardVO {
 	private String bTitle;
 	private String bContent;
 	private int gNum;
-	private int wNum;
+	private int uNum;
 	private Timestamp wDate;
-	private String wName;
 	public int getbNum() {
 		return bNum;
 	}
@@ -42,11 +41,11 @@ public class BoardVO {
 	public void setgNum(int gNum) {
 		this.gNum = gNum;
 	}
-	public int getwNum() {
-		return wNum;
+	public int getuNum() {
+		return uNum;
 	}
-	public void setwNum(int wNum) {
-		this.wNum = wNum;
+	public void setuNum(int uNum) {
+		this.uNum = uNum;
 	}
 	public Timestamp getwDate() {
 		return wDate;
@@ -54,15 +53,9 @@ public class BoardVO {
 	public void setwDate(Timestamp wDate) {
 		this.wDate = wDate;
 	}
-	public String getwName() {
-		return wName;
-	}
-	public void setwName(String wName) {
-		this.wName = wName;
-	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(bContent, bNum, bTitle, gNum, tmpBnum, wDate, wName, wNum);
+		return Objects.hash(bContent, bNum, bTitle, gNum, tmpBnum, uNum, wDate);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -74,17 +67,13 @@ public class BoardVO {
 			return false;
 		BoardVO other = (BoardVO) obj;
 		return Objects.equals(bContent, other.bContent) && bNum == other.bNum && Objects.equals(bTitle, other.bTitle)
-				&& gNum == other.gNum && tmpBnum == other.tmpBnum && Objects.equals(wDate, other.wDate)
-				&& Objects.equals(wName, other.wName) && wNum == other.wNum;
+				&& gNum == other.gNum && tmpBnum == other.tmpBnum && uNum == other.uNum
+				&& Objects.equals(wDate, other.wDate);
 	}
 	@Override
 	public String toString() {
 		return "BoardVO [bNum=" + bNum + ", tmpBnum=" + tmpBnum + ", bTitle=" + bTitle + ", bContent=" + bContent
-				+ ", gNum=" + gNum + ", wNum=" + wNum + ", wDate=" + wDate + ", wName=" + wName + "]";
+				+ ", gNum=" + gNum + ", uNum=" + uNum + ", wDate=" + wDate + "]";
 	}
 	
-	
-
-	
-
 }
