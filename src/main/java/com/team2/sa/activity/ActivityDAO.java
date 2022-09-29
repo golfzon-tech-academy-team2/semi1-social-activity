@@ -15,4 +15,6 @@ public interface ActivityDAO {
 
 	public List<EventVO> selectAll(int aNum);
 
+	public List<ActivityVO> searchList(ActivityVO vo);
+
 }

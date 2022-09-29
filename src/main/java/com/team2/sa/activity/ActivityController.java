@@ -20,7 +20,8 @@ import com.team2.sa.gathering.model.GatheringVO;
 /**
  * Servlet implementation class ActivityController
  */
-@WebServlet({"/createActivity.do", "/creActOK.do", "/activityInfo.do"})
+@WebServlet({"/createActivity.do", "/creActOK.do", "/activityInfo.do",
+		"/a_searchList.do", "/a_searchListOK.do"})
 public class ActivityController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -66,6 +67,8 @@ public class ActivityController extends HttpServlet {
 			request.setAttribute("vos", eventVos);
 			
 			request.getRequestDispatcher("activity/activityInfo.jsp").forward(request, response);
+		} else if (sPath.equals("/a_searchList.do")) {
+			request.getRequestDispatcher("activity/a_searchList.jsp").forward(request, response);
 		}
 	}
 
@@ -104,6 +107,20 @@ public class ActivityController extends HttpServlet {
 			dao.insert(vo, (String) session.getAttribute("signedid"));
 			
 			response.sendRedirect("gatheringinfo.do?gnum=" + request.getParameter("gNum"));
+		} else if(sPath.equals("/a_searchListOK.do")) {
+			request.setCharacterEncoding("UTF-8");
+			ActivityVO vo = new ActivityVO();
+			vo.setSex((String) request.getParameter("sex"));
+			vo.setLocation((String) request.getParameter("location"));
+			vo.setMinAge(Integer.parseInt(request.getParameter("age")));
+			
+			List<ActivityVO> vos = dao.searchList(vo);
+			Date date = new Date(System.currentTimeMillis());
+			
+			request.setAttribute("vos", vos);
+			request.setAttribute("today", date);
+			
+			request.getRequestDispatcher("activity/a_searchListOK.jsp").forward(request, response);
 		}
 	}
 

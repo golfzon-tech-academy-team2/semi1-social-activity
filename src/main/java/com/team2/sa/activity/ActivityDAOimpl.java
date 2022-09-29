@@ -223,4 +223,142 @@ public class ActivityDAOimpl implements ActivityDAO {
 		return vos;
 	}
 
+	@Override
+	public List<ActivityVO> searchList(ActivityVO vo) {
+		List<ActivityVO> vos = new ArrayList<ActivityVO>();
+
+		try {
+			Class.forName(ActivityQuery.DRIVER_NAME);
+			System.out.println("Driver successed..");
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			conn = DriverManager.getConnection(ActivityQuery.URL, ActivityQuery.USER, ActivityQuery.PASSWORD);
+//			System.out.println("conn successed...");
+			// DQL
+			if (vo.getSex().equals("X")) {
+				if (vo.getLocation().equals("")) {
+					pstmt = conn.prepareStatement(ActivityQuery.SQL_SEARCH_X_X);
+					pstmt.setInt(1, vo.getMinAge());
+					pstmt.setInt(2, vo.getMinAge());
+					rs = pstmt.executeQuery();
+
+					while (rs.next()) {
+						ActivityVO result = new ActivityVO();
+						result.setgNum(rs.getInt("gnum"));
+						result.setaNum(rs.getInt("anum"));
+						result.setaName(rs.getString("aname"));
+						result.setaContent(rs.getString("acontent"));
+						result.setaStartDay(rs.getDate("astartday"));
+						result.setaEndDay(rs.getDate("aendday"));
+						result.setLocation(rs.getString("location"));
+						result.setStartDate(rs.getDate("startdate"));
+						result.setEndDate(rs.getDate("enddate"));
+						result.setPersonCnt(rs.getInt("personcnt"));
+						result.setIsEnd(rs.getString("isend"));
+						result.setMinAge(rs.getInt("minage"));
+						result.setMaxAge(rs.getInt("maxage"));
+						result.setSex(rs.getString("sex"));
+						result.setMaxPerson(rs.getInt("maxperson"));
+
+						vos.add(result);
+					}
+				} else {
+					pstmt = conn.prepareStatement(ActivityQuery.SQL_SEARCH_X);
+					pstmt.setString(1, "%"+vo.getLocation()+"%");
+					pstmt.setInt(2, vo.getMinAge());
+					pstmt.setInt(3, vo.getMinAge());
+					rs = pstmt.executeQuery();
+
+					while (rs.next()) {
+						ActivityVO result = new ActivityVO();
+						result.setgNum(rs.getInt("gnum"));
+						result.setaNum(rs.getInt("anum"));
+						result.setaName(rs.getString("aname"));
+						result.setaContent(rs.getString("acontent"));
+						result.setaStartDay(rs.getDate("astartday"));
+						result.setaEndDay(rs.getDate("aendday"));
+						result.setLocation(rs.getString("location"));
+						result.setStartDate(rs.getDate("startdate"));
+						result.setEndDate(rs.getDate("enddate"));
+						result.setPersonCnt(rs.getInt("personcnt"));
+						result.setIsEnd(rs.getString("isend"));
+						result.setMinAge(rs.getInt("minage"));
+						result.setMaxAge(rs.getInt("maxage"));
+						result.setSex(rs.getString("sex"));
+						result.setMaxPerson(rs.getInt("maxperson"));
+
+						vos.add(result);
+					}
+				}
+			} else {
+				if (vo.getLocation().equals("")) {
+					pstmt = conn.prepareStatement(ActivityQuery.SQL_SEARCH_O_X);
+					pstmt.setString(1, vo.getSex());
+					pstmt.setInt(2, vo.getMinAge());
+					pstmt.setInt(3, vo.getMinAge());
+					rs = pstmt.executeQuery();
+
+					while (rs.next()) {
+						ActivityVO result = new ActivityVO();
+						result.setgNum(rs.getInt("gnum"));
+						result.setaNum(rs.getInt("anum"));
+						result.setaName(rs.getString("aname"));
+						result.setaContent(rs.getString("acontent"));
+						result.setaStartDay(rs.getDate("astartday"));
+						result.setaEndDay(rs.getDate("aendday"));
+						result.setLocation(rs.getString("location"));
+						result.setStartDate(rs.getDate("startdate"));
+						result.setEndDate(rs.getDate("enddate"));
+						result.setPersonCnt(rs.getInt("personcnt"));
+						result.setIsEnd(rs.getString("isend"));
+						result.setMinAge(rs.getInt("minage"));
+						result.setMaxAge(rs.getInt("maxage"));
+						result.setSex(rs.getString("sex"));
+						result.setMaxPerson(rs.getInt("maxperson"));
+
+						vos.add(result);
+					}
+				} else {
+					pstmt = conn.prepareStatement(ActivityQuery.SQL_SEARCH_O);
+					pstmt.setString(1, vo.getSex());
+					pstmt.setString(2, "%"+vo.getLocation()+"%");
+					pstmt.setInt(3, vo.getMinAge());
+					pstmt.setInt(4, vo.getMinAge());
+					rs = pstmt.executeQuery();
+
+					while (rs.next()) {
+						ActivityVO result = new ActivityVO();
+						result.setgNum(rs.getInt("gnum"));
+						result.setaNum(rs.getInt("anum"));
+						result.setaName(rs.getString("aname"));
+						result.setaContent(rs.getString("acontent"));
+						result.setaStartDay(rs.getDate("astartday"));
+						result.setaEndDay(rs.getDate("aendday"));
+						result.setLocation(rs.getString("location"));
+						result.setStartDate(rs.getDate("startdate"));
+						result.setEndDate(rs.getDate("enddate"));
+						result.setPersonCnt(rs.getInt("personcnt"));
+						result.setIsEnd(rs.getString("isend"));
+						result.setMinAge(rs.getInt("minage"));
+						result.setMaxAge(rs.getInt("maxage"));
+						result.setSex(rs.getString("sex"));
+						result.setMaxPerson(rs.getInt("maxperson"));
+
+						vos.add(result);
+					}
+				}
+			}
+
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return vos;
+	}
+
 }
