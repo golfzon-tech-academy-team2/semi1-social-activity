@@ -42,14 +42,11 @@ public class BoardDAOJoinimpl implements BoardVOJoinDAO {
 			int i = 1;
 			while(rs.next()) {
 				BoardVOJoin vo = new BoardVOJoin();
-				vo.setbContent(rs.getString("bContent"));
 				vo.setbNum(rs.getInt("bNum"));
 				vo.setbTitle(rs.getString("bTitle"));
-				vo.setgNum(rs.getInt("gNum"));
 				vo.setwDate(rs.getTimestamp("wDate"));
-				vo.setuNum(rs.getInt("uNum"));
 				vo.setTmpBnum(i);
-				vo.setwName(rs.getString("wName"));
+				vo.setwName(rs.getString("uName"));
 				vos.add(vo);
 				i++;
 			}
