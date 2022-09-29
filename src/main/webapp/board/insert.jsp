@@ -15,10 +15,10 @@
    $(function() {
       console.log("ready....");
 
-      $("#test").on('click',function(){
+      $(".test").on('click',function(){
          console.log("click....");
          $.ajax({
-            url:"isLeader.do?gNum=${param.gNum}",
+            url:"isOperator.do?gNum=${param.gNum}",
             type:"get",
             dataType:"text",//xml,html,text
             success : function(responseTxt,status,obj){
@@ -26,11 +26,16 @@
                 console.log(status);
                 console.log(obj);
                 if(responseTxt=="{1}"){
-                	$("input:checkbox[id='isLeader']").prop("checked", true);
+                	return !$("input:checkbox[id='isOperator']").prop("checked");
+                	console.log()
+                }else{
+                	alert('운영자가 아닙니다');
+                	$("input:checkbox[id='isOperator']").prop("checked",false);
                 }
              },
              error:function(xhr,status,error){
                 console.log("error:function....",status);
+                
              }
          });
          
@@ -49,11 +54,13 @@
       <label for="comment">게시글 내용:</label>
       <textarea class="form-control" rows="5" id="bContent" name="bContent"></textarea>
     </div>
+    <input type="checkbox"id="isOperator" class="test"><span>공지로 작성</span>
+    <br>
     <button type="submit" class="btn btn-primary">작성 완료</button>
   </form>
-  <span id="test">공지로 작성</span>
-  <input type="checkbox" class="custom-control-input" id="isLeader">
-  <label class="custom-control-label" for="customCheck"></label>
+  
+  
+  
       
 </div>
 </body>
