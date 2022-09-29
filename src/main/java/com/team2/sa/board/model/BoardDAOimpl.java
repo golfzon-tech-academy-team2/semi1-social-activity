@@ -276,4 +276,57 @@ public class BoardDAOimpl implements BoardDAO {
 		return uNum;
 	}
 
+	@Override
+	public int isLeader(String id, int gNum) {
+		int isL = 0;//1:T, 0:F
+		String tmp = "";
+		try {
+			conn = DriverManager.getConnection(
+					BoardQuery.URL, 
+					BoardQuery.USER, 
+					BoardQuery.PASSWORD);
+			pstmt = conn.prepareStatement(BoardQuery.ISLEADER);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, gNum);
+			rs = pstmt.executeQuery();//������ ���� ���
+			
+			while(rs.next()){
+				tmp = rs.getString("roll");
+				
+			}
+			System.out.println(tmp);
+			if(tmp.equals("L")) {
+				isL = 1;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return isL;
+	}
+
 }

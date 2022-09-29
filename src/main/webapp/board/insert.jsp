@@ -4,11 +4,39 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>Insert title here</title>
+<script src="js/jquery-3.6.1.min.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+   $(function() {
+      console.log("ready....");
+
+      $("#test").on('click',function(){
+         console.log("click....");
+         $.ajax({
+            url:"isLeader.do?gNum=${param.gNum}",
+            type:"get",
+            dataType:"text",//xml,html,text
+            success : function(responseTxt,status,obj){
+                console.log(responseTxt);
+                console.log(status);
+                console.log(obj);
+                if(responseTxt=="{1}"){
+                	$("input:checkbox[id='isLeader']").prop("checked", true);
+                }
+             },
+             error:function(xhr,status,error){
+                console.log("error:function....",status);
+             }
+         });
+         
+      });
+   });
+</script>
 </head> 
 <body>
 <h3>게시글 입력하숑~</h3>
@@ -23,6 +51,10 @@
     </div>
     <button type="submit" class="btn btn-primary">작성 완료</button>
   </form>
+  <span id="test">공지로 작성</span>
+  <input type="checkbox" class="custom-control-input" id="isLeader">
+  <label class="custom-control-label" for="customCheck"></label>
+      
 </div>
 </body>
 </html>

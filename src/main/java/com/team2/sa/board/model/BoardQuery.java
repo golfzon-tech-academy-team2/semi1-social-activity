@@ -12,4 +12,5 @@ public interface BoardQuery {
 	String SELECTONEBOARD = "select u.uname, b.wdate, b.btitle, b.bcontent from userinfo u inner join board b on u.unum = b.unum where b.bnum = ?";
 	String DELETEBOARD = "delete from board where bnum = ?";
 	String UPDATEBOARD = "UPDATE board SET btitle = ?, bcontent=?, wdate=SYSDATE WHERE bnum = ?";
+	String ISLEADER = "select g.roll from userinfo u inner join gatheringuserinfo g on u.unum = g.unum where u.id = ? and g.gnum=?"; //id,gnum
 }
