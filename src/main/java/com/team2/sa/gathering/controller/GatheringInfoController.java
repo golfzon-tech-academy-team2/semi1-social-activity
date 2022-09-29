@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.team2.sa.board.model.BoardDAO;
-import com.team2.sa.board.model.BoardDAOimpl;
-import com.team2.sa.board.model.BoardVO;
+import com.team2.sa.board.model.BoardDAOJoinimpl;
+import com.team2.sa.board.model.BoardVOJoin;
+import com.team2.sa.board.model.BoardVOJoinDAO;
 
 /**
  * Servlet implementation class GatheringInfoController
  */
-@WebServlet("/gatheringInfo.do")
+@WebServlet("/gatheringinfo.do")
 public class GatheringInfoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,13 +34,13 @@ public class GatheringInfoController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String sPath = request.getServletPath();
-		if(sPath.equals("/gatheringInfo.do")) {//selectAll추가
-			System.out.println(request.getParameter("gNum"));
-			BoardDAO dao = new BoardDAOimpl();
-			List<BoardVO> vos = dao.selectAll(Integer.parseInt(request.getParameter("gNum")));
+		if(sPath.equals("/gatheringinfo.do")) {//selectAll추가
+			System.out.println(request.getParameter("gnum"));
+			BoardVOJoinDAO dao = new BoardDAOJoinimpl();
+			List<BoardVOJoin> vos = dao.selectAll(Integer.parseInt(request.getParameter("gnum")));
 			System.out.println("사이즈:"+vos.size());
 			request.setAttribute("vos", vos);
-			request.getRequestDispatcher("gathering/gatheringInfo.jsp").forward(request, response);
+			request.getRequestDispatcher("gathering/gatheringinfo.jsp").forward(request, response);
 		}
 	}
 

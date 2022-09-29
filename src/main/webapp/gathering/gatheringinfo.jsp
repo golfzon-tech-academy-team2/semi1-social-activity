@@ -13,10 +13,10 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<h3>~~모임에 오신걸 환영합니다</h3>
+<h3 style="display:inline;">${param.gname}</h3><h3 style="display:inline;"> 모임에 오신걸 환영합니다</h3>
 <p>게시판</p>
 <div class="container">
-  <h2>모임</h2>${param.gNum}<h2>의 게시글 목록</h2>        
+  <h2>모임</h2>${param.gnum}<h2>의 게시글 목록</h2>        
   <table class="table">
     <thead>
       <tr>
@@ -32,14 +32,17 @@
         <tr>
             <td>${vo.tmpBnum}</td>
             <td>${vo.bTitle }</td>
-            <td>${vo.writer }</td>
+            <td>${vo.wName }</td>
             <td>${vo.wDate }</td>
             <td><a href="b_selectOne.do?num=${vo.bNum }">수정하기</a></td>
         </tr>
         </c:forEach>
     </tbody>
   </table>
+  <a href="b_insert.do?gNum=${param.gnum}">글쓰기</a>
 </div>
+
+
 <p>투표</p>
 </body>
 </html>

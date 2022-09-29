@@ -28,8 +28,48 @@ public class BoardDAOimpl implements BoardDAO {
 
 	@Override
 	public int insert(BoardVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		int flag = 0;
+		//finduNum(id)
+		try {
+			conn = DriverManager.getConnection(
+					BoardQuery.URL, 
+					BoardQuery.USER, 
+					BoardQuery.PASSWORD);
+			pstmt = conn.prepareStatement(BoardQuery.INSERTBOARD);
+			pstmt.setString(1, vo.getbTitle());
+			pstmt.setString(2, vo.getbContent());
+			pstmt.setInt(3, vo.getgNum());
+			pstmt.setInt(4, vo.getuNum());
+			flag = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return flag;
 	}
 
 	@Override
@@ -71,7 +111,7 @@ public class BoardDAOimpl implements BoardDAO {
 				vo.setbTitle(rs.getString("bTitle"));
 				vo.setgNum(rs.getInt("gNum"));
 				vo.setwDate(rs.getTimestamp("wDate"));
-				vo.setWriter(rs.getString("writer"));
+				vo.setuNum(rs.getInt("uNum"));
 				vo.setTmpBnum(i);
 				vos.add(vo);
 				i++;
@@ -113,6 +153,54 @@ public class BoardDAOimpl implements BoardDAO {
 	public List<BoardVO> searchList(String searchKey, String searchWord) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int findUnum(String id) {
+		int uNum = 0;
+		try {
+			conn = DriverManager.getConnection(
+					BoardQuery.URL, 
+					BoardQuery.USER, 
+					BoardQuery.PASSWORD);
+			pstmt = conn.prepareStatement(BoardQuery.FINDUNUM);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			System.out.println(rs);
+			while(rs.next()) {
+				uNum = rs.getInt("uNum");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return uNum;
 	}
 
 }
