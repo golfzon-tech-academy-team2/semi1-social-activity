@@ -29,18 +29,20 @@ th, td {
 <body>
 	<table>
 		<tr>
-			<th>작성자</th>
-			<td>${vo.wName}</td>
+			<th>글 번호</th>
+			<td>${param.tmpBnum}</td>
+			<th>작성일</th>
+			<td>${vo.wDate}</td>
 			<th>작성일</th>
 			<td>${vo.wDate}</td>
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td colspan="3">${vo.bTitle}</td>
+			<td colspan="5">${vo.bTitle}</td>
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td colspan="3" rowspan="3">${vo.bContent}</td>
+			<td colspan="5" rowspan="3">${vo.bContent}</td>
 		</tr>
 	</table>
 	<button onclick="location.href='gatheringinfo.do?gnum=${param.gNum}'">목록</button>
