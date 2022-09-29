@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,18 +15,9 @@ th, td {
 	border: 1px solid #444444;
 }
 </style>
-<script type="text/javascript">
-	function deleteConfirm() {
-
-		if (confirm("삭제 하시겠습니까?")) {
-			location = "b_deleteOK.do?bNum=${vo.bNum}&gNum=${param.gNum}";
-			
-		}
-
-	}
-</script>
 </head>
 <body>
+   <form action="b_updateOK.do?bNum=${param.bNum}&gNum=${param.gNum}" method="post">
 	<table>
 		<tr>
 			<th>글 번호</th>
@@ -38,16 +29,17 @@ th, td {
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td colspan="5">${vo.bTitle}</td>
+			<td colspan="5"><input type="text" class="form-control" id="bTitle" placeholder="제목을 입력하세요" name="bTitle" value=${vo.bTitle}></td>
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td colspan="5" rowspan="3">${vo.bContent}</td>
+			<td colspan="5" rowspan="3"><textarea class="form-control" rows="5" id="bContent" name="bContent">${vo.bContent}</textarea></td>
 		</tr>
 	</table>
 	<button onclick="location.href='gatheringinfo.do?gnum=${param.gNum}'">목록</button>
 
-	<button  onclick="location.href='b_update.do?bNum=${param.bNum}&gNum=${param.gNum}'">수정</button>
+	<button  type="submit">수정</button>
 	<button onclick="deleteConfirm()">삭제</button>
+	</form>
 </body>
 </html>

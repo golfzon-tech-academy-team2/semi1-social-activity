@@ -11,6 +11,11 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<style type="text/css">
+.data:hover {
+	background-color:#aaaaaa;
+}
+</style>
 </head>
 <body>
 <h3 style="display:inline;">${param.gname}</h3><h3 style="display:inline;"> 모임에 오신걸 환영합니다</h3>
@@ -26,17 +31,15 @@
         <th>제목</th>
         <th>글쓴이</th>
         <th>작성일</th>
-         <th>수정하기</th>
       </tr>
     </thead>
     <tbody>
       <c:forEach var="vo" items="${vos}">
-        <tr>
+        <tr  class="data" onclick="location.href='b_selectOne.do?bNum=${vo.bNum }&gNum=${param.gnum}&tmpBnum=${vo.tmpBnum}'">
             <td>${vo.tmpBnum}</td>
             <td>${vo.bTitle }</td>
             <td>${vo.wName }</td>
             <td>${vo.wDate }</td>
-            <td><a href="b_selectOne.do?bNum=${vo.bNum }&gNum=${param.gnum}&tmpBnum=${vo.tmpBnum}">수정하기</a></td>
         </tr>
         </c:forEach>
     </tbody>
