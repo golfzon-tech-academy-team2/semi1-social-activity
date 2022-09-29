@@ -16,12 +16,16 @@ import com.team2.sa.event.EventDAO;
 import com.team2.sa.event.EventDAOimpl;
 import com.team2.sa.event.EventVO;
 import com.team2.sa.gathering.model.GatheringVO;
+import com.team2.sa.mypage.MyGatheringInherited;
+import com.team2.sa.mypage.MypageDAO;
+import com.team2.sa.mypage.MypageDAOimpl;
+import com.team2.sa.signup.UserinfoVO;
 
 /**
  * Servlet implementation class ActivityController
  */
 @WebServlet({"/createActivity.do", "/creActOK.do", "/activityInfo.do",
-		"/a_searchList.do", "/a_searchListOK.do"})
+		"/a_searchList.do", "/a_searchListOK.do", "/deleteActivity.do"})
 public class ActivityController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -69,6 +73,27 @@ public class ActivityController extends HttpServlet {
 			request.getRequestDispatcher("activity/activityInfo.jsp").forward(request, response);
 		} else if (sPath.equals("/a_searchList.do")) {
 			request.getRequestDispatcher("activity/a_searchList.jsp").forward(request, response);
+		} else if (sPath.equals("/deleteActivity.do")) {
+			ActivityDAO dao = new ActivityDAOimpl();
+			dao.deleteActivity(Integer.parseInt(request.getParameter("aNum")));
+			HttpSession session = request.getSession();
+			session.getAttribute("signedid");
+			MypageDAO dao2 = new MypageDAOimpl();
+			request.setAttribute("pw", dao2.pwcheck((String) session.getAttribute("signedid")));
+			UserinfoVO vo = dao2.getMyInfo((String) session.getAttribute("signedid"));
+			
+			System.out.println(vo);
+			request.setAttribute("vo", vo);
+
+			List<MyGatheringInherited> vos = dao2.mygathering((String) session.getAttribute("signedid"));
+			request.setAttribute("mygathering", vos);
+			
+			List<ActivityInhereted> vosAct = dao2.myactivity((String) session.getAttribute("signedid"));
+			request.setAttribute("myactivity", vosAct);
+			Date date = new Date(System.currentTimeMillis());
+			
+			request.setAttribute("today", date);
+			request.getRequestDispatcher("mypage/mypage.jsp").forward(request, response);
 		}
 	}
 

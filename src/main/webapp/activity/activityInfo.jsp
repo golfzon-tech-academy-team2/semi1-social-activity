@@ -15,11 +15,29 @@
 		
 		window.open(url, name, option);
 	}
+	
+	function deleteEvent() {
+		if (!confirm("이벤트를 삭제하시겠습니까?")) {
+		} else {
+			var aNum = document.getElementById('aNum').value;
+			var eNum = document.getElementById('eNum').value;
+			location.href = "deleteEvent.do?aNum=" + aNum + "&eNum=" + eNum;
+		}
+	}
+	
+	function deleteActivity() {
+		if (!confirm("액티비티를 삭제하시겠습니까?")) {
+		} else {
+			location.href = "deleteActivity.do?aNum=" + ${vo.aNum};
+		}
+	}
 </script>
 </head>
 <body>
 	<a href="index.do">홈</a>
 	<hr>
+	
+	<input type="button" id="joinActivity" name="joinActivity" value="액티비티 가입하기" onclick="joinActivity()">
 	<h3>${vo.aName} 액티비티 정보</h3>
 	
 	<table>
@@ -111,17 +129,22 @@
 			<c:if test="${vos.size() eq 0}">
 				<p>생성된 이벤트 없음</p>
 			</c:if>
-			<c:forEach var="vo" items="${vos}">
+			<c:forEach var="vo2" items="${vos}">
 		        <tr>
-		            <td>${vo.eTitle }</td>
-		            <td>${vo.eContent }</td>
-		            <td>${vo.gift }</td>
-		            <td><a href="deleteEvent.do?eNum=${vo.eNum }&aNum=${vo.aNum}">이벤트 삭제하기</a>
+		            <td>${vo2.eTitle }</td>
+		            <td>${vo2.eContent }</td>
+		            <td>${vo2.gift }</td>
+		            <td><input type="button" id="deleteEvent" name="deleteEvent" value="이벤트 삭제하기" onclick="deleteEvent()"></td>
+		            
+		        	<input type="hidden" id="aNum" name="aNum" value="${vo2.aNum }">
+		        	<input type="hidden" id="eNum" name="eNum" value="${vo2.eNum }">
 		        </tr>
 	        </c:forEach>
 		</table>
 	</div>
 	
 	<hr>
+	
+	<input type="button" id="deleteActivity" name="deleteActivity" onclick="deleteActivity()" value="액티비티 삭제하기">
 </body>
 </html>
