@@ -71,11 +71,6 @@
             <td>${vo2.roll }</td>
             <td><img src="gEmblem/${vo2.logo }" height=60%></td>
             <td>${vo2.gname }</td>
-            <td>${vo2.gcontent }</td>
-            <td>${vo2.minage }</td>
-            <td>${vo2.maxage }</td>
-            <td>${vo2.sex }</td>
-            <td><a href="gatheringinfo.do?gnum=${vo2.gnum }&gname=${vo2.gname}">상세 보기</a>
             <td><a href="gatheringinfo.do?gnum=${vo2.gnum }">상세 보기</a>
             <td><a href="createActivity.do?gNum=${vo2.gnum }">액티비티 생성</a>
         </tr>
