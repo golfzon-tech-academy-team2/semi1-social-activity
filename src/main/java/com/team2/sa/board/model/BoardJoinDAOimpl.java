@@ -91,7 +91,7 @@ public class BoardJoinDAOimpl implements BoardJoinDAO {
 					BoardQuery.URL, 
 					BoardQuery.USER, 
 					BoardQuery.PASSWORD);
-			pstmt = conn.prepareStatement(BoardQuery.SELECTONE); //query�� ��
+			pstmt = conn.prepareStatement(BoardQuery.SELECTONEBOARD); //query�� ��
 			pstmt.setInt(1, bNum);
 			rs = pstmt.executeQuery();//������ ���� ���
 			

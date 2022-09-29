@@ -16,6 +16,8 @@
 <h3 style="display:inline;">${param.gname}</h3><h3 style="display:inline;"> 모임에 오신걸 환영합니다</h3>
 <p>게시판</p>
 <div class="container">
+<button onclick="location.href='createActivity.do?gNum=${param.gnum }'">액티비티 생성하기</button>
+
   <h2>모임</h2>${param.gnum}<h2>의 게시글 목록</h2>        
   <table class="table">
     <thead>
@@ -34,7 +36,7 @@
             <td>${vo.bTitle }</td>
             <td>${vo.wName }</td>
             <td>${vo.wDate }</td>
-            <td><a href="b_selectOne.do?bNum=${vo.bNum }&gNum=${param.gnum}">수정하기</a></td>
+            <td><a href="b_selectOne.do?bNum=${vo.bNum }&gNum=${param.gnum}&tmpBnum=${vo.tmpBnum}">수정하기</a></td>
         </tr>
         </c:forEach>
     </tbody>
