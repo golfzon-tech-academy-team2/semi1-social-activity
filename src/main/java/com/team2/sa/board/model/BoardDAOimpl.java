@@ -29,50 +29,46 @@ public class BoardDAOimpl implements BoardDAO {
 	@Override
 	public int insert(BoardVO vo) {
 		int flag = 0;
-////		int wNum = 0
-//		//finduNum(id)
-//		try {
-//			conn = DriverManager.getConnection(
-//					BoardQuery.URL, 
-//					BoardQuery.USER, 
-//					BoardQuery.PASSWORD);
-////			System.out.println("conn successed...");
-//			//DML
-//			pstmt = conn.prepareStatement(BoardQuery.INSERTBOARD);
-//			pstmt.setString(1, vo.getbTitle());
-//			pstmt.setString(2, vo.getbContent());
-//			pstmt.setInt(3, vo.getgNum());
-//			pstmt.setInt(4, wNum);
-//			pstmt.setInt(5, wNum);
-//			flag = pstmt.executeUpdate();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			if(rs != null) {
-//				try {
-//					rs.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//			if(pstmt != null) {
-//				try {
-//					pstmt.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//			if(conn != null) {
-//				try {
-//					conn.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		}
-//		
+		//finduNum(id)
+		try {
+			conn = DriverManager.getConnection(
+					BoardQuery.URL, 
+					BoardQuery.USER, 
+					BoardQuery.PASSWORD);
+			pstmt = conn.prepareStatement(BoardQuery.INSERTBOARD);
+			pstmt.setString(1, vo.getbTitle());
+			pstmt.setString(2, vo.getbContent());
+			pstmt.setInt(3, vo.getgNum());
+			pstmt.setInt(4, vo.getuNum());
+			flag = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
 		return flag;
 	}
 
@@ -167,10 +163,11 @@ public class BoardDAOimpl implements BoardDAO {
 					BoardQuery.URL, 
 					BoardQuery.USER, 
 					BoardQuery.PASSWORD);
-			pstmt.setString(1, "%"+id+"%");
-			rs = pstmt.executeQuery();//������ ���� ���
-			
-			while(rs.next()) {//������ ����� �������� �𸣴ϱ�
+			pstmt = conn.prepareStatement(BoardQuery.FINDUNUM);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			System.out.println(rs);
+			while(rs.next()) {
 				uNum = rs.getInt("uNum");
 			}
 		} catch (SQLException e) {

@@ -51,31 +51,33 @@ public class BoardInsertController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
 		String sPath = request.getServletPath();
+		System.out.println("doPost:" + sPath);
 		BoardDAO dao = new BoardDAOimpl();
 		BoardVO vo = new BoardVO();
 		HttpSession session = request.getSession();
 		String signedid = (String) session.getAttribute("signedid");
 		int uNum = dao.findUnum(signedid);
+		int gNum = Integer.parseInt(request.getParameter("gNum"));
+		
 		
 		System.out.println("bTitle: "+request.getParameter("bTitle"));
 		System.out.println("bContent: "+request.getParameter("bContent"));
 		System.out.println("gNum: "+request.getParameter("gNum"));
 		System.out.println(signedid);
+		System.out.println(uNum);
 		
+		vo.setuNum(uNum);
 		vo.setbContent(request.getParameter("bContent"));
 		vo.setbTitle(request.getParameter("bTitle"));
-		vo.setgNum(Integer.parseInt(request.getParameter("gNum")));
-//		vo.setwName(signedid);
-//		vo.setwNum(0);
-//
-//		int result = dao.insert(vo);
-//		System.out.println("result: "+result);
-//		if(result==1) {
-//			response.sendRedirect("gatheringinfo.do");
-//		}else {
-//			response.sendRedirect("b_insert.do");
-//		}
+		vo.setgNum(gNum);
+
+		if(dao.insert(vo)==1) {
+			response.sendRedirect("gatheringinfo.do?gnum="+gNum);
+		}else {
+			response.sendRedirect("b_insert.do?gNum="+gNum);
+		}
 	}
 
 }
