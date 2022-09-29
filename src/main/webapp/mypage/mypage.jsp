@@ -7,6 +7,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>마이페이지</title>
+<script>
+
+	function signout() {
+		if (!confirm("회원을 탈퇴하시겠습니까?")) {
+		} else {
+			location.href = "signout.do";
+		}
+	}
+</script>
+
 <style>
 	td img {
 		max-height:200px;
@@ -55,7 +65,7 @@
 			</tr>
 		</table>
 	
-	<p><a href="signout.do">회원탈퇴</a></p>
+	<input type="button" id="signout" name="signout" onclick="signout()" value="회원탈퇴">
 	
 	<p>내 모임 리스트</p>
 	

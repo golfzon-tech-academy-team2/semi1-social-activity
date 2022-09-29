@@ -361,4 +361,35 @@ public class ActivityDAOimpl implements ActivityDAO {
 		return vos;
 	}
 
+	@Override
+	public void deleteActivity(int aNum) {
+
+		try {
+			Class.forName(ActivityQuery.DRIVER_NAME);
+			System.out.println("Driver successed..");
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			conn = DriverManager.getConnection(ActivityQuery.URL, ActivityQuery.USER, ActivityQuery.PASSWORD);
+//		System.out.println("conn successed...");
+			// DQL
+			pstmt = conn.prepareStatement(ActivityQuery.SQL_DELETE_ACTIVITYUSERINFO);
+			pstmt.setInt(1, aNum);
+			rs = pstmt.executeQuery();
+			
+			pstmt = conn.prepareStatement(ActivityQuery.SQL_DELETE_ACTIVITY);
+			pstmt.setInt(1, aNum);
+			rs = pstmt.executeQuery();
+			
+
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }

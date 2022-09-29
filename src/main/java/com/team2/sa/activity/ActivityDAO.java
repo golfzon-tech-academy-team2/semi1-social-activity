@@ -17,4 +17,6 @@ public interface ActivityDAO {
 
 	public List<ActivityVO> searchList(ActivityVO vo);
 
+	public void deleteActivity(int aNum);
+
 }
