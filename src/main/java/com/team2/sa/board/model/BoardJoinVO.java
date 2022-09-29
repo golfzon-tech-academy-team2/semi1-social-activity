@@ -2,7 +2,7 @@ package com.team2.sa.board.model;
 
 import java.util.Objects;
 
-public class BoardVOJoin extends BoardVO {
+public class BoardJoinVO extends BoardVO {
 	private String wName;
 
 	public String getwName() {
@@ -29,7 +29,7 @@ public class BoardVOJoin extends BoardVO {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BoardVOJoin other = (BoardVOJoin) obj;
+		BoardJoinVO other = (BoardJoinVO) obj;
 		return Objects.equals(wName, other.wName);
 	}
 

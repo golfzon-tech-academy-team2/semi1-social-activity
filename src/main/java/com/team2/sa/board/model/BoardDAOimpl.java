@@ -84,11 +84,6 @@ public class BoardDAOimpl implements BoardDAO {
 		return 0;
 	}
 
-	@Override
-	public BoardVO selectOne(BoardVO vo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<BoardVO> selectAll(int gNum) {

@@ -34,7 +34,7 @@
             <td>${vo.bTitle }</td>
             <td>${vo.wName }</td>
             <td>${vo.wDate }</td>
-            <td><a href="b_selectOne.do?num=${vo.bNum }">수정하기</a></td>
+            <td><a href="b_selectOne.do?bNum=${vo.bNum }&gNum=${param.gnum}">수정하기</a></td>
         </tr>
         </c:forEach>
     </tbody>
