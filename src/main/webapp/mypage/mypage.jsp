@@ -76,6 +76,8 @@
             <td>${vo2.maxage }</td>
             <td>${vo2.sex }</td>
             <td><a href="gatheringinfo.do?gnum=${vo2.gnum }&gname=${vo2.gname}">상세 보기</a>
+            <td><a href="gatheringinfo.do?gnum=${vo2.gnum }">상세 보기</a>
+            <td><a href="createActivity.do?gNum=${vo2.gnum }">액티비티 생성</a>
         </tr>
         </c:forEach>
 	</table>
