@@ -40,7 +40,7 @@ public class BoardDAOimpl implements BoardDAO {
 			pstmt.setString(1, vo.getbTitle());
 			pstmt.setString(2, vo.getbContent());
 			pstmt.setInt(3, vo.getgNum());
-			pstmt.setString(4, vo.getWriter());
+			pstmt.setInt(4, vo.getWriter());
 			flag = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -112,7 +112,8 @@ public class BoardDAOimpl implements BoardDAO {
 				vo.setbTitle(rs.getString("bTitle"));
 				vo.setgNum(rs.getInt("gNum"));
 				vo.setwDate(rs.getTimestamp("wDate"));
-				vo.setWriter(rs.getString("writer"));
+				vo.setwName(rs.getString("wName"));
+				vo.setwNum(rs.getInt("wNum"));
 				vo.setTmpBnum(i);
 				vos.add(vo);
 				i++;

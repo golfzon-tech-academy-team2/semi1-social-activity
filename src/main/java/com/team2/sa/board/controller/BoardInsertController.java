@@ -54,18 +54,22 @@ public class BoardInsertController extends HttpServlet {
 		String sPath = request.getServletPath();
 		BoardDAO dao = new BoardDAOimpl();
 		BoardVO vo = new BoardVO();
-		vo.setbContent(request.getParameter("bContent"));
-		vo.setbTitle(request.getParameter("bTitle"));
-		vo.setgNum(Integer.parseInt(request.getParameter("gNum")));
-		vo.setWriter(request.getParameter("writer"));
-
-		int result = dao.insert(vo);
-		System.out.println("result: "+result);
-		if(result==1) {
-			response.sendRedirect("gatheringinfo.do");
-		}else {
-			response.sendRedirect("b_insert.do");
-		}
+		System.out.println("bTitle: "+request.getParameter("bTitle"));
+		System.out.println("bContent: "+request.getParameter("bContent"));
+		System.out.println("gNum: ");
+		System.out.println("writer: ");
+//		vo.setbContent(request.getParameter("bContent"));
+//		vo.setbTitle(request.getParameter("bTitle"));
+//		vo.setgNum(Integer.parseInt(request.getParameter("gNum")));
+//		vo.setWriter(Integer.parseInt(request.getParameter("writer")));
+//
+//		int result = dao.insert(vo);
+//		System.out.println("result: "+result);
+//		if(result==1) {
+//			response.sendRedirect("gatheringinfo.do");
+//		}else {
+//			response.sendRedirect("b_insert.do");
+//		}
 	}
 
 }
