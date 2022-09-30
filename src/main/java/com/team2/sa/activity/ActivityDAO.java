@@ -29,4 +29,8 @@ public interface ActivityDAO {
 
 	public void update(ActivityVO vo);
 
+	public int checkLeader(int aNum, String id);
+
+	public int getGatheringUserNum(int gNum);
+
 }

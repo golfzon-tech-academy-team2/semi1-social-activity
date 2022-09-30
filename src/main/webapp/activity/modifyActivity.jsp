@@ -214,15 +214,13 @@
 			</tr>
 			<tr>
 				<td>최대 인원 수 :</td>
-				<td><select id="maxPerson" name="maxPerson">
-						<c:forEach var="cnt" begin="1" end="${vo.maxPerson - 1}">
+				<td>
+				<select>
+						<c:forEach var="cnt" begin="1" end="${gatheringUserNum }">
 							<option value="${cnt }">${cnt }</option>
 						</c:forEach>
-						<option value="${vo.maxPerson }" selected>${vo.maxPerson }</option>
-						<c:forEach var="cnt" begin="${vo.maxPerson + 1}" end="50">
-							<option value="${cnt }">${cnt }</option>
-						</c:forEach>
-				</select></td>
+				</select>
+				</td>
 			</tr>
 			<tr>
 				<td></td>

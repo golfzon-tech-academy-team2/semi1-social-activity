@@ -191,14 +191,11 @@
 			<tr>
 				<td><label for="maxPerson">최대 참가 가능 인원 :</label></td>
 				<td>
-					<select id="maxPerson" name="maxPerson">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-						<option>6</option>
-					</select>
+				<select>
+						<c:forEach var="cnt" begin="1" end="${gatheringUserNum }">
+							<option value="${cnt }">${cnt }</option>
+						</c:forEach>
+				</select>
 				</td>
 			</tr>
 			<tr>
