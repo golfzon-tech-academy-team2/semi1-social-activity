@@ -38,7 +38,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
+				<tr  class="data" onclick="location.href='b_selectOne.do?bNum=${vos[0].bNum }&gNum=${param.gnum}'">
 					<td>${vos[0].bTitle}</td>
 					<td>${vos[0].bContent}</td>
 				</tr>

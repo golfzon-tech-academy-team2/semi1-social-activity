@@ -12,6 +12,7 @@ public class BoardVO {
 	private int uNum;
 	private Timestamp wDate;
 	private String isNotice;
+	private String id;
 	public int getbNum() {
 		return bNum;
 	}
@@ -60,9 +61,21 @@ public class BoardVO {
 	public void setIsNotice(String isNotice) {
 		this.isNotice = isNotice;
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	@Override
+	public String toString() {
+		return "BoardVO [bNum=" + bNum + ", tmpBnum=" + tmpBnum + ", bTitle=" + bTitle + ", bContent=" + bContent
+				+ ", gNum=" + gNum + ", uNum=" + uNum + ", wDate=" + wDate + ", isNotice=" + isNotice + ", id=" + id
+				+ "]";
+	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(bContent, bNum, bTitle, gNum, isNotice, tmpBnum, uNum, wDate);
+		return Objects.hash(bContent, bNum, bTitle, gNum, id, isNotice, tmpBnum, uNum, wDate);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -74,14 +87,10 @@ public class BoardVO {
 			return false;
 		BoardVO other = (BoardVO) obj;
 		return Objects.equals(bContent, other.bContent) && bNum == other.bNum && Objects.equals(bTitle, other.bTitle)
-				&& gNum == other.gNum && Objects.equals(isNotice, other.isNotice) && tmpBnum == other.tmpBnum
-				&& uNum == other.uNum && Objects.equals(wDate, other.wDate);
+				&& gNum == other.gNum && Objects.equals(id, other.id) && Objects.equals(isNotice, other.isNotice)
+				&& tmpBnum == other.tmpBnum && uNum == other.uNum && Objects.equals(wDate, other.wDate);
 	}
-	@Override
-	public String toString() {
-		return "BoardVO [bNum=" + bNum + ", tmpBnum=" + tmpBnum + ", bTitle=" + bTitle + ", bContent=" + bContent
-				+ ", gNum=" + gNum + ", uNum=" + uNum + ", wDate=" + wDate + ", isNotice=" + isNotice + "]";
-	}
+	
 	
 	
 }

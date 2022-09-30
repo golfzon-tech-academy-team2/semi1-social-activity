@@ -15,14 +15,14 @@ import com.team2.sa.board.model.BoardDAOimpl;
 /**
  * Servlet implementation class IsLeaderController
  */
-@WebServlet("/isOL.do")
-public class IsOperatorLeaderController extends HttpServlet {
+@WebServlet({"/isOL.do","/isSameWriter.do"})
+public class AJaxController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IsOperatorLeaderController() {
+    public AJaxController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,11 +36,22 @@ public class IsOperatorLeaderController extends HttpServlet {
 		System.out.println("doGet:" + sPath);
 		HttpSession session = request.getSession();
 		String signedid = (String) session.getAttribute("signedid");
-		int gNum = Integer.parseInt(request.getParameter("gNum"));
-		System.out.println("gNum"+gNum);
-		BoardDAO dao = new BoardDAOimpl();
-		System.out.println(dao.isOL(signedid, gNum));
-		response.getWriter().append("{"+dao.isOL(signedid, gNum)+"}");
+		
+		if(sPath.equals("/isOL.do")) {
+			int gNum = Integer.parseInt(request.getParameter("gNum"));
+			System.out.println("gNum"+gNum);
+			BoardDAO dao = new BoardDAOimpl();
+			System.out.println(dao.isOL(signedid, gNum));
+			response.getWriter().append("{"+dao.isOL(signedid, gNum)+"}");
+		} else if(sPath.equals("/isSameWriter.do")) {
+			System.out.println(request.getParameter("id"));
+			if(signedid.equals(request.getParameter("id"))) {
+				response.getWriter().append("{t}");
+			}else {
+				response.getWriter().append("{f}");
+			}
+		}
+		
 	}
 
 	/**
