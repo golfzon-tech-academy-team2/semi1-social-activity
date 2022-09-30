@@ -152,9 +152,6 @@ public class BoardJoinDAOimpl implements BoardJoinDAO {
 				vo.setbTitle(rs.getString("bTitle"));
 				vo.setwName(rs.getString("uName"));
 				vo.setwDate(rs.getTimestamp("wDate"));
-				if (rs.next() == true) {
-					break;
-				}
 			}
 			
 		} catch (SQLException e) {

@@ -23,6 +23,9 @@
 <div class="container">
 <button onclick="location.href='createActivity.do?gNum=${param.gnum }'">액티비티 생성하기</button>
 
+  <h2>공지</h2>
+  
+
   <h2>모임</h2>${param.gnum}<h2>의 게시글 목록</h2>        
   <table class="table">
     <thead>
@@ -34,7 +37,7 @@
       </tr>
     </thead>
     <tbody>
-      <c:forEach var="vo" items="${vos}">
+      <c:forEach var="vo" items="${vos[1]}">
         <tr  class="data" onclick="location.href='b_selectOne.do?bNum=${vo.bNum }&gNum=${param.gnum}&tmpBnum=${vo.tmpBnum}'">
             <td>${vo.tmpBnum}</td>
             <td>${vo.bTitle }</td>

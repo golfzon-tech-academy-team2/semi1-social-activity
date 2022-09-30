@@ -38,15 +38,12 @@ public class GatheringInfoController extends HttpServlet {
 			
 			System.out.println(request.getParameter("gnum"));
 			BoardJoinDAO dao = new BoardJoinDAOimpl();
-			List<BoardJoinVO> vos = dao.selectAll(Integer.parseInt(request.getParameter("gnum")));
-			System.out.println("사이즈:"+vos.size());
-			request.setAttribute("vos", vos);
+			List<BoardJoinVO> vo2 = dao.selectAll(Integer.parseInt(request.getParameter("gnum")));
 			
-			BoardJoinVO vo = dao.selectNotice(Integer.parseInt(request.getParameter("gnum")));
-			System.out.println(vo.getbContent());
-			System.out.println(vo.getbNum());
-			System.out.println(vo.getbTitle());
-			System.out.println(vo.getwName());
+			
+			BoardJoinVO vo1 = dao.selectNotice(Integer.parseInt(request.getParameter("gnum")));
+			Object[] vos = {vo1, vo2};
+			request.setAttribute("vos", vos);
 			request.getRequestDispatcher("gathering/gatheringinfo.jsp").forward(request, response);
 		}
 	}
