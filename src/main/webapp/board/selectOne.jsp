@@ -23,34 +23,55 @@ th, td {
 			location = "b_deleteOK.do?bNum=${vo.bNum}&gNum=${param.gNum}";	
 		}
 	}
+	
 </script>
 <script>
 $(function() {
     console.log("ready....");
-
+	var auth = '${vo.isNotice}';
+	console.log(auth);
     $(".modify").on('click',function(){
        console.log("click....");
-       $.ajax({
-          url:"isSameWriter.do?id=${vo.id}",
-          type:"get",
-          dataType:"text",//xml,html,text
-          success : function(responseTxt,status,obj){
-              console.log(responseTxt);
-              console.log(status);
-              console.log(obj);
-              if(responseTxt=="{t}"){
-              	console.log("됨요");
-              	location = "b_update.do?bNum=${param.bNum}&gNum=${param.gNum}";
-              }else{
-              	alert('다른 회원의 글은 수정이 불가능합니다.');
-              	$("input:checkbox[id='isOL']").prop("checked",false);
-              }
-           },
-           error:function(xhr,status,error){
-              console.log("error:function....",status);
-              
-           }
-       });
+       
+       if(auth=="F"){
+    	   $.ajax({
+    	          url:"isSameWriter.do?id=${vo.id}",
+    	          type:"get",
+    	          dataType:"text",//xml,html,text
+    	          success : function(responseTxt,status,obj){
+    	              if(responseTxt=="{t}"){
+    	              	console.log("됨요");
+    	              	location = "b_update.do?bNum=${param.bNum}&gNum=${param.gNum}";
+    	              }else{
+    	              	alert('다른 회원의 글은 수정이 불가능합니다.');
+    	              	$("input:checkbox[id='isOL']").prop("checked",false);
+    	              }
+    	           },
+    	           error:function(xhr,status,error){
+    	              console.log("error:function....",status);
+    	              
+    	           }
+    	       });   
+       }else{
+    	   console.log("공지에용");
+    	   $.ajax({
+ 	          url:"isOL.do?gNum=${param.gNum}",
+ 	          type:"get",
+ 	          dataType:"text",//xml,html,text
+ 	          success : function(responseTxt,status,obj){
+ 	              if(responseTxt=="{1}"){
+ 	              	console.log("됨요");
+ 	              	location = "b_update.do?bNum=${param.bNum}&gNum=${param.gNum}";
+ 	              }else{
+ 	              	alert('멤버는 수정 권한이 없습니다.');
+ 	              }
+ 	           },
+ 	           error:function(xhr,status,error){
+ 	              console.log("error:function....",status);
+ 	              
+ 	           }
+ 	       }); 
+       }
        
     });
  });

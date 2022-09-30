@@ -27,7 +27,6 @@
                 console.log(obj);
                 if(responseTxt=="{1}"){
                 	return !$("input:checkbox[id='isOL']").prop("checked");
-                	console.log()
                 }else{
                 	alert('운영자와 리더만 공지를 작성하실 수 있습니다.');
                 	$("input:checkbox[id='isOL']").prop("checked",false);
