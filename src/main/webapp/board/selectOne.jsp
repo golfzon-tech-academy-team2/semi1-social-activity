@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="js/jquery-3.6.1.min.js" crossorigin="anonymous"></script>
 <style>
 table {
 	width: 100%;
@@ -19,11 +20,61 @@ th, td {
 	function deleteConfirm() {
 
 		if (confirm("삭제 하시겠습니까?")) {
-			location = "b_deleteOK.do?bNum=${vo.bNum}&gNum=${param.gNum}";
-			
+			location = "b_deleteOK.do?bNum=${vo.bNum}&gNum=${param.gNum}";	
 		}
-
 	}
+	
+</script>
+<script>
+$(function() {
+    console.log("ready....");
+	var auth = '${vo.isNotice}';
+	console.log(auth);
+    $(".modify").on('click',function(){
+       console.log("click....");
+       
+       if(auth=="F"){
+    	   $.ajax({
+    	          url:"isSameWriter.do?id=${vo.id}",
+    	          type:"get",
+    	          dataType:"text",//xml,html,text
+    	          success : function(responseTxt,status,obj){
+    	              if(responseTxt=="{t}"){
+    	              	console.log("됨요");
+    	              	location = "b_update.do?bNum=${param.bNum}&gNum=${param.gNum}";
+    	              }else{
+    	              	alert('다른 회원의 글은 수정이 불가능합니다.');
+    	              	$("input:checkbox[id='isOL']").prop("checked",false);
+    	              }
+    	           },
+    	           error:function(xhr,status,error){
+    	              console.log("error:function....",status);
+    	              
+    	           }
+    	       });   
+       }else{
+    	   console.log("공지에용");
+    	   $.ajax({
+ 	          url:"isOL.do?gNum=${param.gNum}",
+ 	          type:"get",
+ 	          dataType:"text",//xml,html,text
+ 	          success : function(responseTxt,status,obj){
+ 	              if(responseTxt=="{1}"){
+ 	              	console.log("됨요");
+ 	              	location = "b_update.do?bNum=${param.bNum}&gNum=${param.gNum}";
+ 	              }else{
+ 	              	alert('멤버는 수정 권한이 없습니다.');
+ 	              }
+ 	           },
+ 	           error:function(xhr,status,error){
+ 	              console.log("error:function....",status);
+ 	              
+ 	           }
+ 	       }); 
+       }
+       
+    });
+ });
 </script>
 </head>
 <body>
@@ -46,8 +97,7 @@ th, td {
 		</tr>
 	</table>
 	<button onclick="location.href='gatheringinfo.do?gnum=${param.gNum}'">목록</button>
-
-	<button  onclick="location.href='b_update.do?bNum=${param.bNum}&gNum=${param.gNum}'">수정</button>
+	<button class="modify">수정</button>
 	<button onclick="deleteConfirm()">삭제</button>
 </body>
 </html>
