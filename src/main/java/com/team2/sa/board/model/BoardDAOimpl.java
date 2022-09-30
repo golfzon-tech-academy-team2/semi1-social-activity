@@ -40,6 +40,7 @@ public class BoardDAOimpl implements BoardDAO {
 			pstmt.setString(2, vo.getbContent());
 			pstmt.setInt(3, vo.getgNum());
 			pstmt.setInt(4, vo.getuNum());
+			pstmt.setString(5, vo.getIsNotice());
 			flag = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -274,6 +275,59 @@ public class BoardDAOimpl implements BoardDAO {
 			}
 		}
 		return uNum;
+	}
+
+	@Override
+	public int isOL(String id, int gNum) {
+		int isL = 0;//1:T, 0:F
+		String tmp = "";
+		try {
+			conn = DriverManager.getConnection(
+					BoardQuery.URL, 
+					BoardQuery.USER, 
+					BoardQuery.PASSWORD);
+			pstmt = conn.prepareStatement(BoardQuery.ISLEADER);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, gNum);
+			rs = pstmt.executeQuery();//������ ���� ���
+			
+			while(rs.next()){
+				tmp = rs.getString("roll");
+				
+			}
+			System.out.println(tmp);
+			if(tmp.equals("O") || tmp.equals("L")) {
+				isL = 1;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return isL;
 	}
 
 }

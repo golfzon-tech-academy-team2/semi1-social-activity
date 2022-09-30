@@ -4,11 +4,48 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>Insert title here</title>
+<script src="js/jquery-3.6.1.min.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+   $(function() {
+      console.log("ready....");
+
+      $(".test").on('click',function(){
+         console.log("click....");
+         $.ajax({
+            url:"isOL.do?gNum=${param.gNum}",
+            type:"get",
+            dataType:"text",//xml,html,text
+            success : function(responseTxt,status,obj){
+                console.log(responseTxt);
+                console.log(status);
+                console.log(obj);
+                if(responseTxt=="{1}"){
+                	return !$("input:checkbox[id='isOL']").prop("checked");
+                	console.log()
+                }else{
+                	alert('운영자와 리더만 공지를 작성하실 수 있습니다.');
+                	$("input:checkbox[id='isOL']").prop("checked",false);
+                }
+             },
+             error:function(xhr,status,error){
+                console.log("error:function....",status);
+                
+             }
+         });
+         
+      });
+   });
+   
+   if(document.getElementById("isOL").checked){
+	   document.getElementById("isOL_hidden").disabled=true;
+   }
+</script>
 </head> 
 <body>
 <h3>게시글 입력하숑~</h3>
@@ -21,8 +58,15 @@
       <label for="comment">게시글 내용:</label>
       <textarea class="form-control" rows="5" id="bContent" name="bContent"></textarea>
     </div>
+    <input type="checkbox"id="isOL" class="test" name="isNotice" value='T'><span>공지로 작성</span>
+    <input type="hidden" name="isNotice" value='F' id="isOL_hidden"/>
+    <br>
     <button type="submit" class="btn btn-primary">작성 완료</button>
   </form>
+  
+  
+  
+      
 </div>
 </body>
 </html>

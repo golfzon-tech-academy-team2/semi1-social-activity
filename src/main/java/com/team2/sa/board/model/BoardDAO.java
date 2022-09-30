@@ -9,5 +9,6 @@ public interface BoardDAO {
 	public List<BoardVO> selectAll(int gNum);
 	public List<BoardVO> searchList(String searchKey, String searchWord);
 	public int findUnum(String id);
+	public int isOL(String id, int gNum);
 
 }
