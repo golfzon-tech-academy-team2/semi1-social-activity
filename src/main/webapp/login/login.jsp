@@ -7,6 +7,12 @@
 <meta charset="UTF-8">
 <title>로그인</title>
 <script>
+	function enterPressed(e) {
+		if (e.keyCode == 13) {
+			login();
+		}
+	}
+
 	function login() {
 		var signinForm = document.signin;
 		var id = signinForm.id.value;
@@ -37,7 +43,7 @@
 			<tr>
 				<td><label for="pw">PW:</label></td>
 				<td><input type="password" placeholder="PW" id="pw" name="pw"
-					value=""></td>
+					value="" onkeypress="enterPressed(event)"></td>
 			</tr>
 			<tr>
 				<td></td>

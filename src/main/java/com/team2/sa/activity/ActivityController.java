@@ -1,6 +1,7 @@
 package com.team2.sa.activity;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import com.team2.sa.signup.UserinfoVO;
  * Servlet implementation class ActivityController
  */
 @WebServlet({"/createActivity.do", "/creActOK.do", "/activityInfo.do",
-		"/a_searchList.do", "/a_searchListOK.do", "/deleteActivity.do"})
+		"/a_searchList.do", "/a_searchListOK.do", "/deleteActivity.do", "/joinActivity.do", "/modifyActivity.do", "/modActOK.do"})
 public class ActivityController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -91,6 +92,39 @@ public class ActivityController extends HttpServlet {
 			
 			request.setAttribute("today", date);
 			request.getRequestDispatcher("mypage/mypage.jsp").forward(request, response);
+		} else if (sPath.equals("/joinActivity.do")) {
+			request.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			HttpSession session = request.getSession();
+			ActivityDAO dao = new ActivityDAOimpl();
+			int checkGathering = dao.checkGathering(Integer.parseInt(request.getParameter("aNum")), (String) session.getAttribute("signedid"));
+			if (checkGathering == 0) {
+				int gNum = dao.getGnum(Integer.parseInt(request.getParameter("aNum")));
+				out.println("<script>");
+				out.println("alert('모임에 먼저 가입해야합니다');");
+				out.println("location='joinPubGathering.do?gNum=" + gNum + "';");
+				out.println("</script>");
+				out.close();
+			} else {
+				int checkActivity = dao.checkActivity(Integer.parseInt(request.getParameter("aNum")), (String) session.getAttribute("signedid"));
+				if (checkActivity == 0) { //가입 안되어있으면
+					dao.signUpActivity(Integer.parseInt(request.getParameter("aNum")), (String) session.getAttribute("signedid"));
+					out.println("<script>");
+					out.println("alert('액티비티 가입을 완료하였습니다');");
+					out.println("location='activityInfo.do?aNum=" + request.getParameter("aNum") + "';");
+					out.println("</script>");
+					out.close();
+				}
+			}
+		} else if (sPath.equals("/modifyActivity.do")) {
+			ActivityDAO dao = new ActivityDAOimpl();
+			ActivityVO vo = dao.selectOne(Integer.parseInt(request.getParameter("aNum")));
+			request.setAttribute("vo", vo);
+			Date date = new Date(System.currentTimeMillis());
+
+			request.setAttribute("today", date);
+			request.getRequestDispatcher("activity/modifyActivity.jsp").forward(request, response);
 		}
 	}
 
@@ -144,6 +178,25 @@ public class ActivityController extends HttpServlet {
 			request.setAttribute("today", date);
 			
 			request.getRequestDispatcher("activity/a_searchListOK.jsp").forward(request, response);
+		} else if (sPath.equals("/modActOK.do")) {
+			request.setCharacterEncoding("UTF-8");
+			ActivityVO vo = new ActivityVO();
+			vo.setaNum(Integer.parseInt(request.getParameter("aNum")));
+			vo.setaName(request.getParameter("aName"));
+			vo.setaContent(request.getParameter("aContent"));
+			vo.setaStartDay(Date.valueOf(request.getParameter("aStartDay")));
+			vo.setaEndDay(Date.valueOf(request.getParameter("aEndDay")));
+			vo.setLocation(request.getParameter("location"));
+			vo.setStartDate(Date.valueOf(request.getParameter("startDate")));
+			vo.setEndDate(Date.valueOf(request.getParameter("endDate")));
+			vo.setMinAge(Integer.parseInt(request.getParameter("minAge")));
+			vo.setMaxAge(Integer.parseInt(request.getParameter("maxAge")));
+			vo.setSex(request.getParameter("sex"));
+			vo.setMaxPerson(Integer.parseInt(request.getParameter("maxPerson")));
+			
+			dao.update(vo);
+			
+			response.sendRedirect("activityInfo.do?aNum=" + request.getParameter("aNum"));
 		}
 	}
 

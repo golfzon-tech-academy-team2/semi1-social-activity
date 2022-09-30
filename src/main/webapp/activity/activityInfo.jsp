@@ -31,6 +31,20 @@
 			location.href = "deleteActivity.do?aNum=" + ${vo.aNum};
 		}
 	}
+	
+	function joinActivity() {
+		if (!confirm("액티비티에 가입하시겠습니까? 확인 시 액티비티에 바로 가입 신청 됩니다")) {
+		} else {
+			location.href = "joinActivity.do?aNum=" + ${vo.aNum};
+		}
+	}
+	
+	function modifyActivity() {
+		if (!confirm("액티비티를 수정하시겠습니까?")) {
+		} else {
+			location.href = "modifyActivity.do?aNum=" + ${vo.aNum};
+		}	
+	}
 </script>
 </head>
 <body>
@@ -38,6 +52,7 @@
 	<hr>
 	
 	<input type="button" id="joinActivity" name="joinActivity" value="액티비티 가입하기" onclick="joinActivity()">
+	
 	<h3>${vo.aName} 액티비티 정보</h3>
 	
 	<table>
@@ -146,5 +161,6 @@
 	<hr>
 	
 	<input type="button" id="deleteActivity" name="deleteActivity" onclick="deleteActivity()" value="액티비티 삭제하기">
+	<input type="button" id="modifyActivity" name="modifyActivity" onclick="modifyActivity()" value="액티비티 수정하기">
 </body>
 </html>
