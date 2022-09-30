@@ -101,6 +101,57 @@ public class BoardJoinDAOimpl implements BoardJoinDAO {
 				vo.setbTitle(rs.getString("bTitle"));
 				vo.setwName(rs.getString("uName"));
 				vo.setwDate(rs.getTimestamp("wDate"));
+
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return vo;
+	}
+
+	@Override
+	public BoardJoinVO selectNotice(int gNum) {
+		BoardJoinVO vo = new BoardJoinVO();
+		try {
+			conn = DriverManager.getConnection(
+					BoardQuery.URL, 
+					BoardQuery.USER, 
+					BoardQuery.PASSWORD);
+			pstmt = conn.prepareStatement(BoardQuery.SHOWNOTICE);
+			pstmt.setInt(1, gNum);
+			rs = pstmt.executeQuery();//������ ���� ���
+			
+			while(rs.next()){
+				vo.setbNum(rs.getInt("bNum"));
+				vo.setbContent(rs.getString("bContent"));
+				vo.setbTitle(rs.getString("bTitle"));
+				vo.setwName(rs.getString("uName"));
+				vo.setwDate(rs.getTimestamp("wDate"));
 			}
 			
 		} catch (SQLException e) {

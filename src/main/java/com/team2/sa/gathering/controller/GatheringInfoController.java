@@ -34,11 +34,15 @@ public class GatheringInfoController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String sPath = request.getServletPath();
-		if(sPath.equals("/gatheringinfo.do")) {//selectAll추가
+		if(sPath.equals("/gatheringinfo.do")) {
+			
 			System.out.println(request.getParameter("gnum"));
 			BoardJoinDAO dao = new BoardJoinDAOimpl();
-			List<BoardJoinVO> vos = dao.selectAll(Integer.parseInt(request.getParameter("gnum")));
-			System.out.println("사이즈:"+vos.size());
+			List<BoardJoinVO> vo2 = dao.selectAll(Integer.parseInt(request.getParameter("gnum")));
+			
+			
+			BoardJoinVO vo1 = dao.selectNotice(Integer.parseInt(request.getParameter("gnum")));
+			Object[] vos = {vo1, vo2};
 			request.setAttribute("vos", vos);
 			request.getRequestDispatcher("gathering/gatheringinfo.jsp").forward(request, response);
 		}
