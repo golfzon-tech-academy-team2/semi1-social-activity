@@ -334,4 +334,192 @@ public class ActivityDAOimpl implements ActivityDAO {
 		}
 	}
 
+	@Override
+	public int checkGathering(int aNum, String id) {
+
+		int result = -1;
+		try {
+			Class.forName(MypageQuery.DRIVER_NAME);
+			System.out.println("Driver successed..");
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			conn = DriverManager.getConnection(MypageQuery.URL, MypageQuery.USER, MypageQuery.PASSWORD);
+//			System.out.println("conn successed...");
+			//DQL
+			pstmt = conn.prepareStatement(ActivityQuery.SQL_CHECK_GATHERING);
+			pstmt.setInt(1, aNum);
+			pstmt.setString(2, id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				result = rs.getInt("checkGathering");
+				if (rs.next() == true) {
+					break;
+				}
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public int getGnum(int aNum) {
+		int result = -1;
+		try {
+			Class.forName(MypageQuery.DRIVER_NAME);
+			System.out.println("Driver successed..");
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			conn = DriverManager.getConnection(MypageQuery.URL, MypageQuery.USER, MypageQuery.PASSWORD);
+//			System.out.println("conn successed...");
+			//DQL
+			pstmt = conn.prepareStatement(ActivityQuery.SQL_GETGNUM);
+			pstmt.setInt(1, aNum);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				result = rs.getInt("gNum");
+				if (rs.next() == true) {
+					break;
+				}
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public int checkActivity(int aNum, String id) {
+		int result = -1;
+		try {
+			Class.forName(MypageQuery.DRIVER_NAME);
+			System.out.println("Driver successed..");
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			conn = DriverManager.getConnection(MypageQuery.URL, MypageQuery.USER, MypageQuery.PASSWORD);
+//			System.out.println("conn successed...");
+			//DQL
+			pstmt = conn.prepareStatement(ActivityQuery.SQL_CHECK_ACTIVITY);
+			pstmt.setInt(1, aNum);
+			pstmt.setString(2, id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				result = rs.getInt("checkActivity");
+				if (rs.next() == true) {
+					break;
+				}
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public void signUpActivity(int aNum, String id) {
+		try {
+			Class.forName(MypageQuery.DRIVER_NAME);
+			System.out.println("Driver successed..");
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			conn = DriverManager.getConnection(MypageQuery.URL, MypageQuery.USER, MypageQuery.PASSWORD);
+//			System.out.println("conn successed...");
+			//DQL
+			pstmt = conn.prepareStatement(ActivityQuery.SQL_SIGNUP_ACTIVITY);
+			pstmt.setInt(1, aNum);
+			pstmt.setString(2, id);
+			rs = pstmt.executeQuery();
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void update(ActivityVO vo) {
+		try {
+			Class.forName(SignupQuery.DRIVER_NAME);
+			System.out.println("Driver successed..");
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			conn = DriverManager.getConnection(ActivityQuery.URL, ActivityQuery.USER, ActivityQuery.PASSWORD);
+			System.out.println("conn successed...");
+
+			pstmt = conn.prepareStatement(ActivityQuery.SQL_UPDATE);
+			pstmt.setString(1, vo.getaName());
+			pstmt.setString(2, vo.getaContent());
+			pstmt.setDate(3, vo.getaStartDay());
+			pstmt.setDate(4, vo.getaEndDay());
+			pstmt.setString(5, vo.getLocation());
+			pstmt.setDate(6, vo.getStartDate());
+			pstmt.setDate(7, vo.getEndDate());
+			pstmt.setInt(8, vo.getMinAge());
+			pstmt.setInt(9, vo.getMaxAge());
+			pstmt.setString(10, vo.getSex());
+			pstmt.setInt(11, vo.getMaxPerson());
+			pstmt.setInt(12, vo.getaNum());
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
 }

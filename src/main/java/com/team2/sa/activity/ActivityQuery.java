@@ -20,4 +20,12 @@ public interface ActivityQuery {
 	String SQL_SEARCH_O = "select * from activity where sex=? and location like ? minage <= ? and maxage >= ? order by aNum desc";
 	String SQL_DELETE_ACTIVITY = "delete from activity where anum = ?";
 	String SQL_DELETE_ACTIVITYUSERINFO = "delete from activityuserinfo where anum = ?";
+	String SQL_CHECK_GATHERING = "select count(gnum) as \"checkGathering\" from gatheringuserinfo where "
+			+ "gnum = (select gnum from activity where anum = ?) and "
+			+ "unum = (select unum from userinfo where id = ?)";
+	String SQL_GETGNUM = "select gnum from activity where anum = ?";
+	String SQL_CHECK_ACTIVITY = "select count(anum) \"checkActivity\" from activityuserinfo where anum=? and "
+			+ "unum = (select unum from userinfo where id=?)";
+	String SQL_SIGNUP_ACTIVITY = "insert into activityuserinfo(anum, unum) values(?, (select unum from userinfo where id=?))";
+	String SQL_UPDATE = "update activity set aname=?, acontent=?, astartday=?, aendday=?, location=?, startdate=?, enddate=?, minage=?, maxage=?, sex=?, maxperson=? where anum=?";
 }

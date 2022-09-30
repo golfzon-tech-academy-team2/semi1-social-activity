@@ -19,4 +19,14 @@ public interface ActivityDAO {
 
 	public void deleteActivity(int aNum);
 
+	public int checkGathering(int aNum, String id);
+
+	public int getGnum(int aNum);
+
+	public int checkActivity(int aNum, String id);
+
+	public void signUpActivity(int aNum, String id);
+
+	public void update(ActivityVO vo);
+
 }

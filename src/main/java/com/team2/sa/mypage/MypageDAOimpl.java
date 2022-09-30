@@ -1,19 +1,15 @@
 package com.team2.sa.mypage;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.team2.sa.activity.ActivityDAO;
 import com.team2.sa.activity.ActivityDAOimpl;
 import com.team2.sa.activity.ActivityInhereted;
-import com.team2.sa.activity.ActivityVO;
-import com.team2.sa.gathering.model.GatheringVO;
 import com.team2.sa.signup.UserinfoVO;
 
 public class MypageDAOimpl implements MypageDAO {
