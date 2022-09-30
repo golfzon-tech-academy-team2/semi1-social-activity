@@ -2,7 +2,6 @@ package com.team2.sa.activity;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.team2.sa.event.EventDAO;
-import com.team2.sa.event.EventDAOimpl;
 import com.team2.sa.event.EventVO;
 import com.team2.sa.gathering.model.GatheringVO;
 import com.team2.sa.mypage.MyGatheringInherited;
@@ -129,6 +126,7 @@ public class ActivityController extends HttpServlet {
 			vo.setMaxPerson(Integer.parseInt(request.getParameter("maxPerson")));
 
 			HttpSession session = request.getSession();
+			System.out.println("hmm");
 			dao.insert(vo, (String) session.getAttribute("signedid"));
 			
 			response.sendRedirect("gatheringinfo.do?gnum=" + request.getParameter("gNum"));

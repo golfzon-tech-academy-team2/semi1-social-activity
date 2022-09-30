@@ -15,6 +15,6 @@ public interface MypageQuery {
 	String SQL_SIGNOUT = "delete from userinfo where id=?";
 	String SQL_MYGATHERING = "select roll, g.gnum, gname, gcontent, logo, minage, maxage, sex from gatheringuserinfo ginfo left join gathering g"
 			+ " on ginfo.gnum = g.gnum where unum=(select unum from userinfo where id=?)";
-	String SQL_MYACTIVITY = "select a.gnum, a.anum, aname, acontent, location, astartday, aendday, startdate, enddate, personcnt, isend, minage, maxage, sex, maxperson from activityuserinfo ainfo left join activity a"
+	String SQL_MYACTIVITY = "select a.gnum, a.anum, aname, acontent, location, astartday, aendday, startdate, enddate, personcnt, minage, maxage, sex, maxperson from activityuserinfo ainfo left join activity a"
 			+ " on ainfo.anum = a.anum where ainfo.unum=(select unum from userinfo where id=?)";
 }

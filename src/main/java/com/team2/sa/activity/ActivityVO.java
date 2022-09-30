@@ -15,7 +15,6 @@ public class ActivityVO {
 	private Date startDate;
 	private Date endDate;
 	private int personCnt;
-	private String isEnd;
 	private int minAge;
 	private int maxAge;
 	private String sex;
@@ -25,7 +24,7 @@ public class ActivityVO {
 	}
 
 	public ActivityVO(int gNum, int aNum, String aName, String aContent, Date aStartDay, Date aEndDay, String location,
-			Date startDate, Date endDate, int personCnt, String isEnd, int minAge, int maxAge, String sex,
+			Date startDate, Date endDate, int personCnt, int minAge, int maxAge, String sex,
 			int maxPerson) {
 		super();
 		this.gNum = gNum;
@@ -38,7 +37,6 @@ public class ActivityVO {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.personCnt = personCnt;
-		this.isEnd = isEnd;
 		this.minAge = minAge;
 		this.maxAge = maxAge;
 		this.sex = sex;
@@ -124,15 +122,7 @@ public class ActivityVO {
 	public void setPersonCnt(int personCnt) {
 		this.personCnt = personCnt;
 	}
-
-	public String getIsEnd() {
-		return isEnd;
-	}
-
-	public void setIsEnd(String isEnd) {
-		this.isEnd = isEnd;
-	}
-
+	
 	public int getMinAge() {
 		return minAge;
 	}
@@ -167,8 +157,16 @@ public class ActivityVO {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(aContent, aEndDay, aName, aNum, aStartDay, endDate, gNum, isEnd, location, maxAge,
-				maxPerson, minAge, personCnt, sex, startDate);
+		return Objects.hash(aContent, aEndDay, aName, aNum, aStartDay, endDate, gNum, location, maxAge, maxPerson,
+				minAge, personCnt, sex, startDate);
+	}
+
+	@Override
+	public String toString() {
+		return "ActivityVO [gNum=" + gNum + ", aNum=" + aNum + ", aName=" + aName + ", aContent=" + aContent
+				+ ", aStartDay=" + aStartDay + ", aEndDay=" + aEndDay + ", location=" + location + ", startDate="
+				+ startDate + ", endDate=" + endDate + ", personCnt=" + personCnt + ", minAge=" + minAge + ", maxAge="
+				+ maxAge + ", sex=" + sex + ", maxPerson=" + maxPerson + "]";
 	}
 
 	@Override
@@ -183,19 +181,9 @@ public class ActivityVO {
 		return Objects.equals(aContent, other.aContent) && Objects.equals(aEndDay, other.aEndDay)
 				&& Objects.equals(aName, other.aName) && aNum == other.aNum
 				&& Objects.equals(aStartDay, other.aStartDay) && Objects.equals(endDate, other.endDate)
-				&& gNum == other.gNum && Objects.equals(isEnd, other.isEnd) && Objects.equals(location, other.location)
-				&& maxAge == other.maxAge && maxPerson == other.maxPerson && minAge == other.minAge
-				&& personCnt == other.personCnt && Objects.equals(sex, other.sex)
-				&& Objects.equals(startDate, other.startDate);
+				&& gNum == other.gNum && Objects.equals(location, other.location) && maxAge == other.maxAge
+				&& maxPerson == other.maxPerson && minAge == other.minAge && personCnt == other.personCnt
+				&& Objects.equals(sex, other.sex) && Objects.equals(startDate, other.startDate);
 	}
 
-	@Override
-	public String toString() {
-		return "ActivityVO [gNum=" + gNum + ", aNum=" + aNum + ", aName=" + aName + ", aContent=" + aContent
-				+ ", aStartDay=" + aStartDay + ", aEndDay=" + aEndDay + ", location=" + location + ", startDate="
-				+ startDate + ", endDate=" + endDate + ", personCnt=" + personCnt + ", isEnd=" + isEnd + ", minAge="
-				+ minAge + ", maxAge=" + maxAge + ", sex=" + sex + ", maxPerson=" + maxPerson + "]";
-	}
-	
-	
 }

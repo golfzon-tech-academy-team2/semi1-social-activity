@@ -3,7 +3,6 @@ package com.team2.sa.mypage;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.team2.sa.activity.ActivityInhereted;
-import com.team2.sa.activity.ActivityVO;
-import com.team2.sa.gathering.model.GatheringVO;
 import com.team2.sa.signup.UserinfoVO;
 
 /**
@@ -87,7 +84,7 @@ public class MypageController extends HttpServlet {
 				List<ActivityInhereted> vosAct = dao.myactivity((String) session.getAttribute("signedid"));
 				request.setAttribute("myactivity", vosAct);
 				Date date = new Date(System.currentTimeMillis());
-				
+
 				request.setAttribute("today", date);
 				
 				request.getRequestDispatcher("mypage/mypage.jsp").forward(request, response);
