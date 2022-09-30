@@ -15,14 +15,14 @@ import com.team2.sa.board.model.BoardDAOimpl;
 /**
  * Servlet implementation class IsLeaderController
  */
-@WebServlet("/isOperator.do")
-public class IsOperatorController extends HttpServlet {
+@WebServlet("/isOL.do")
+public class IsOperatorLeaderController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IsOperatorController() {
+    public IsOperatorLeaderController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,8 +39,8 @@ public class IsOperatorController extends HttpServlet {
 		int gNum = Integer.parseInt(request.getParameter("gNum"));
 		System.out.println("gNum"+gNum);
 		BoardDAO dao = new BoardDAOimpl();
-		System.out.println(dao.isOperator(signedid, gNum));
-		response.getWriter().append("{"+dao.isOperator(signedid, gNum)+"}");
+		System.out.println(dao.isOL(signedid, gNum));
+		response.getWriter().append("{"+dao.isOL(signedid, gNum)+"}");
 	}
 
 	/**

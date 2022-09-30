@@ -277,7 +277,7 @@ public class BoardDAOimpl implements BoardDAO {
 	}
 
 	@Override
-	public int isOperator(String id, int gNum) {
+	public int isOL(String id, int gNum) {
 		int isL = 0;//1:T, 0:F
 		String tmp = "";
 		try {
@@ -295,7 +295,7 @@ public class BoardDAOimpl implements BoardDAO {
 				
 			}
 			System.out.println(tmp);
-			if(tmp.equals("O")) {
+			if(tmp.equals("O") || tmp.equals("L")) {
 				isL = 1;
 			}
 			

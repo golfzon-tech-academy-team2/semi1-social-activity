@@ -9,6 +9,6 @@ public interface BoardDAO {
 	public List<BoardVO> selectAll(int gNum);
 	public List<BoardVO> searchList(String searchKey, String searchWord);
 	public int findUnum(String id);
-	public int isOperator(String id, int gNum);
+	public int isOL(String id, int gNum);
 
 }

@@ -18,7 +18,7 @@
       $(".test").on('click',function(){
          console.log("click....");
          $.ajax({
-            url:"isOperator.do?gNum=${param.gNum}",
+            url:"isOL.do?gNum=${param.gNum}",
             type:"get",
             dataType:"text",//xml,html,text
             success : function(responseTxt,status,obj){
@@ -26,11 +26,11 @@
                 console.log(status);
                 console.log(obj);
                 if(responseTxt=="{1}"){
-                	return !$("input:checkbox[id='isOperator']").prop("checked");
+                	return !$("input:checkbox[id='isOL']").prop("checked");
                 	console.log()
                 }else{
-                	alert('운영자가 아닙니다');
-                	$("input:checkbox[id='isOperator']").prop("checked",false);
+                	alert('운영자와 리더만 공지를 작성하실 수 있습니다.');
+                	$("input:checkbox[id='isOL']").prop("checked",false);
                 }
              },
              error:function(xhr,status,error){
@@ -54,7 +54,7 @@
       <label for="comment">게시글 내용:</label>
       <textarea class="form-control" rows="5" id="bContent" name="bContent"></textarea>
     </div>
-    <input type="checkbox"id="isOperator" class="test"><span>공지로 작성</span>
+    <input type="checkbox"id="isOL" class="test"><span>공지로 작성</span>
     <br>
     <button type="submit" class="btn btn-primary">작성 완료</button>
   </form>
