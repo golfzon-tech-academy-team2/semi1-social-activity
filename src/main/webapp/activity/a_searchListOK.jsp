@@ -24,11 +24,11 @@
 			<th>활동 지역</th>
 			<th>모집 시작 날짜</th>
 			<th>모집 마감 날짜</th>
-			<th>현재 모집 인원</th>
-			<th>모집 최소 나이</th>
-			<th>모집 최대 나이</th>
-			<th>성별</th>
+			<th>현재 인원</th>
 			<th>최대 인원</th>
+			<th>최소나이</th>
+			<th>최대나이</th>
+			<th>성별</th>
 			<th>활동 상태</th>
 		</tr>
 		<c:forEach var="vo" items="${vos}">
@@ -41,10 +41,20 @@
             <td>${vo.startDate }</td>
             <td>${vo.endDate }</td>
             <td>${vo.personCnt }</td>
+            <td>${vo.maxPerson }</td>
             <td>${vo.minAge }</td>
             <td>${vo.maxAge }</td>
-            <td>${vo.sex }</td>
-            <td>${vo.maxPerson }</td>
+            <c:choose>
+            	<c:when test="${vo.sex == 'X'}">
+            		<td>상관없음</td>
+            	</c:when>
+            	<c:when test="${vo.sex == 'M'}">
+            		<td>남자</td>
+            	</c:when>
+            	<c:otherwise>
+            		<td>여자</td>
+            	</c:otherwise>
+            </c:choose>
             <fmt:formatDate var="today2" value="${today}" pattern="yyyy-MM-dd"/>
             <c:if test="${today2 lt vo.aStartDay }">
             	<td>활동 전</td>
@@ -55,7 +65,14 @@
             <c:if test="${today2 gt vo.aEndDay }">
             	<td>활동 후</td>
             </c:if>
-            <td><a href="activityInfo.do?aNum=${vo.aNum }">상세 보기</a></td>
+            <c:choose>
+            	<c:when test="${signedid eq null}">
+            		<td><a href="login.do">상세 보기</a></td>
+            	</c:when> 
+            	<c:otherwise>
+            		<td><a href="activityInfo.do?aNum=${vo.aNum }">상세 보기</a></td>
+            	</c:otherwise>
+            </c:choose>
         </tr>
 	</c:forEach>
 	</table>

@@ -457,6 +457,11 @@ public class ActivityDAOimpl implements ActivityDAO {
 			pstmt.setString(2, id);
 			rs = pstmt.executeQuery();
 			
+			pstmt = conn.prepareStatement(ActivityQuery.SQL_ADD_PERSONCNT);
+			pstmt.setInt(1, aNum);
+			pstmt.setInt(2, aNum);
+			rs = pstmt.executeQuery();
+			
 			rs.close();
 			pstmt.close();
 			conn.close();
@@ -520,6 +525,76 @@ public class ActivityDAOimpl implements ActivityDAO {
 				}
 			}
 		}
+	}
+
+	@Override
+	public int checkLeader(int aNum, String id) {
+		int result = -1;
+		try {
+			Class.forName(MypageQuery.DRIVER_NAME);
+			System.out.println("Driver successed..");
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			conn = DriverManager.getConnection(MypageQuery.URL, MypageQuery.USER, MypageQuery.PASSWORD);
+//			System.out.println("conn successed...");
+			//DQL
+			pstmt = conn.prepareStatement(ActivityQuery.SQL_CHECK_LEADER);
+			pstmt.setInt(1, aNum);
+			pstmt.setString(2, id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				result = rs.getInt("checkLeader");
+				if (rs.next() == true) {
+					break;
+				}
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public int getGatheringUserNum(int gNum) {
+
+		int result = -1;
+		try {
+			Class.forName(MypageQuery.DRIVER_NAME);
+			System.out.println("Driver successed..");
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			conn = DriverManager.getConnection(MypageQuery.URL, MypageQuery.USER, MypageQuery.PASSWORD);
+//			System.out.println("conn successed...");
+			//DQL
+			pstmt = conn.prepareStatement(ActivityQuery.SQL_GET_G_USER_NUM);
+			pstmt.setInt(1, gNum);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				result = rs.getInt("number");
+				if (rs.next() == true) {
+					break;
+				}
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }

@@ -48,10 +48,18 @@
 </script>
 </head>
 <body>
+	<fmt:formatDate var="today" value="${today }" pattern="yyyy-MM-dd"/>
 	<a href="index.do">홈</a>
 	<hr>
 	
-	<input type="button" id="joinActivity" name="joinActivity" value="액티비티 가입하기" onclick="joinActivity()">
+	<c:if test="${today <= vo.endDate && today >= vo.startDate}">
+		<c:if test="${checkActivity == 0 }">
+			<c:if test="${vo.personCnt != vo.maxPerson }">
+				<input type="button" id="joinActivity" name="joinActivity"
+					value="액티비티 가입하기" onclick="joinActivity()">
+			</c:if>
+		</c:if>
+	</c:if>
 	
 	<h3>${vo.aName} 액티비티 정보</h3>
 	
@@ -86,7 +94,6 @@
 		</tr>
 		<tr>
 			<td>모집 종료 여부 : </td>
-			<fmt:formatDate var="today" value="${today }" pattern="yyyy-MM-dd"/>
 			<c:if test="${today gt vo.endDate}">
 				<td>모집 종료</td>
 			</c:if>
@@ -118,13 +125,19 @@
 			</c:if>
 		</tr>
 		<tr>
+			<td>현재 가입 인원 수 : </td>
+			<td>${vo.personCnt }</td>
+		</tr>
+		<tr>
 			<td>최대 인원 수 : </td>
 			<td>${vo.maxPerson }</td>
 		</tr>
 		
 	</table>
 	
-	<p><a href="javascript:createEvent()">이벤트 생성</a></p>
+	<c:if test="${checkLeader == 1 }">
+		<p><a href="javascript:createEvent()">이벤트 생성</a></p>
+	</c:if>
 	
 	<hr>
 	
@@ -160,7 +173,10 @@
 	
 	<hr>
 	
-	<input type="button" id="deleteActivity" name="deleteActivity" onclick="deleteActivity()" value="액티비티 삭제하기">
-	<input type="button" id="modifyActivity" name="modifyActivity" onclick="modifyActivity()" value="액티비티 수정하기">
+	<c:if test="${checkLeader == 1 }">
+		<input type="button" id="deleteActivity" name="deleteActivity" onclick="deleteActivity()" value="액티비티 삭제하기">
+		<input type="button" id="modifyActivity" name="modifyActivity" onclick="modifyActivity()" value="액티비티 수정하기">
+	</c:if>
+	
 </body>
 </html>

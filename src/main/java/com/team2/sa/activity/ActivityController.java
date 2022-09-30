@@ -50,8 +50,12 @@ public class ActivityController extends HttpServlet {
 			
 			request.setAttribute("vo", vo);
 			Date date = new Date(System.currentTimeMillis());
-
+			
 			request.setAttribute("today", date);
+			
+			int gatheringUserNum = dao.getGatheringUserNum(Integer.parseInt(gNum));
+			
+			request.setAttribute("gatheringUserNum", gatheringUserNum);
 			
 			request.getRequestDispatcher("activity/createActivity.jsp").forward(request, response);
 		} else if(sPath.equals("/activityInfo.do")) {
@@ -59,6 +63,17 @@ public class ActivityController extends HttpServlet {
 			ActivityVO vo = dao.selectOne(Integer.parseInt(request.getParameter("aNum")));
 			
 			request.setAttribute("vo", vo);
+			
+			HttpSession session = request.getSession();
+			
+			int checkActivity = dao.checkActivity(Integer.parseInt(request.getParameter("aNum")), (String) session.getAttribute("signedid"));
+			
+			request.setAttribute("checkActivity", checkActivity);
+//			
+			int checkLeader = dao.checkLeader(Integer.parseInt(request.getParameter("aNum")), (String) session.getAttribute("signedid"));
+			
+			request.setAttribute("checkLeader", checkLeader);
+			
 			Date date = new Date(System.currentTimeMillis());
 
 			request.setAttribute("today", date);
@@ -124,6 +139,10 @@ public class ActivityController extends HttpServlet {
 			Date date = new Date(System.currentTimeMillis());
 
 			request.setAttribute("today", date);
+			
+			int gatheringUserNum = dao.getGatheringUserNum(dao.getGnum(Integer.parseInt(request.getParameter("aNum"))));
+			request.setAttribute("gatheringUserNum", gatheringUserNum);
+			
 			request.getRequestDispatcher("activity/modifyActivity.jsp").forward(request, response);
 		}
 	}
