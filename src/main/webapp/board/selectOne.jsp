@@ -16,13 +16,58 @@ th, td {
 	border: 1px solid #444444;
 }
 </style>
-<script type="text/javascript">
-	function deleteConfirm() {
-
-		if (confirm("삭제 하시겠습니까?")) {
-			location = "b_deleteOK.do?bNum=${vo.bNum}&gNum=${param.gNum}";	
-		}
-	}
+<script>
+$(function() {
+    console.log("ready....");
+	var auth = '${vo.isNotice}';
+	console.log(auth);
+    $(".delete").on('click',function(){
+       console.log("click....");
+       
+       if(auth=="T"){//공지글의 경우
+    	   $.ajax({
+    	          url:"isOL.do?gNum=${param.gNum}",
+    	          type:"get",
+    	          dataType:"text",//xml,html,text
+    	          success : function(responseTxt,status,obj){
+    	              if(responseTxt=="{1}"){//운영자/리더가 글을 지우려는 경우
+    	              	console.log("운영자/리더입니다.");
+    	              	if (confirm("삭제 하시겠습니까?")) {
+    	    				location = "b_deleteOK.do?bNum=${vo.bNum}&gNum=${param.gNum}";	
+    	    			}
+    	              }else{
+    	              	alert('공지를 삭제할 권한이 없습니다.');
+    	              }
+    	           },
+    	           error:function(xhr,status,error){
+    	              console.log("error:function....",status);
+    	              
+    	           }
+    	       });   
+       }else{//게시글의 경우
+    	   console.log("게시글입니다.");
+    	   $.ajax({
+ 	          url:"isSameWriter.do?id=${vo.id}",
+ 	          type:"get",
+ 	          dataType:"text",//xml,html,text
+ 	          success : function(responseTxt,status,obj){
+ 	              if(responseTxt=="{t}"){
+ 	            	 if (confirm("삭제 하시겠습니까?")) {
+ 	    				location = "b_deleteOK.do?bNum=${vo.bNum}&gNum=${param.gNum}";	
+ 	    			}
+ 	              }else{
+ 	              	alert('본인의 글만 삭제가 가능합니다.');
+ 	              }
+ 	           },
+ 	           error:function(xhr,status,error){
+ 	              console.log("error:function....",status);
+ 	              
+ 	           }
+ 	       }); 
+       }
+       
+    });
+ });
 	
 </script>
 <script>
@@ -98,6 +143,6 @@ $(function() {
 	</table>
 	<button onclick="location.href='gatheringinfo.do?gnum=${param.gNum}'">목록</button>
 	<button class="modify">수정</button>
-	<button onclick="deleteConfirm()">삭제</button>
+	<button class="delete">삭제</button>
 </body>
 </html>
