@@ -41,6 +41,10 @@
          
       });
    });
+   
+   if(document.getElementById("isOL").checked){
+	   document.getElementById("isOL_hidden").disabled=true;
+   }
 </script>
 </head> 
 <body>
@@ -54,7 +58,8 @@
       <label for="comment">게시글 내용:</label>
       <textarea class="form-control" rows="5" id="bContent" name="bContent"></textarea>
     </div>
-    <input type="checkbox"id="isOL" class="test"><span>공지로 작성</span>
+    <input type="checkbox"id="isOL" class="test" name="isNotice" value='T'><span>공지로 작성</span>
+    <input type="hidden" name="isNotice" value='F' id="isOL_hidden"/>
     <br>
     <button type="submit" class="btn btn-primary">작성 완료</button>
   </form>

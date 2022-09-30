@@ -67,11 +67,14 @@ public class BoardInsertController extends HttpServlet {
 		System.out.println("gNum: "+request.getParameter("gNum"));
 		System.out.println(signedid);
 		System.out.println(uNum);
+		System.out.println(request.getParameter("isNotice"));
 		
 		vo.setuNum(uNum);
 		vo.setbContent(request.getParameter("bContent"));
 		vo.setbTitle(request.getParameter("bTitle"));
 		vo.setgNum(gNum);
+		vo.setIsNotice(request.getParameter("isNotice"));
+	
 
 		if(dao.insert(vo)==1) {
 			response.sendRedirect("gatheringinfo.do?gnum="+gNum);

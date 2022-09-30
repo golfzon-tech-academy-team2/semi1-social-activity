@@ -40,6 +40,7 @@ public class BoardDAOimpl implements BoardDAO {
 			pstmt.setString(2, vo.getbContent());
 			pstmt.setInt(3, vo.getgNum());
 			pstmt.setInt(4, vo.getuNum());
+			pstmt.setString(5, vo.getIsNotice());
 			flag = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
