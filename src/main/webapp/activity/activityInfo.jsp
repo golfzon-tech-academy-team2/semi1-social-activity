@@ -78,7 +78,7 @@
 			<c:if test="${today le vo.endDate && today ge vo.startDate}">
 				<td>모집 중</td>
 			</c:if>
-			<c:if test="${today lt vo.endDate}">
+			<c:if test="${today lt vo.startDate}">
 				<td>모집 전</td>
 			</c:if>
 		</tr>

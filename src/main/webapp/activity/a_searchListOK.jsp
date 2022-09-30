@@ -46,13 +46,13 @@
             <td>${vo.sex }</td>
             <td>${vo.maxPerson }</td>
             <fmt:formatDate var="today2" value="${today}" pattern="yyyy-MM-dd"/>
-            <c:if test="${today lt vo.aStartDay }">
+            <c:if test="${today2 lt vo.aStartDay }">
             	<td>활동 전</td>
             </c:if>
-            <c:if test="${today ge vo.aStartDay && today le vo.aEndDay }">
+            <c:if test="${today2 ge vo.aStartDay && today2 le vo.aEndDay }">
             	<td>활동 중</td>
             </c:if>
-            <c:if test="${today gt vo.aEndDay }">
+            <c:if test="${today2 gt vo.aEndDay }">
             	<td>활동 후</td>
             </c:if>
             <td><a href="activityInfo.do?aNum=${vo.aNum }">상세 보기</a></td>

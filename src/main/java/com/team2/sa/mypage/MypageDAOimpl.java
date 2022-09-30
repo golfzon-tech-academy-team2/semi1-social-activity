@@ -265,7 +265,7 @@ public class MypageDAOimpl implements MypageDAO {
 				vo.setMaxage(rs.getInt("maxage"));
 				vo.setGnum(rs.getInt("gnum"));
 				
-				if (rs.getString("roll").equals("A")) {
+				if (rs.getString("roll").equals("O")) {
 					vo.setRoll("운영자");
 				} else if (rs.getString("roll").equals("L")) {
 					vo.setRoll("리더");
@@ -325,7 +325,6 @@ public class MypageDAOimpl implements MypageDAO {
 				vo.setStartDate(rs.getDate("startdate"));
 				vo.setEndDate(rs.getDate("enddate"));
 				vo.setPersonCnt(rs.getInt("personcnt"));
-				vo.setIsEnd(rs.getString("isend"));
 				vo.setMinAge(rs.getInt("minage"));
 				vo.setMaxAge(rs.getInt("maxage"));
 				
