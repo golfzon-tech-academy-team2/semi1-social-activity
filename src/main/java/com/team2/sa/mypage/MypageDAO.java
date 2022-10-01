@@ -23,4 +23,6 @@ public interface MypageDAO {
 	public List<MyGatheringInherited> mygathering(String name);
 
 	public List<ActivityInhereted> myactivity(String id);
+
+	public void signOutActivity(int aNum, String id);
 }

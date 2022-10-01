@@ -346,4 +346,36 @@ public class MypageDAOimpl implements MypageDAO {
 		return vos;
 	}
 
+	@Override
+	public void signOutActivity(int aNum, String id) {
+		try {
+			Class.forName(MypageQuery.DRIVER_NAME);
+			System.out.println("Driver successed..");
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			conn = DriverManager.getConnection(MypageQuery.URL, MypageQuery.USER, MypageQuery.PASSWORD);
+//			System.out.println("conn successed...");
+			// DQL
+			pstmt = conn.prepareStatement(MypageQuery.SQL_SIGNOUT_ACTIVITY);
+			pstmt.setInt(1, aNum);
+			pstmt.setString(2, id);
+			rs = pstmt.executeQuery();
+			
+			pstmt = conn.prepareStatement(MypageQuery.SQL_DECREASE_PERSONCNT);
+			pstmt.setInt(1, aNum);
+			pstmt.setInt(2, aNum);
+			rs = pstmt.executeQuery();
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
 }
