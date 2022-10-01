@@ -153,32 +153,50 @@
 	<hr>
 	
 	<h4>액티비티 이벤트</h4>
-	
-	<div style="overflow:auto; width:1000px; height:150px;">
-		<table border="1">
-			<c:if test="${vos.size() ne 0}">
-				<th>이벤트 제목</th>
-				<th>이벤트 내용</th>
-				<th>이벤트 상품</th>
-			</c:if>
-			<c:if test="${vos.size() eq 0}">
-				<p>생성된 이벤트 없음</p>
-			</c:if>
-			<c:forEach var="vo2" items="${vos}">
-		        <tr>
-		            <td>${vo2.eTitle }</td>
-		            <td>${vo2.eContent }</td>
-		            <td>${vo2.gift }</td>
-		            <td><input type="button" id="deleteEvent" name="deleteEvent" value="이벤트 삭제하기" onclick="deleteEvent()"></td>
-		            
-		        	<input type="hidden" id="aNum" name="aNum" value="${vo2.aNum }">
-		        	<input type="hidden" id="eNum" name="eNum" value="${vo2.eNum }">
-		        </tr>
-	        </c:forEach>
-		</table>
-	</div>
-	
+
+	<table border="1">
+		<c:if test="${vos.size() ne 0}">
+			<th>이벤트 제목</th>
+			<th>이벤트 내용</th>
+			<th>이벤트 상품</th>
+		</c:if>
+		<c:if test="${vos.size() eq 0}">
+			<p>생성된 이벤트 없음</p>
+		</c:if>
+		<c:forEach var="vo2" items="${vos}">
+			<tr>
+				<td>${vo2.eTitle }</td>
+				<td>${vo2.eContent }</td>
+				<td>${vo2.gift }</td>
+				<td><input type="button" id="deleteEvent" name="deleteEvent"
+					value="이벤트 삭제하기" onclick="deleteEvent()"></td>
+
+				<input type="hidden" id="aNum" name="aNum" value="${vo2.aNum }">
+				<input type="hidden" id="eNum" name="eNum" value="${vo2.eNum }">
+			</tr>
+		</c:forEach>
+	</table>
+
 	<hr>
+	
+	<c:if test="${checkActivity == 1 }">
+		<h4>액티비티원</h4>
+		<table border="1">
+			<tr>
+				<td>이름</td>
+				<td>성별</td>
+			</tr>
+
+			<c:forEach var="vo3" items="${activityMember }">
+				<tr>
+					<td>${vo3.uName }</td>
+					<td>${vo3.sex }</td>
+				</tr>
+			</c:forEach>
+		</table>
+	    
+	    <hr>
+	</c:if>
 	
 	<c:if test="${checkLeader == 1 }">
 		<input type="button" id="deleteActivity" name="deleteActivity" onclick="deleteActivity()" value="액티비티 삭제하기">

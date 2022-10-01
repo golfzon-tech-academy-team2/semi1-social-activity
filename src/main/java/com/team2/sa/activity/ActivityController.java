@@ -18,6 +18,7 @@ import com.team2.sa.mypage.MyGatheringInherited;
 import com.team2.sa.mypage.MypageDAO;
 import com.team2.sa.mypage.MypageDAOimpl;
 import com.team2.sa.signup.UserinfoVO;
+import com.team2.sa.userinfo.member.UserInfoVO;
 
 /**
  * Servlet implementation class ActivityController
@@ -83,6 +84,10 @@ public class ActivityController extends HttpServlet {
 			List<EventVO> eventVos = eDao.selectAll(Integer.parseInt(request.getParameter("aNum")));
 					
 			request.setAttribute("vos", eventVos);
+			
+			List<UserInfoVO> memberVos = dao.activityMember(Integer.parseInt(request.getParameter("aNum")));
+			
+			request.setAttribute("activityMember", memberVos);
 			
 			request.getRequestDispatcher("activity/activityInfo.jsp").forward(request, response);
 		} else if (sPath.equals("/a_searchList.do")) {

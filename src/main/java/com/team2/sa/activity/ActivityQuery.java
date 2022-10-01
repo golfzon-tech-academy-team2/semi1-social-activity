@@ -33,4 +33,5 @@ public interface ActivityQuery {
 	String SQL_ADD_PERSONCNT = "update activity set personcnt = (select personcnt from activity where anum = ?) + 1 where anum = ?";
 	String SQL_GET_G_USER_NUM = "select count(unum) \"number\" from gatheringuserinfo where gnum = ?";
 	String SELECTALL_ACTIVITY = "select * from activity where gNum = ?";
+	String SQL_ACTIVITYMEMBER = "select uname, sex from activityuserinfo a left join userinfo u on a.unum=u.unum where anum = ?";
 }

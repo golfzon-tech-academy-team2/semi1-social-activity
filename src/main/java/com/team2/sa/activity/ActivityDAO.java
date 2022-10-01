@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.team2.sa.event.EventVO;
 import com.team2.sa.gathering.model.GatheringVO;
+import com.team2.sa.userinfo.member.UserInfoVO;
 
 public interface ActivityDAO {
 
@@ -34,4 +35,6 @@ public interface ActivityDAO {
 	public int getGatheringUserNum(int gNum);
 	
 	public List<ActivityVO> selectAllActivity(int gNum);
+
+	public List<UserInfoVO> activityMember(int aNum);
 }

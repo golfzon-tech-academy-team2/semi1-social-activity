@@ -15,6 +15,7 @@ import com.team2.sa.event.EventVO;
 import com.team2.sa.gathering.model.GatheringVO;
 import com.team2.sa.mypage.MypageQuery;
 import com.team2.sa.signup.SignupQuery;
+import com.team2.sa.userinfo.member.UserInfoVO;
 
 public class ActivityDAOimpl implements ActivityDAO {
 	
@@ -630,6 +631,61 @@ public class ActivityDAOimpl implements ActivityDAO {
 				vo.setMaxPerson(rs.getInt("maxperson"));
 				vos.add(vo);
 				i++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return vos;
+	}
+
+	@Override
+	public List<UserInfoVO> activityMember(int aNum) {
+		List<UserInfoVO> vos = new ArrayList<UserInfoVO>();
+		try {
+			conn = DriverManager.getConnection(
+					BoardQuery.URL, 
+					BoardQuery.USER, 
+					BoardQuery.PASSWORD);
+			//여기부터
+			pstmt = conn.prepareStatement(ActivityQuery.SQL_ACTIVITYMEMBER);
+			pstmt.setInt(1, aNum);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				UserInfoVO vo = new UserInfoVO();
+				vo.setuName(rs.getString("uname"));
+				if (rs.getString("sex").equals("M")) {
+					vo.setSex("남자");
+				} else {
+					vo.setSex("여자");
+				}
+				vos.add(vo);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
