@@ -209,9 +209,58 @@ public class PubGatheringDAOimpl implements PubGatheringDAO {
 	}
 
 	@Override
-	public GatheringVO selectOne() {
-		// TODO Auto-generated method stub
-		return null;
+	public GatheringUserInfoVO selectOne(int gNum) {
+		GatheringUserInfoVO vo = new GatheringUserInfoVO();
+		try {
+			conn = DriverManager.getConnection(GatheringQuery.URL,GatheringQuery.USER,GatheringQuery.PASSWORD);
+			pstmt = conn.prepareStatement(GatheringQuery.GATHERING_SELECTONE);
+			pstmt.setInt(1, gNum);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				vo.setgName(rs.getString("gName"));
+				vo.setgContent(rs.getString("gContent"));
+				vo.setgNum(Integer.parseInt(rs.getString("gNum")));
+				vo.setIsPublic(rs.getString("isPublic"));
+				vo.setLink(rs.getString("link"));
+				vo.setLogo(rs.getString("logo"));
+				vo.setMaxAge(Integer.parseInt(rs.getString("maxAge")));
+				vo.setMinAge(Integer.parseInt(rs.getString("minAge")));
+				vo.setPermission(rs.getString("permission"));
+				vo.setSex(rs.getString("sex"));
+//				vo.setuNum(rs.getInt("uNum"));
+				vo.setuName(rs.getString("uName"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return vo;
 	}
 
 }
