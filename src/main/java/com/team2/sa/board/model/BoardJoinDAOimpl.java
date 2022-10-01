@@ -186,4 +186,62 @@ public class BoardJoinDAOimpl implements BoardJoinDAO {
 		return vo;
 	}
 
+	@Override
+	public List<BoardJoinVO> selectAllNotice(int gNum) {
+		System.out.println("selectAll()...");
+		List<BoardJoinVO> vos = new ArrayList<BoardJoinVO	>();
+		try {
+			conn = DriverManager.getConnection(
+					BoardQuery.URL, 
+					BoardQuery.USER, 
+					BoardQuery.PASSWORD);
+			//여기부터
+			pstmt = conn.prepareStatement(BoardQuery.SELECTALLNOTICE);
+			pstmt.setInt(1, gNum);
+			rs = pstmt.executeQuery();
+			int i = 1;
+			while(rs.next()) {
+				BoardJoinVO vo = new BoardJoinVO();
+				vo.setbNum(rs.getInt("bNum"));
+				vo.setbTitle(rs.getString("bTitle"));
+				vo.setwDate(rs.getTimestamp("wDate"));
+				vo.setTmpBnum(i);
+				vo.setwName(rs.getString("uName"));
+				vo.setbContent(rs.getString("bContent"));
+				vos.add(vo);
+				i++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return vos;
+	}
+
 }
