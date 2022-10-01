@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,6 +23,7 @@
 </style>
 </head>
 <body>
+	<fmt:formatDate var="today" value="${today }" pattern="yyyy-MM-dd" />
 	<h3 style="display: inline;">${param.gname}</h3>
 	<h3 style="display: inline;">모임에 오신걸 환영합니다</h3>
 	<div class="container">
@@ -30,7 +32,9 @@
 			생성하기</button>
 
 		<h2>공지 사항</h2>
-		<button class="btn btn-primary" onclick="location.href='b_selectAll.do?gNum=${param.gnum}'">전체 공지 보기</button>
+		<button class="btn btn-primary"
+			onclick="location.href='b_selectAll.do?gNum=${param.gnum}'">전체
+			공지 보기</button>
 		<table class="table">
 			<thead>
 				<tr>
@@ -39,14 +43,17 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr  class="data" onclick="location.href='b_selectOneNotice.do?bNum=${vos[0].bNum }&gNum=${param.gnum}&tmpBnum=${vos[0].tmpBnum}'">
+				<tr class="data"
+					onclick="location.href='b_selectOneNotice.do?bNum=${vos[0].bNum }&gNum=${param.gnum}&tmpBnum=${vos[0].tmpBnum}'">
 					<td>${vos[0].bTitle}</td>
 					<td>${vos[0].bContent}</td>
 				</tr>
 			</tbody>
 		</table>
 
-		<h2 style="display: inline;">모임</h2><h2 style="display: inline;">${param.gnum}</h2><h2 style="display: inline;">의 게시글 목록</h2>
+		<h2 style="display: inline;">모임</h2>
+		<h2 style="display: inline;">${param.gnum}</h2>
+		<h2 style="display: inline;">의 게시글 목록</h2>
 		<table class="table">
 			<thead>
 				<tr>
@@ -68,10 +75,78 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<button class="btn btn-primary" onclick="location.href='b_insert.do?gNum=${param.gnum}'">글쓰기</button>
+		<button class="btn btn-primary"
+			onclick="location.href='b_insert.do?gNum=${param.gnum}'">글쓰기</button>
+
+
+		<h2>액티비티!</h2>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>엑티비티 제목</th>
+					<th>엑티비티 내용</th>
+					<th>모집 여부</th>
+					<th>진행 여부</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="vo" items="${vos[2]}">
+					<tr class="data" onclick="">
+						<td>${vo.aName}</td>
+						<td>${vo.aContent }</td>
+						
+						<c:if test="${today < vo.startDate}">
+							<td>모집 전</td>
+						</c:if>
+						<c:if test="${vo.startDate <= today && today <= vo.endDate}">
+							<td>모집 중</td>
+						</c:if>
+						<c:if test="${vo.endDate < today}">
+							<td>모집 종료</td>
+						</c:if>
+						<c:if test="${today < vo.aStartDay}">
+							<td>진행 전</td>
+						</c:if>
+						<c:if test="${vo.aStartDay <= today && today <= vo.aEndDay}">
+							<td>진행 중</td>
+						</c:if>
+						<c:if test="${vo.aEndDay < today}">
+							<td>진행 종료</td>
+						</c:if>
+						
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		
+		<h2>멤버</h2>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>회원 이름</th>
+					<th>자격</th>
+	
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="vo" items="${vos[3]}">
+					<tr class="data"
+						onclick="">
+						<td>${vo.uName}</td>
+						<c:if test="${vo.roll eq 'O'}">
+							<td>운영자</td>
+						</c:if>
+						<c:if test="${vo.roll eq 'L'}">
+							<td>리더</td>
+						</c:if>
+						<c:if test="${vo.roll eq 'M'}">
+							<td>멤버</td>
+						</c:if>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	</div>
-
-
 	<p>투표</p>
 </body>
 </html>

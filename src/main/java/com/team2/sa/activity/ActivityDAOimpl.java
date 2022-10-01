@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.team2.sa.board.model.BoardJoinVO;
+import com.team2.sa.board.model.BoardQuery;
 import com.team2.sa.event.EventVO;
 import com.team2.sa.gathering.model.GatheringVO;
 import com.team2.sa.mypage.MypageQuery;
@@ -595,6 +597,71 @@ public class ActivityDAOimpl implements ActivityDAO {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	@Override
+	public List<ActivityVO> selectAllActivity(int gNum) {
+		List<ActivityVO> vos = new ArrayList<ActivityVO>();
+		try {
+			conn = DriverManager.getConnection(
+					BoardQuery.URL, 
+					BoardQuery.USER, 
+					BoardQuery.PASSWORD);
+			//여기부터
+			pstmt = conn.prepareStatement(ActivityQuery.SELECTALL_ACTIVITY);
+			pstmt.setInt(1, gNum);
+			rs = pstmt.executeQuery();
+			int i = 1;
+			while(rs.next()) {
+				ActivityVO vo = new ActivityVO();
+				vo.setgNum(rs.getInt("gnum"));
+				vo.setaNum(rs.getInt("anum"));
+				vo.setaName(rs.getString("aname"));
+				vo.setaContent(rs.getString("acontent"));
+				vo.setaStartDay(rs.getDate("astartday"));
+				vo.setaEndDay(rs.getDate("aendday"));
+				vo.setLocation(rs.getString("location"));
+				vo.setStartDate(rs.getDate("startdate"));
+				vo.setEndDate(rs.getDate("enddate"));
+				vo.setPersonCnt(rs.getInt("personcnt"));
+				vo.setMinAge(rs.getInt("minage"));
+				vo.setMaxAge(rs.getInt("maxage"));
+				vo.setSex(rs.getString("sex"));
+				vo.setMaxPerson(rs.getInt("maxperson"));
+				vos.add(vo);
+				i++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return vos;
 	}
 
 }

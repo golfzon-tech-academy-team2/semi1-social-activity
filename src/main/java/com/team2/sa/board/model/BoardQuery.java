@@ -15,4 +15,5 @@ public interface BoardQuery {
 	String ISLEADER = "select g.roll from userinfo u inner join gatheringuserinfo g on u.unum = g.unum where u.id = ? and g.gnum=?"; //id,gnum
 	String SHOWNOTICE = "select b.bnum, b.btitle,  b.bcontent,b.wdate, u.uname from userinfo u inner join board b on u.unum = b.unum where gNum = ? and rownum=1 and isnotice='T' order by b.bnum desc";//gnum
 	String SELECTALLNOTICE = "select b.bnum, b.btitle, b.bcontent,b.wdate, u.uname from userinfo u inner join board b on u.unum = b.unum where gNum = ? and isnotice='T' order by b.bnum desc";//gnum
+
 }
