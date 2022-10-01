@@ -119,8 +119,33 @@
 			</tbody>
 		</table>
 		
-		
-		
+		<h2>멤버</h2>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>회원 이름</th>
+					<th>자격</th>
+	
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="vo" items="${vos[3]}">
+					<tr class="data"
+						onclick="">
+						<td>${vo.uName}</td>
+						<c:if test="${vo.roll eq 'O'}">
+							<td>운영자</td>
+						</c:if>
+						<c:if test="${vo.roll eq 'L'}">
+							<td>리더</td>
+						</c:if>
+						<c:if test="${vo.roll eq 'M'}">
+							<td>멤버</td>
+						</c:if>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	</div>
 	<p>투표</p>
 </body>

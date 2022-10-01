@@ -16,6 +16,9 @@ import com.team2.sa.activity.ActivityVO;
 import com.team2.sa.board.model.BoardJoinDAO;
 import com.team2.sa.board.model.BoardJoinDAOimpl;
 import com.team2.sa.board.model.BoardJoinVO;
+import com.team2.sa.userinfo.member.UserInfoDAO;
+import com.team2.sa.userinfo.member.UserInfoDAOimpl;
+import com.team2.sa.userinfo.member.UserInfoJoinVO;
 
 /**
  * Servlet implementation class GatheringInfoController
@@ -51,7 +54,10 @@ public class GatheringInfoController extends HttpServlet {
 			
 			ActivityDAO dao2 = new ActivityDAOimpl();
 			List<ActivityVO> vo3 = dao2.selectAllActivity(Integer.parseInt(request.getParameter("gnum")));
-			Object[] vos = {vo1, vo2, vo3};
+			
+			UserInfoDAO dao3 = new UserInfoDAOimpl();
+			List<UserInfoJoinVO> vo4 = dao3.selectAll(Integer.parseInt(request.getParameter("gnum")));
+			Object[] vos = {vo1, vo2, vo3, vo4};
 			request.setAttribute("vos", vos);
 			request.getRequestDispatcher("gathering/gatheringinfo.jsp").forward(request, response);
 		}
