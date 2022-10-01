@@ -32,5 +32,6 @@ public interface ActivityDAO {
 	public int checkLeader(int aNum, String id);
 
 	public int getGatheringUserNum(int gNum);
-
+	
+	public List<ActivityVO> selectAllActivity(int gNum);
 }

@@ -1,6 +1,7 @@
 package com.team2.sa.gathering.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,9 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.team2.sa.activity.ActivityDAO;
+import com.team2.sa.activity.ActivityDAOimpl;
+import com.team2.sa.activity.ActivityVO;
+import com.team2.sa.board.model.BoardJoinDAO;
 import com.team2.sa.board.model.BoardJoinDAOimpl;
 import com.team2.sa.board.model.BoardJoinVO;
-import com.team2.sa.board.model.BoardJoinDAO;
 
 /**
  * Servlet implementation class GatheringInfoController
@@ -35,6 +39,8 @@ public class GatheringInfoController extends HttpServlet {
 		// TODO Auto-generated method stub
 		String sPath = request.getServletPath();
 		if(sPath.equals("/gatheringinfo.do")) {
+			Date date = new Date(System.currentTimeMillis());
+			request.setAttribute("today", date);
 			
 			System.out.println(request.getParameter("gnum"));
 			BoardJoinDAO dao = new BoardJoinDAOimpl();
@@ -42,7 +48,10 @@ public class GatheringInfoController extends HttpServlet {
 			
 			
 			BoardJoinVO vo1 = dao.selectNotice(Integer.parseInt(request.getParameter("gnum")));
-			Object[] vos = {vo1, vo2};
+			
+			ActivityDAO dao2 = new ActivityDAOimpl();
+			List<ActivityVO> vo3 = dao2.selectAllActivity(Integer.parseInt(request.getParameter("gnum")));
+			Object[] vos = {vo1, vo2, vo3};
 			request.setAttribute("vos", vos);
 			request.getRequestDispatcher("gathering/gatheringinfo.jsp").forward(request, response);
 		}
