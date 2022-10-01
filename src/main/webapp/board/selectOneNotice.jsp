@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>select One Notice</title>
 <script src="js/jquery-3.6.1.min.js" crossorigin="anonymous"></script>
 <style>
 table {
@@ -142,6 +142,7 @@ $(function() {
 		</tr>
 	</table>
 	<button onclick="location.href='gatheringinfo.do?gnum=${param.gNum}'">모임으로 돌아가기</button>
+	<button onclick="location.href='b_selectAll.do?gNum=${param.gNum}'">공지 목록으로 돌아가기</button>
 	<button class="modify">수정</button>
 	<button class="delete">삭제</button>
 </body>

@@ -30,6 +30,7 @@
 			생성하기</button>
 
 		<h2>공지 사항</h2>
+		<button class="btn btn-primary" onclick="location.href='b_selectAll.do?gNum=${param.gnum}'">전체 공지 보기</button>
 		<table class="table">
 			<thead>
 				<tr>
@@ -38,7 +39,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr  class="data" onclick="location.href='b_selectOne.do?bNum=${vos[0].bNum }&gNum=${param.gnum}'">
+				<tr  class="data" onclick="location.href='b_selectOneNotice.do?bNum=${vos[0].bNum }&gNum=${param.gnum}'">
 					<td>${vos[0].bTitle}</td>
 					<td>${vos[0].bContent}</td>
 				</tr>

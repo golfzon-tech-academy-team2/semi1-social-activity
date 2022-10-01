@@ -6,5 +6,6 @@ public interface BoardJoinDAO {
 	public BoardJoinVO selectOne(int bNum);
 	public BoardJoinVO selectNotice(int gNum);
 	public List<BoardJoinVO> selectAll(int gNum);
+	public List<BoardJoinVO> selectAllNotice(int gNum);
 
 }
