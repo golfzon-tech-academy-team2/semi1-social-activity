@@ -45,6 +45,13 @@
 			location.href = "modifyActivity.do?aNum=" + ${vo.aNum};
 		}	
 	}
+	
+	function signOutActivity() {
+		if (!confirm("액티비티를 탈퇴하시겠습니까? 탈퇴 후 계정을 복구할 수 없습니다")) {
+		} else {
+			location.href = "signOutActivity.do?aNum=" + ${vo.aNum};
+		}
+	}
 </script>
 </head>
 <body>
@@ -176,6 +183,10 @@
 	<c:if test="${checkLeader == 1 }">
 		<input type="button" id="deleteActivity" name="deleteActivity" onclick="deleteActivity()" value="액티비티 삭제하기">
 		<input type="button" id="modifyActivity" name="modifyActivity" onclick="modifyActivity()" value="액티비티 수정하기">
+	</c:if>
+	
+	<c:if test="${checkLeader == 0 && checkActivity == 1}">
+		<input type="button" id="signOutActivity" name="signOutActivity" onclick="signOutActivity()" value="액티비티 탈퇴하기">
 	</c:if>
 	
 </body>
