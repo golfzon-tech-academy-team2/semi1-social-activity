@@ -135,4 +135,109 @@ public class VoteDAOimpl implements VoteDAO {
 		return vos;
 	}
 
+	@Override
+	public VoteVO selectOne(int vNum) {
+		VoteVO vo = new VoteVO();
+		try {
+			conn = DriverManager.getConnection(
+					VoteQuery.URL, 
+					VoteQuery.USER, 
+					VoteQuery.PASSWORD);
+			pstmt = conn.prepareStatement(VoteQuery.SELECTONE); //query�� ��
+			pstmt.setInt(1, vNum);
+			rs = pstmt.executeQuery();//������ ���� ���
+			
+			while(rs.next()){
+				vo.setvTitle(rs.getString("vTitle"));
+				vo.setvNum(rs.getInt("vNum"));
+				vo.setvCnt1(rs.getInt("vCnt1"));
+				vo.setvCnt2(rs.getInt("vCnt2"));
+				vo.setvCnt3(rs.getInt("vCnt3"));
+				vo.setvList1(rs.getString("vList1"));
+				vo.setvList2(rs.getString("vList2"));
+				vo.setvList3(rs.getString("vList3"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return vo;
+	}
+
+	@Override
+	public int update(String vList, int vNum) {
+		int flag = 0;
+		System.out.println(vList);
+		try {
+			conn = DriverManager.getConnection(
+					VoteQuery.URL, 
+					VoteQuery.USER, 
+					VoteQuery.PASSWORD);
+//			System.out.println("conn successed...");
+			//DML
+			if(vList.equals("vCnt1")) {
+				pstmt = conn.prepareStatement(VoteQuery.UPDATE1);
+			}else if(vList.equals("vCnt2")) {
+				pstmt = conn.prepareStatement(VoteQuery.UPDATE2);
+			}else if(vList.equals("vCnt3")) {
+				pstmt = conn.prepareStatement(VoteQuery.UPDATE3);
+
+			}				
+			pstmt.setInt(1, vNum);
+			flag = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return flag;
+	}
+
 }

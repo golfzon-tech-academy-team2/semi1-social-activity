@@ -16,7 +16,7 @@ import com.team2.sa.vote.model.VoteVO;
 /**
  * Servlet implementation class VoteController
  */
-@WebServlet({ "/v_insert.do", "/v_insertOK.do" })
+@WebServlet({ "/v_insert.do", "/v_insertOK.do","/v_selectOne.do", "/v_updateOK.do","/v_result.do" })
 public class VoteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -38,6 +38,18 @@ public class VoteController extends HttpServlet {
 		String sPath = request.getServletPath();
 		if (sPath.equals("/v_insert.do")) {
 			request.getRequestDispatcher("vote/insert.jsp").forward(request, response);
+		}else if(sPath.equals("/v_selectOne.do")) {
+			VoteVO vo = new VoteVO();
+			VoteDAO dao = new VoteDAOimpl();
+			vo = dao.selectOne(Integer.parseInt(request.getParameter("vNum")));
+			request.setAttribute("vo", vo);
+			request.getRequestDispatcher("vote/selectOne.jsp").forward(request, response);
+		}else if(sPath.equals("/v_result.do")) {
+			VoteVO vo = new VoteVO();
+			VoteDAO dao = new VoteDAOimpl();
+			vo = dao.selectOne(Integer.parseInt(request.getParameter("vNum")));
+			request.setAttribute("vo", vo);
+			request.getRequestDispatcher("vote/result.jsp").forward(request, response);
 		}
 
 	}
@@ -50,6 +62,7 @@ public class VoteController extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String sPath = request.getServletPath();
+		System.out.println(sPath);
 		request.setCharacterEncoding("UTF-8");
 		if (sPath.equals("/v_insertOK.do")) {
 			VoteVO vo = new VoteVO();
@@ -65,6 +78,15 @@ public class VoteController extends HttpServlet {
 				response.sendRedirect("gatheringinfo.do?gnum=" + request.getParameter("gNum"));
 			} else {
 				request.getRequestDispatcher("vote/insert.jsp").forward(request, response);
+			}
+		}else if(sPath.equals("/v_updateOK.do")) {
+			
+			VoteDAO dao = new VoteDAOimpl();
+			if(dao.update(request.getParameter("vList"), Integer.parseInt(request.getParameter("vNum")))==1) {
+				System.out.println("투표 완료");
+				response.sendRedirect("v_result.do?vNum="+request.getParameter("vNum")+"&gNum="+request.getParameter("gNum"));
+			}else {
+				response.sendRedirect("v_updateOK.do?vNum="+request.getParameter("vNum"));
 			}
 		}
 	}
