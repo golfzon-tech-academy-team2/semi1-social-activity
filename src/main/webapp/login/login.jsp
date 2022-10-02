@@ -31,7 +31,6 @@
 </head>
 
 <body>
-	<h3>소셜 액티비티 (임시)</h3>
 	<jsp:include page="../top_menu.jsp"></jsp:include>
 	<form id="signin" name="signin" method="post">
 		<table>
