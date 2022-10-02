@@ -148,5 +148,6 @@
 		</table>
 	</div>
 	<p>투표</p>
+	<button onclick="location.href='v_insert.do?gNum=${param.gnum}'">투표 생성</button>
 </body>
 </html>
