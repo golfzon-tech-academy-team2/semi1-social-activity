@@ -94,7 +94,7 @@
 					<tr class="data" onclick="">
 						<td>${vo.aName}</td>
 						<td>${vo.aContent }</td>
-						
+
 						<c:if test="${today < vo.startDate}">
 							<td>모집 전</td>
 						</c:if>
@@ -113,25 +113,24 @@
 						<c:if test="${vo.aEndDay < today}">
 							<td>진행 종료</td>
 						</c:if>
-						
+
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		
+
 		<h2>멤버</h2>
 		<table class="table">
 			<thead>
 				<tr>
 					<th>회원 이름</th>
 					<th>자격</th>
-	
+
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="vo" items="${vos[3]}">
-					<tr class="data"
-						onclick="">
+					<tr class="data" onclick="">
 						<td>${vo.uName}</td>
 						<c:if test="${vo.roll eq 'O'}">
 							<td>운영자</td>
@@ -146,8 +145,38 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		<h2>투표</h2>
+		<button onclick="location.href='v_insert.do?gNum=${param.gnum}'"
+			class="btn btn-primary">투표 생성</button>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>투표 이름</th>
+					<th>진행 여부</th>
+
+				</tr>
+			</thead>
+			<tbody>
+
+				<c:forEach var="vo" items="${vos[4]}">
+					<tr>
+						<td>${vo.vTitle}</td>
+						<c:if test="${today < vo.startDate}">
+							<td>진행 전</td>
+						</c:if>
+						<c:if test="${vo.startDate <= today && today <= vo.endDate}">
+							<td>진행 중</td>
+						</c:if>
+						<c:if test="${vo.endDate < today}">
+							<td>진행 종료</td>
+						</c:if>
+					</tr>
+				</c:forEach>
+
+
+			</tbody>
+		</table>
 	</div>
-	<p>투표</p>
-	<button onclick="location.href='v_insert.do?gNum=${param.gnum}'">투표 생성</button>
+
 </body>
 </html>

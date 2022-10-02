@@ -21,8 +21,7 @@
 </head>
 <body>
 
-	<form class="was-validated" action="insert_pubGOK.do" method="post"
-		enctype="multipart/form-data">
+	<form class="was-validated" action="v_insertOK.do?gNum=${param.gNum}" method="post">
 		<div class="container">
 			<h2>투표 생성</h2>
 			<div class="form-group">

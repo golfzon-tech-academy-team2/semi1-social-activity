@@ -1,11 +1,17 @@
 package com.team2.sa.vote.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.team2.sa.vote.model.VoteDAO;
+import com.team2.sa.vote.model.VoteDAOimpl;
+import com.team2.sa.vote.model.VoteVO;
 
 /**
  * Servlet implementation class VoteController
@@ -13,32 +19,53 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet({ "/v_insert.do", "/v_insertOK.do" })
 public class VoteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public VoteController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public VoteController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String sPath = request.getServletPath();
-		if(sPath.equals("/v_insert.do")) {
+		if (sPath.equals("/v_insert.do")) {
 			request.getRequestDispatcher("vote/insert.jsp").forward(request, response);
 		}
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		String sPath = request.getServletPath();
+		request.setCharacterEncoding("UTF-8");
+		if (sPath.equals("/v_insertOK.do")) {
+			VoteVO vo = new VoteVO();
+			vo.setgNum(Integer.parseInt(request.getParameter("gNum")));
+			vo.setStartDate(Date.valueOf(request.getParameter("startDate")));
+			vo.setEndDate(Date.valueOf(request.getParameter("endDate")));
+			vo.setvList1(request.getParameter("vList1"));
+			vo.setvList2(request.getParameter("vList2"));
+			vo.setvList3(request.getParameter("vList3"));
+			vo.setvTitle(request.getParameter("vTitle"));
+			VoteDAO dao = new VoteDAOimpl();
+			if (dao.insert(vo) == 1) {
+				response.sendRedirect("gatheringinfo.do?gnum=" + request.getParameter("gNum"));
+			} else {
+				request.getRequestDispatcher("vote/insert.jsp").forward(request, response);
+			}
+		}
 	}
-
 }
