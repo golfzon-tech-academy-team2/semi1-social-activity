@@ -159,7 +159,7 @@
 			<tbody>
 
 				<c:forEach var="vo" items="${vos[4]}">
-					<tr>
+					<tr onclick="location.href='v_selectOne.do?vNum=${vo.vNum }&gNum=${param.gnum }'">
 						<td>${vo.vTitle}</td>
 						<c:if test="${today < vo.startDate}">
 							<td>진행 전</td>

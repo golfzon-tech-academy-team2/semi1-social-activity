@@ -20,6 +20,7 @@
 </script>
 </head>
 <body>
+<jsp:include page="/top_menu.jsp"></jsp:include>
 
 	<form class="was-validated" action="v_insertOK.do?gNum=${param.gNum}" method="post">
 		<div class="container">
@@ -58,7 +59,7 @@
 					name="vList3">
 			</div>
 
-			<button type="submit" class="btn btn-primary">모임 생성</button>
+			<button type="submit" class="btn btn-primary">투표 생성</button>
 		</div>
 	</form>
 </body>
