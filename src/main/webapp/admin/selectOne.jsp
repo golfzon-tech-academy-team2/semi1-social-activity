@@ -28,6 +28,7 @@ $(function(){
 </script>
 </head>
 <body>
+	<jsp:include page="../top_menu.jsp"></jsp:include>
 	<table class="table">
 		<tr>
 			<th>모임 이름</th>

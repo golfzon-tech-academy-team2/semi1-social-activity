@@ -7,4 +7,5 @@ public interface SigninQuery {
 	String USER = "system";
 	String PASSWORD = "admin1234";
 	String SQL_ID_EXIST = "select * from userinfo where id=? and pw=?";
+	String SQL_CHECK_NOTIFICATION = "select * from notification where unum = (select unum from userinfo where id = ?) order by when desc";
 }

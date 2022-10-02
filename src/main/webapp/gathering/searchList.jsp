@@ -14,6 +14,7 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
+<jsp:include page="../top_menu.jsp"></jsp:include>
 <form class="was-validated" action="g_searchListOK.do" method="get">
 		<div class="container">
 			<h2>공개 모임 검색</h2>

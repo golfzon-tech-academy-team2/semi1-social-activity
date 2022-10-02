@@ -75,7 +75,6 @@ a{
   margin-right: 20px;
 }
 
-
 .navbar .navbar_right .login,
 .navbar .navbar_right .notifications{
   position: relative;
@@ -118,17 +117,13 @@ a{
 
 .notification_dd li .notify_data{
   margin: 0 15px;
-  width: 100px;
+  width: 130px;
   font-size: 12px;
 }
 
 .notification_dd li .notify_date p{
   font-size: 12px;
   margin-right : 12px;
-}
-
-.notification_dd li .notify_status p{
-  font-size: 12px;
 }
 
 .navbar .navbar_left .logo a:hover,

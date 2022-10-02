@@ -8,6 +8,7 @@
 <title>모임 운영자용 관리페이지</title>
 </head>
 <body>
+<jsp:include page="../top_menu.jsp"></jsp:include>
 <table class="table">
 			<thead>
 				<tr>

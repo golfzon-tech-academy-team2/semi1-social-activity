@@ -123,8 +123,8 @@
 	}
 </script>
 <body>
-	<a href="index.do">홈</a>
-	<hr>
+	<jsp:include page="../top_menu.jsp"></jsp:include>
+	
 	<h3>액티비티 정보 수정</h3>
 
 	<form id="modAct" name="modAct" method="post">

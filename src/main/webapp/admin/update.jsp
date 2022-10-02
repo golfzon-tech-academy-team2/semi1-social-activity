@@ -17,6 +17,7 @@
 <title>관리자 페이지</title>
 </head>
 <body>
+	<jsp:include page="../top_menu.jsp"></jsp:include>
 	<form class="was-validated" action="ad_updateOK.do?gNum=${param.gNum}" method="post"
 		enctype="multipart/form-data">
 		<div class="container">

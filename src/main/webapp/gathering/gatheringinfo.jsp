@@ -23,6 +23,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="../top_menu.jsp"></jsp:include>
 	<fmt:formatDate var="today" value="${today }" pattern="yyyy-MM-dd" />
 	<h3 style="display: inline;">${param.gname}</h3>
 	<h3 style="display: inline;">모임에 오신걸 환영합니다</h3>

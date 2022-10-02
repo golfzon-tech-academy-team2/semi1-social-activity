@@ -9,9 +9,7 @@
 <title>검색 결과</title>
 </head>
 <body>
-	<a href="index.do">홈</a>
-	
-	<hr>
+	<jsp:include page="../top_menu.jsp"></jsp:include>
 	
 	<h3>검색 결과</h3>
 	

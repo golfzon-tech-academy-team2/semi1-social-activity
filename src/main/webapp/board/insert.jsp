@@ -47,6 +47,7 @@
 </script>
 </head> 
 <body>
+<jsp:include page="../top_menu.jsp"></jsp:include>
 <h3>게시글 입력하숑~</h3>
 <div class="container">
   <h2>게시글 작성</h2>

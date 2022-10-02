@@ -10,7 +10,7 @@ $(document).ready(function(){
 	});
 });
 </script>
-<link href="css/dropdown.css" rel="stylesheet" type="text/css">
+<link href="css/navigation.css" rel="stylesheet" type="text/css">
 
 <div id="nav">
 	
@@ -21,7 +21,7 @@ $(document).ready(function(){
 	        	<a href="index.do">Social Activity</a>
 	    	</div>
 	    	<div class="createGathering">
-	        	<a href="g_searchList.do">모임 생성</a>
+	        	<a href="create_gathering.do">모임 생성</a>
 	    	</div>
 	    	<div class="gatheringSearch">
 	        	<a href="g_searchList.do">모임 검색</a>
@@ -46,46 +46,26 @@ $(document).ready(function(){
 				</c:choose>
 			</div>
 			
-			<div class="notifications">
+			<c:if test="${signedid != null }">
+				<div class="notifications">
 	    		<div class="icon_wrap"><i class="far fa-bell"></i></div>
 	        		<div class="notification_dd">
 	        			<ul class="notification_ul">
-	                		<li class="noti">
-		                    	<div class="notify_data">
-		                    		루피 액티비티 가입이 완료되었습니다
-		                    	</div>
-		                    	<div class="notify_date">
-		                    		<p>2분 전</p>
-		                    	</div>
-		                    	<div class="notify_status">
-		                        	<p>안 읽음</p>  
-		                    	</div>
-	                		</li>  
-	                		<li class="noti">
-	                    		<div class="notify_data">
-	                    			관광 모임 가입이 완료되었습니다
-	                    		</div>
-		                    	<div class="notify_date">
-		                    		<p>4분 전</p>
-		                    	</div>
-	                    		<div class="notify_status">
-	                        		<p>안 읽음</p>  
-	                    		</div>
-	                		</li> 
-	                		<li class="noti">
-	                    		<div class="notify_data">
-	                    			오징어게임 모임에서 탈퇴되었습니다
-	                    		</div>
-		                    	<div class="notify_date">
-		                    		<p>5분 전</p>
-		                    	</div>
-	                    		<div class="notify_status">
-	                        		<p>읽음</p>  
-	                    		</div>
-	                		</li>  
+	        				<c:forEach var="vo" items="${vos }">
+		                		<li class="noti">
+			                    	<div class="notify_data">
+			                    		${vo.content }
+			                    	</div>
+			                    	<div class="notify_date">
+			                    		<p>${vo.when }</p>
+			                    	</div>
+		                		</li>
+	        				</c:forEach>
 	            	</ul>
 	       		</div>
 	        </div>
+			</c:if>
+			
 	</div>
 </div>
   

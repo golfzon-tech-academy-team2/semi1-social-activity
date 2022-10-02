@@ -16,6 +16,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="../top_menu.jsp"></jsp:include>
 	<h2>${vo.vTitle}</h2>
 	<form class="was-validated" action="v_updateOK.do?vNum=${vo.vNum}&gNum=${param.gNum}" method="post">
 		<div class="container">

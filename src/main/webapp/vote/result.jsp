@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+	<jsp:include page="../top_menu.jsp"></jsp:include>
 	<div>
 		<label>${vo.vList1} : ${vo.vCnt1}표</label> <progress value=${vo.vCnt1/(vo.vCnt1+vo.vCnt2+vo.vCnt3)*100} max="100"></progress>
 	</div>

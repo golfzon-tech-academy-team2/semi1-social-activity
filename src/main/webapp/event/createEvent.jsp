@@ -35,6 +35,7 @@
 	}
 </script>
 <body>
+	<jsp:include page="../top_menu.jsp"></jsp:include>
 	<form id="createEvent" name="createEvent" method="post">
 		<table>
 			<tr>

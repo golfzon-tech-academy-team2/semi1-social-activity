@@ -20,7 +20,7 @@
 </script>
 </head>
 <body>
-
+	<jsp:include page="../top_menu.jsp"></jsp:include>
 	<form class="was-validated" action="insert_pubGOK.do" method="post"
 		enctype="multipart/form-data">
 		<div class="container">

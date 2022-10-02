@@ -1,6 +1,7 @@
 package com.team2.sa.login;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.team2.sa.notification.NotificationVO;
 
 /**
  * Servlet implementation class LoginController
@@ -59,6 +62,11 @@ public class LoginController extends HttpServlet {
 			} else if (result == 1) {
 				HttpSession session = request.getSession();
 				session.setAttribute("signedid", request.getParameter("id"));
+				
+				List<NotificationVO> vos = dao.getAlerts((String) session.getAttribute("signedid"));
+				
+				System.out.println(vos);
+				session.setAttribute("vos", vos);
 				response.sendRedirect("index.do");
 			}
 		}
