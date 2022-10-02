@@ -69,6 +69,14 @@ public class AdminContoller extends HttpServlet {
 			vo = dao.selectOne(Integer.parseInt(request.getParameter("gNum")));
 			request.setAttribute("vo", vo);
 			request.getRequestDispatcher("admin/update.jsp").forward(request, response);
+		}else if(sPath.equals("/ad_deleteOK.do")) {
+			int gNum = Integer.parseInt(request.getParameter("gNum"));
+			AdminDAO dao = new AdminDAOimpl();
+			if(dao.delete(gNum)==1) {
+				response.sendRedirect("admin.do");
+			}else {
+				response.sendRedirect("ad_selectOne.do?gNum="+Integer.parseInt(request.getParameter("gNum")));
+			}
 		}
 	}
 
@@ -160,9 +168,9 @@ public class AdminContoller extends HttpServlet {
 			vo.setLink("");
 			if(dao.update(vo)==1) {
 				System.out.println("success");
-//				response.sendRedirect("gatheringinfo.do?gnum="+gNum);
+				response.sendRedirect("ad_selectOne.do?gNum="+Integer.parseInt(request.getParameter("gNum")));
 			}else {
-//				response.sendRedirect("gatheringinfo.do?gnum="+gNum);
+				response.sendRedirect("ad_update.do?gNum="+Integer.parseInt(request.getParameter("gNum")));
 			}
 			
 		}

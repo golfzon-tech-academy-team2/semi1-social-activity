@@ -15,6 +15,17 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <title>관리자 페이지</title>
+<script src="js/jquery-3.6.1.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(function(){
+	$(".delete").on('click',function(){
+		console.log("click....");
+		if(confirm("삭제하시겠습니까?")){
+			location = "ad_deleteOK.do?gNum=${vo.gNum}";
+		}
+	})
+});
+</script>
 </head>
 <body>
 	<table class="table">
@@ -56,7 +67,8 @@
 			</c:if>
 		</tr>
 	</table>
+	<button onclick="location.href='admin.do'">관리페이지로 돌아가기</button>
 	<button onclick="location.href='ad_update.do?gNum=${vo.gNum}'">수정하기</button>
-	<button onclick="location.href='ad_update.do?gNum=${vo.gNum}'">삭제하기</button>
+	<button class="delete">삭제하기</button>
 </body>
 </html>
