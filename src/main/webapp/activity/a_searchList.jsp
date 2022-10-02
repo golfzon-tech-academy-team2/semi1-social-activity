@@ -20,8 +20,7 @@
 </script>
 </head>
 <body>
-	<a href="index.do">홈</a>
-	<hr>
+	<jsp:include page="../top_menu.jsp"></jsp:include>
 
 	<h3>액티비티 검색</h3>
 	

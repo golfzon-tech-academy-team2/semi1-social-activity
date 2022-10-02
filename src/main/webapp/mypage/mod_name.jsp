@@ -22,8 +22,7 @@
 
 </head>
 <body>
-	<a href="index.do">홈</a>
-	<hr>
+	<jsp:include page="../top_menu.jsp"></jsp:include>
 	<h3>이름 수정</h3>
 
 	<form id="modname" name="modname" method="post">

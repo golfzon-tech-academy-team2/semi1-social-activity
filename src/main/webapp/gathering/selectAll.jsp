@@ -18,6 +18,7 @@
 <title>전체 모임 리스트</title>
 </head>
 <body>
+	<jsp:include page="../top_menu.jsp"></jsp:include>
 	<div class="py-5">
 		<div class="container">
 			<div class="row hidden-md-up">

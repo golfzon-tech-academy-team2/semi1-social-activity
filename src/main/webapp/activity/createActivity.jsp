@@ -113,8 +113,8 @@
 	}
 </script>
 <body>
-	<a href="index.do">홈</a>
-	<hr>
+	<jsp:include page="../top_menu.jsp"></jsp:include>
+	
 	<h1>${vo.gName }</h1>
 	<h3> 모임의 액티비티 생성</h3>
 	
@@ -191,7 +191,7 @@
 			<tr>
 				<td><label for="maxPerson">최대 참가 가능 인원 :</label></td>
 				<td>
-				<select>
+				<select id="maxPerson" name="maxPerson">
 						<c:forEach var="cnt" begin="1" end="${gatheringUserNum }">
 							<option value="${cnt }">${cnt }</option>
 						</c:forEach>

@@ -6,6 +6,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.team2.sa.notification.NotificationVO;
 
 public class SigninDAOimpl implements SigninDAO {
 
@@ -45,6 +49,42 @@ public class SigninDAOimpl implements SigninDAO {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	@Override
+	public List<NotificationVO> getAlerts(String id) {
+		List<NotificationVO> vos = new ArrayList<NotificationVO>();
+		try {
+			Class.forName(SigninQuery.DRIVER_NAME);
+			System.out.println("Driver successed..");
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			conn = DriverManager.getConnection(SigninQuery.URL, SigninQuery.USER, SigninQuery.PASSWORD);
+//			System.out.println("conn successed...");
+			//DQL
+			pstmt = conn.prepareStatement(SigninQuery.SQL_CHECK_NOTIFICATION);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				NotificationVO vo = new NotificationVO();
+				vo.setNnum(rs.getInt("nnum"));
+				vo.setUnum(rs.getInt("unum"));
+				vo.setContent(rs.getString("content"));
+				vo.setWhen(rs.getString("when"));
+				
+				vos.add(vo);
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return vos;
 	}
 	
 	

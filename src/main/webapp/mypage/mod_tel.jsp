@@ -21,8 +21,7 @@
 </script>
 </head>
 <body>
-	<a href="index.do">홈</a>
-	<hr>
+	<jsp:include page="../top_menu.jsp"></jsp:include>
 	<h3>전화번호 수정</h3>
 	
 	<form id="modtel" name="modtel" method="post">

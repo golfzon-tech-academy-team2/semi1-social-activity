@@ -17,6 +17,7 @@ th, td {
 </style>
 </head>
 <body>
+	<jsp:include page="../top_menu.jsp"></jsp:include>
    <form action="b_updateOK.do?bNum=${param.bNum}&gNum=${param.gNum}" method="post">
 	<table>
 		<tr>

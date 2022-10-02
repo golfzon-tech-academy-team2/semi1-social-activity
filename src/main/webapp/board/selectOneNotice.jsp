@@ -123,6 +123,7 @@ $(function() {
 </script>
 </head>
 <body>
+	<jsp:include page="../top_menu.jsp"></jsp:include>
 	<table>
 		<tr>
 			<th>글 번호</th>

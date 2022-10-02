@@ -54,6 +54,7 @@
 </script>
 </head>
 <body>
+	<jsp:include page="../top_menu.jsp"></jsp:include>
 	<form id="signup" name="signup" method="post">
 		<table>
 			<tr>

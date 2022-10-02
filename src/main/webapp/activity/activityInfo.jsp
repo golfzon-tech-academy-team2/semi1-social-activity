@@ -56,8 +56,7 @@
 </head>
 <body>
 	<fmt:formatDate var="today" value="${today }" pattern="yyyy-MM-dd"/>
-	<a href="index.do">홈</a>
-	<hr>
+	<jsp:include page="../top_menu.jsp"></jsp:include>
 	
 	<c:if test="${today <= vo.endDate && today >= vo.startDate}">
 		<c:if test="${checkActivity == 0 }">

@@ -124,7 +124,7 @@ public class ActivityController extends HttpServlet {
 				int gNum = dao.getGnum(Integer.parseInt(request.getParameter("aNum")));
 				out.println("<script>");
 				out.println("alert('모임에 먼저 가입해야합니다');");
-				out.println("location='joinPubGathering.do?gNum=" + gNum + "';");
+				out.println("location='g_selectOne.do?gNum=" + gNum + "';");
 				out.println("</script>");
 				out.close();
 			} else {
