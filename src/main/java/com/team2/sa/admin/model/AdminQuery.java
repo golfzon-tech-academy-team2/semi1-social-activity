@@ -10,5 +10,7 @@ public interface AdminQuery {
 	String searchUnum = "select unum from userinfo where id=?";
 
 	String UPDATEGATHERING = "UPDATE gathering SET gname=?, gcontent=?, logo=?, minage=?, maxage=?, sex=?, permission=?, link=? WHERE gnum = ?";
-
+	String DELETEGATHERING1 = "delete from gatheringuserinfo where gnum=?";
+	String DELETEGATHERING2 = "delete from gathering where gnum=?";
+	
 }

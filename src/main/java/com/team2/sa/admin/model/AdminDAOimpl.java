@@ -182,4 +182,51 @@ public class AdminDAOimpl implements AdminDAO {
 		return flag;
 	}
 
+	@Override
+	public int delete(int gNum) {
+		int flag = 0;
+		try {
+			conn = DriverManager.getConnection(
+					BoardQuery.URL, 
+					BoardQuery.USER, 
+					BoardQuery.PASSWORD);
+//			System.out.println("conn successed...");
+			//�Է�, ����, ���� : DML
+			pstmt = conn.prepareStatement(AdminQuery.DELETEGATHERING1); //query�� ��
+			pstmt.setInt(1, gNum); //query�� ?ó��
+			flag = pstmt.executeUpdate();//������ ���� ���
+			pstmt = conn.prepareStatement(AdminQuery.DELETEGATHERING2); //query�� ��
+			pstmt.setInt(1, gNum); //query�� ?ó��
+			flag = pstmt.executeUpdate();//������ ���� ���
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return flag;
+	}
+
 }
