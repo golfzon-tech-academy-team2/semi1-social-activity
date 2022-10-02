@@ -130,4 +130,56 @@ public class AdminDAOimpl implements AdminDAO {
 		return uNum;
 	}
 
+	@Override
+	public int update(GatheringUserInfoVO vo) {
+		int flag = 0;
+		try {
+			conn = DriverManager.getConnection(
+					BoardQuery.URL, 
+					BoardQuery.USER, 
+					BoardQuery.PASSWORD);
+//			System.out.println("conn successed...");
+			//DML
+			pstmt = conn.prepareStatement(AdminQuery.UPDATEGATHERING);
+			pstmt.setString(1, vo.getgName());
+			pstmt.setString(2, vo.getgContent());
+			pstmt.setString(3, vo.getLogo());
+			pstmt.setInt(4, vo.getMinAge());
+			pstmt.setInt(5, vo.getMaxAge());
+			pstmt.setString(6, vo.getSex());
+			pstmt.setString(7, vo.getPermission());
+			pstmt.setString(8, "");
+			pstmt.setInt(9, vo.getgNum());
+			flag = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return flag;
+	}
+
 }

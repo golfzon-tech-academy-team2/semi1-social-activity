@@ -17,16 +17,10 @@
 <title>관리자 페이지</title>
 </head>
 <body>
-	<form class="was-validated" action="" method="post"
+	<form class="was-validated" action="ad_updateOK.do?gNum=${param.gNum}" method="post"
 		enctype="multipart/form-data">
 		<div class="container">
 			<h2>공개 모임 수정</h2>
-			<div class="btn-group btn-group">
-				<button type="button" class="btn btn-primary"
-					onclick="location.href='insert_pubGathering.do'">공개형</button>
-				<button type="button" class="btn btn-primary"
-					onclick="location.href='insert_priGathering.do'">비공개형</button>
-			</div>
 			<div class="form-group">
 				<label for="gName">모임명:</label> <input type="text"
 					class="form-control" id="gName" placeholder="모임 이름을 입력하세요"
@@ -42,26 +36,42 @@
 
 			<div class="mb-3">
 				<label for="logo">모임 앰블럼:</label><br> <input type="file" id="logo" name="logo"
-					class="form-control" aria-label="file example" required >
+					class="form-control" aria-label="file example" required>
 				<div class="invalid-feedback">Example invalid form file
 					feedback</div>
 			</div>
-
+			<c:if test="${vo.sex == 'F'}">
+			<label for="sex">가입 성별 제한:</label><br> <input type="radio"
+				name="sex" value="F" checked="checked">여성 <br> <input type="radio"
+				name="sex" value="M" >남성 <br> <input type="radio"
+				name="sex" value="X" >제한 없음 <br> <br>
+			</c:if>
+			<c:if test="${vo.sex == 'M'}">
 			<label for="sex">가입 성별 제한:</label><br> <input type="radio"
 				name="sex" value="F">여성 <br> <input type="radio"
-				name="sex" value="M">남성 <br> <input type="radio"
+				name="sex" value="M" checked="checked">남성 <br> <input type="radio"
+				name="sex" value="X" >제한 없음 <br> <br>
+			</c:if>	
+			<c:if test="${vo.sex == 'X'}">
+			<label for="sex">가입 성별 제한:</label><br> <input type="radio"
+				name="sex" value="F">여성 <br> <input type="radio"
+				name="sex" value="M" >남성 <br> <input type="radio"
 				name="sex" value="X" checked="checked">제한 없음 <br> <br>
+			</c:if>	
+				
 			<label>연령대:</label><br> <label>최소 나이:</label><br> <input
 				type="number" class="form-control" id="minAge"
-				placeholder="모임을 설명해주세요" name="minAge" value=1> <label>최대
+				placeholder="모임을 설명해주세요" name="minAge" value=${vo.minAge}> <label>최대
 				나이:</label><br> <input type="number" class="form-control" id="maxAge"
-				placeholder="모임을 설명해주세요" name="maxAge" value=100>
+				placeholder="모임을 설명해주세요" name="maxAge" value=${vo.maxAge}>
 
 			<div class="form-group form-check">
+				<c:if test="${vo.permission == 'on'}">
 				<label class="form-check-label"> <input
-					class="form-check-input" type="checkbox" name="permission">
+					class="form-check-input" type="checkbox" name="permission" checked="checked">
 					운영자 승낙 필요 여부
 				</label>
+				</c:if>
 			</div>
 			<button type="submit" class="btn btn-primary">모임 수정</button>
 		</div>

@@ -9,4 +9,6 @@ public interface AdminQuery {
 	
 	String searchUnum = "select unum from userinfo where id=?";
 
+	String UPDATEGATHERING = "UPDATE gathering SET gname=?, gcontent=?, logo=?, minage=?, maxage=?, sex=?, permission=?, link=? WHERE gnum = ?";
+
 }
