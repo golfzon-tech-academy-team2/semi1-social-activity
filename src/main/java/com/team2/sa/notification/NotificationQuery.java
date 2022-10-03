@@ -7,5 +7,6 @@ public interface NotificationQuery {
 	String SQL_GET_UNUM = "select unum from userinfo where id = ?";
 	String SQL_GET_GNAME = "select gname from gathering where gnum = ?";
 	String getGatheringUnum = "select unum from gatheringuserinfo gu left join gathering g on gu.gnum = g.gnum where g.gnum = ?";
+	String SQL_GET_ANAME = "select aname from activity where anum = ?";
 
 }

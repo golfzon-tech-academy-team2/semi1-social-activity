@@ -75,7 +75,7 @@ public class AlbumDAOimpl implements AlbumDAO {
 			for(int uNum : uNums) {
 				pstmt = conn.prepareStatement(NotificationQuery.SQL_INSERT_NOTI);
 				pstmt.setInt(1, uNum);
-				pstmt.setString(2, gName + " 모임에 사진이 업데이트되었습니다");
+				pstmt.setString(2, gName + " 모임의 갤러리가 업데이트되었습니다");
 				
 				pstmt.executeUpdate();
 			}
