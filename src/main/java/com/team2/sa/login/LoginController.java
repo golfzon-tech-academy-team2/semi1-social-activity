@@ -66,7 +66,7 @@ public class LoginController extends HttpServlet {
 				List<NotificationVO> vos = dao.getAlerts((String) session.getAttribute("signedid"));
 				
 				System.out.println(vos);
-				session.setAttribute("vos", vos);
+				session.setAttribute("notificationVos", vos);
 				response.sendRedirect("index.do");
 			}
 		}

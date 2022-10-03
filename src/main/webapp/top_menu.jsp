@@ -51,13 +51,13 @@ $(document).ready(function(){
 	    		<div class="icon_wrap"><i class="far fa-bell"></i></div>
 	        		<div class="notification_dd">
 	        			<ul class="notification_ul">
-	        				<c:forEach var="vo" items="${vos }">
+	        				<c:forEach var="notificationVo" items="${notificationVos }">
 		                		<li class="noti">
 			                    	<div class="notify_data">
-			                    		${vo.content }
+			                    		${notificationVo.content }
 			                    	</div>
 			                    	<div class="notify_date">
-			                    		<p>${vo.when }</p>
+			                    		<p>${notificationVo.when }</p>
 			                    	</div>
 		                		</li>
 	        				</c:forEach>
