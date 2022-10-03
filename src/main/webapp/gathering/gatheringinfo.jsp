@@ -177,6 +177,11 @@
 
 			</tbody>
 		</table>
+		<h2>갤러리</h2>
+		<button onclick="location.href='ab_insert.do?gNum=${param.gnum}'"
+			class="btn btn-primary">사진 올리기</button>
+		<button onclick="location.href='ab_selectAll.do?gNum=${param.gnum}'"
+			class="btn btn-primary">갤러리 보기</button>
 	</div>
 
 </body>
