@@ -20,6 +20,9 @@ import org.apache.commons.io.FilenameUtils;
 import com.team2.sa.album.model.AlbumDAO;
 import com.team2.sa.album.model.AlbumDAOimpl;
 import com.team2.sa.album.model.AlbumVO;
+import com.team2.sa.login.SigninDAO;
+import com.team2.sa.login.SigninDAOimpl;
+import com.team2.sa.notification.NotificationVO;
 
 /**
  * Servlet implementation class AlbumController
@@ -44,6 +47,12 @@ public class AlbumController extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String sPath = request.getServletPath();
+		HttpSession session = request.getSession();
+		SigninDAO signDAO = new SigninDAOimpl();
+		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
+		session.setAttribute("notificationVos", notificationVos);
+		String signedid = (String) session.getAttribute("signedid");
+		
 		if (sPath.equals("/ab_insert.do")) {
 			System.out.println(request.getParameter("gNum"));
 			request.getRequestDispatcher("album/insert.jsp").forward(request, response);
@@ -85,6 +94,12 @@ public class AlbumController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		String sPath = request.getServletPath();
+		HttpSession session = request.getSession();
+		SigninDAO signDAO = new SigninDAOimpl();
+		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
+		session.setAttribute("notificationVos", notificationVos);
+		String signedid = (String) session.getAttribute("signedid");
+		
 		if (sPath.equals("/ab_insertOK.do")) {
 			String dir_path = request.getServletContext().getRealPath("/gallery");
 			System.out.println(dir_path);
@@ -140,8 +155,6 @@ public class AlbumController extends HttpServlet {
 				AlbumDAO dao = new AlbumDAOimpl();
 				AlbumVO vo = new AlbumVO();
 
-				HttpSession session = request.getSession();
-				String signedid = (String) session.getAttribute("signedid");
 				vo.setFileName(fileName);
 				vo.setgNum(Integer.parseInt(request.getParameter("gNum")));
 				vo.setuName(dao.findName(signedid));
