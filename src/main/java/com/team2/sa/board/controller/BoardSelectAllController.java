@@ -8,10 +8,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.team2.sa.board.model.BoardJoinDAO;
 import com.team2.sa.board.model.BoardJoinDAOimpl;
 import com.team2.sa.board.model.BoardJoinVO;
+import com.team2.sa.login.SigninDAO;
+import com.team2.sa.login.SigninDAOimpl;
+import com.team2.sa.notification.NotificationVO;
 
 /**
  * Servlet implementation class BoardSelectAllController
@@ -34,6 +38,10 @@ public class BoardSelectAllController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//selectall notice
 		String sPath = request.getServletPath();
+		HttpSession session = request.getSession();
+		SigninDAO signDAO = new SigninDAOimpl();
+		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
+		session.setAttribute("notificationVos", notificationVos);
 		if(sPath.equals("/b_selectAll.do")) {
 			BoardJoinDAO dao = new BoardJoinDAOimpl();
 			List<BoardJoinVO> vos = dao.selectAllNotice(Integer.parseInt(request.getParameter("gNum")));

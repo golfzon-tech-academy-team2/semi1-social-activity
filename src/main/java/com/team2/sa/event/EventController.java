@@ -1,11 +1,18 @@
 package com.team2.sa.event;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.team2.sa.login.SigninDAO;
+import com.team2.sa.login.SigninDAOimpl;
+import com.team2.sa.notification.NotificationVO;
 
 /**
  * Servlet implementation class EventController
@@ -28,6 +35,10 @@ public class EventController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String sPath = request.getServletPath();
 		System.out.println(sPath);
+		HttpSession session = request.getSession();
+		SigninDAO signDAO = new SigninDAOimpl();
+		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
+		session.setAttribute("notificationVos", notificationVos);
 		
 		if (sPath.equals("/createEvent.do")) {
 			request.setAttribute("aNum", Integer.parseInt(request.getParameter("aNum")));
@@ -49,6 +60,10 @@ public class EventController extends HttpServlet {
 		String sPath = request.getServletPath();
 		System.out.println(sPath);
 		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		SigninDAO signDAO = new SigninDAOimpl();
+		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
+		session.setAttribute("notificationVos", notificationVos);
 		if (sPath.equals("/createEventOK.do")) {
 			
 			System.out.println(request.getParameter("eTitle"));

@@ -1,6 +1,7 @@
 package com.team2.sa.board.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import com.team2.sa.board.model.BoardDAO;
 import com.team2.sa.board.model.BoardDAOimpl;
+import com.team2.sa.login.SigninDAO;
+import com.team2.sa.login.SigninDAOimpl;
+import com.team2.sa.notification.NotificationVO;
 
 /**
  * Servlet implementation class IsLeaderController
@@ -34,7 +38,11 @@ public class AJaxController extends HttpServlet {
 		// TODO Auto-generated method stub
 		String sPath = request.getServletPath();
 		System.out.println("doGet:" + sPath);
+
 		HttpSession session = request.getSession();
+		SigninDAO signDAO = new SigninDAOimpl();
+		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
+		session.setAttribute("notificationVos", notificationVos);
 		String signedid = (String) session.getAttribute("signedid");
 		
 		if(sPath.equals("/isOL.do")) {

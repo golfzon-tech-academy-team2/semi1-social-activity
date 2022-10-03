@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.team2.sa.activity.ActivityInhereted;
+import com.team2.sa.login.SigninDAO;
+import com.team2.sa.login.SigninDAOimpl;
+import com.team2.sa.notification.NotificationVO;
 import com.team2.sa.signup.UserinfoVO;
 
 /**
@@ -40,6 +43,11 @@ public class MypageController extends HttpServlet {
 		String sPath = request.getServletPath();
 		System.out.println(sPath);
 		
+		HttpSession session = request.getSession();
+		SigninDAO signDAO = new SigninDAOimpl();
+		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
+		session.setAttribute("notificationVos", notificationVos);
+		
 		if (sPath.equals("/pw_check.do")) {
 			request.getRequestDispatcher("mypage/pw_check.jsp").forward(request, response);
 		} else if (sPath.equals("/mod_name.do")) {
@@ -51,7 +59,6 @@ public class MypageController extends HttpServlet {
 		} else if (sPath.equals("/mod_tel.do")) {
 			request.getRequestDispatcher("mypage/mod_tel.jsp").forward(request, response);
 		} else if (sPath.equals("/signout.do")) {
-			HttpSession session = request.getSession();
 			MypageDAO dao = new MypageDAOimpl();
 			dao.signout((String) session.getAttribute("signedid"));
 			session.removeAttribute("signedid");
@@ -66,9 +73,12 @@ public class MypageController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String sPath = request.getServletPath();
 		System.out.println(sPath);
+		HttpSession session = request.getSession();
+		SigninDAO signDAO = new SigninDAOimpl();
+		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
+		session.setAttribute("notificationVos", notificationVos);
 		MypageDAO dao = new MypageDAOimpl();
 		if (sPath.equals("/mypage.do")) {
-			HttpSession session = request.getSession();
 			String result = dao.pwcheck((String) session.getAttribute("signedid"));
 			System.out.println(result);
 			
@@ -102,7 +112,6 @@ public class MypageController extends HttpServlet {
 		} else if (sPath.equals("/mod_nameOK.do")) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			HttpSession session = request.getSession();
 			request.setCharacterEncoding("UTF-8");
 			dao.modname((String) session.getAttribute("signedid"), request.getParameter("uname"));
 			out.println("<script>");
@@ -113,7 +122,6 @@ public class MypageController extends HttpServlet {
 		} else if (sPath.equals("/mod_pwOK.do")) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			HttpSession session = request.getSession();
 			request.setCharacterEncoding("UTF-8");
 			dao.modpw((String) session.getAttribute("signedid"), request.getParameter("pw"));
 			out.println("<script>");
@@ -124,7 +132,6 @@ public class MypageController extends HttpServlet {
 		} else if (sPath.equals("/mod_addrOK.do")) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			HttpSession session = request.getSession();
 			request.setCharacterEncoding("UTF-8");
 			dao.modaddr((String) session.getAttribute("signedid"), request.getParameter("addr"));
 			out.println("<script>");
@@ -135,7 +142,6 @@ public class MypageController extends HttpServlet {
 		} else if (sPath.equals("/mod_telOK.do")) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			HttpSession session = request.getSession();
 			request.setCharacterEncoding("UTF-8");
 			dao.modtel((String) session.getAttribute("signedid"), request.getParameter("tel"));
 			out.println("<script>");

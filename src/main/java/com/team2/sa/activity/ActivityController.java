@@ -14,9 +14,12 @@ import javax.servlet.http.HttpSession;
 
 import com.team2.sa.event.EventVO;
 import com.team2.sa.gathering.model.GatheringVO;
+import com.team2.sa.login.SigninDAO;
+import com.team2.sa.login.SigninDAOimpl;
 import com.team2.sa.mypage.MyGatheringInherited;
 import com.team2.sa.mypage.MypageDAO;
 import com.team2.sa.mypage.MypageDAOimpl;
+import com.team2.sa.notification.NotificationVO;
 import com.team2.sa.signup.UserinfoVO;
 import com.team2.sa.userinfo.member.UserInfoVO;
 
@@ -44,6 +47,11 @@ public class ActivityController extends HttpServlet {
 		String sPath = request.getServletPath();
 		System.out.println(sPath);
 		
+		HttpSession session = request.getSession();
+		SigninDAO signDAO = new SigninDAOimpl();
+		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
+		session.setAttribute("notificationVos", notificationVos);
+		
 		if(sPath.equals("/createActivity.do")) {
 			String gNum = request.getParameter("gNum");
 			ActivityDAO dao = new ActivityDAOimpl();
@@ -65,8 +73,6 @@ public class ActivityController extends HttpServlet {
 			ActivityVO vo = dao.selectOne(Integer.parseInt(request.getParameter("aNum")));
 			
 			request.setAttribute("vo", vo);
-			
-			HttpSession session = request.getSession();
 			
 			int checkActivity = dao.checkActivity(Integer.parseInt(request.getParameter("aNum")), (String) session.getAttribute("signedid"));
 			
@@ -95,7 +101,6 @@ public class ActivityController extends HttpServlet {
 		} else if (sPath.equals("/deleteActivity.do")) {
 			ActivityDAO dao = new ActivityDAOimpl();
 			dao.deleteActivity(Integer.parseInt(request.getParameter("aNum")));
-			HttpSession session = request.getSession();
 			session.getAttribute("signedid");
 			MypageDAO dao2 = new MypageDAOimpl();
 			request.setAttribute("pw", dao2.pwcheck((String) session.getAttribute("signedid")));
@@ -117,7 +122,6 @@ public class ActivityController extends HttpServlet {
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			HttpSession session = request.getSession();
 			ActivityDAO dao = new ActivityDAOimpl();
 			int checkGathering = dao.checkGathering(Integer.parseInt(request.getParameter("aNum")), (String) session.getAttribute("signedid"));
 			if (checkGathering == 0) {
@@ -154,7 +158,6 @@ public class ActivityController extends HttpServlet {
 			Integer.parseInt(request.getParameter("aNum"));
 			MypageDAO dao = new MypageDAOimpl();
 			
-			HttpSession session = request.getSession();
 			dao.signOutActivity(Integer.parseInt(request.getParameter("aNum")), (String) session.getAttribute("signedid"));
 			
 			UserinfoVO vo = dao.getMyInfo((String) session.getAttribute("signedid"));
@@ -183,6 +186,11 @@ public class ActivityController extends HttpServlet {
 		System.out.println(sPath);
 		ActivityDAO dao = new ActivityDAOimpl();
 		
+		HttpSession session = request.getSession();
+		SigninDAO signDAO = new SigninDAOimpl();
+		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
+		session.setAttribute("notificationVos", notificationVos);
+		
 		if(sPath.equals("/creActOK.do")) {
 			request.setCharacterEncoding("UTF-8");
 			ActivityInhereted vo = new ActivityInhereted();
@@ -206,7 +214,6 @@ public class ActivityController extends HttpServlet {
 			}
 			vo.setMaxPerson(Integer.parseInt(request.getParameter("maxPerson")));
 
-			HttpSession session = request.getSession();
 			System.out.println("hmm");
 			dao.insert(vo, (String) session.getAttribute("signedid"));
 			

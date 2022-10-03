@@ -8,10 +8,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.team2.sa.gathering.model.GatheringVO;
 import com.team2.sa.gathering.model.PubGatheringDAO;
 import com.team2.sa.gathering.model.PubGatheringDAOimpl;
+import com.team2.sa.login.SigninDAO;
+import com.team2.sa.login.SigninDAOimpl;
+import com.team2.sa.notification.NotificationVO;
 
 /**
  * Servlet implementation class SearchListGatheringController
@@ -34,6 +38,11 @@ public class SearchListGatheringController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String sPath = request.getServletPath();
+		HttpSession session = request.getSession();
+		SigninDAO signDAO = new SigninDAOimpl();
+		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
+		session.setAttribute("notificationVos", notificationVos);
+		
 		if(sPath.equals("/g_searchList.do")) {
 			request.getRequestDispatcher("gathering/searchList.jsp").forward(request, response);
 		}else if(sPath.equals("/g_searchListOK.do")) {

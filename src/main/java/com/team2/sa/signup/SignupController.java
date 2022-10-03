@@ -2,6 +2,7 @@ package com.team2.sa.signup;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.Session;
+
+import com.team2.sa.login.SigninDAO;
+import com.team2.sa.login.SigninDAOimpl;
+import com.team2.sa.notification.NotificationDAO;
+import com.team2.sa.notification.NotificationDAOimpl;
+import com.team2.sa.notification.NotificationVO;
 
 /**
  * Servlet implementation class SignupController
@@ -35,6 +42,10 @@ public class SignupController extends HttpServlet {
 			throws ServletException, IOException {
 		String sPath = request.getServletPath();
 		System.out.println(sPath);
+		HttpSession session = request.getSession();
+		SigninDAO signDAO = new SigninDAOimpl();
+		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
+		session.setAttribute("notificationVos", notificationVos);
 
 		if (sPath.equals("/signup.do")) {
 			request.getRequestDispatcher("signup/signup.jsp").forward(request, response);
@@ -44,7 +55,6 @@ public class SignupController extends HttpServlet {
 			System.out.println(id);
 			int result = dao.idCheck(id);
 			
-			HttpSession session = request.getSession();
 	        session.setAttribute("result", result);
 	        
 	        request.getRequestDispatcher("signup/dbCheckid.jsp").forward(request, response);
@@ -61,6 +71,10 @@ public class SignupController extends HttpServlet {
 			throws ServletException, IOException {
 		String sPath = request.getServletPath();
 		System.out.println(sPath);
+		HttpSession session = request.getSession();
+		SigninDAO signDAO = new SigninDAOimpl();
+		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
+		session.setAttribute("notificationVos", notificationVos);
 
 		if (sPath.equals("/signupOK.do")) {
 			request.setCharacterEncoding("UTF-8");

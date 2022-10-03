@@ -23,6 +23,9 @@ import com.team2.sa.gathering.model.GatheringUserInfo;
 import com.team2.sa.gathering.model.GatheringUserInfoVO;
 import com.team2.sa.gathering.model.PubGatheringDAO;
 import com.team2.sa.gathering.model.PubGatheringDAOimpl;
+import com.team2.sa.login.SigninDAO;
+import com.team2.sa.login.SigninDAOimpl;
+import com.team2.sa.notification.NotificationVO;
 
 /**
  * Servlet implementation class AdminContoller
@@ -46,6 +49,9 @@ public class AdminContoller extends HttpServlet {
 		// TODO Auto-generated method stub
 		String sPath = request.getServletPath();
 		HttpSession session = request.getSession();
+		SigninDAO signDAO = new SigninDAOimpl();
+		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
+		session.setAttribute("notificationVos", notificationVos);
 		String signedid = (String) session.getAttribute("signedid");
 		if(sPath.equals("/admin.do")) {
 			GatheringUserInfoVO vo = new GatheringUserInfoVO();
@@ -86,6 +92,10 @@ public class AdminContoller extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String sPath = request.getServletPath();
+		HttpSession session = request.getSession();
+		SigninDAO signDAO = new SigninDAOimpl();
+		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
+		session.setAttribute("notificationVos", notificationVos);
 		if(sPath.equals("/ad_updateOK.do")) {
 			String dir_path = request.getServletContext().getRealPath("/gEmblem");
 			System.out.println(dir_path);
