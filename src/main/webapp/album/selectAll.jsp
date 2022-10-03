@@ -22,7 +22,7 @@
 			<div class="row hidden-md-up">
 				<c:forEach var="vo" items="${vos}">
 					<div class="col-md-3">
-						<div class="card" style="width: 300px height:300px">
+						<div class="card" style="width: 300px height:300px" onclick="location.href='ab_selectOne.do?aNum=${vo.aNum}&gNum=${vo.gNum}'">
 							<c:if test="${vo.type eq 'video'}">
 								<video src="gallery/${vo.fileName}" controls> 이 브라우저에서
 									지원하지 않는 영상입니다.

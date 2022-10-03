@@ -25,7 +25,7 @@
 
 				<c:forEach var="vo" items="${vos}">
 				<div class="col-md-4">
-					<div class="card" style="width: 300px">
+					<div class="card" style="width: 300px" onclick="location.href='ab_selectOne.do?aNum=${vo.aNum}'">
 						<img class="card-img-top" src="gEmblem/${vo.logo}" alt="Card image"
 							style="width: 100">
 						<div class="card-body">

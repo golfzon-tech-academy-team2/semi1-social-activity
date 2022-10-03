@@ -8,5 +8,6 @@ public interface AlbumDAO {
 	public AlbumVO selectOne(int aNum);
 	public int findUnum(String id);
 	public String findName(String id);
+	public int delete(int aNum);
 
 }
