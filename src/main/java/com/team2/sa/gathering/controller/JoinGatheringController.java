@@ -52,6 +52,7 @@ public class JoinGatheringController extends HttpServlet {
 			System.out.println(signedid);
 			GatheringUserInfoDAO dao = new GatheringUserInfoDAOimpl();
 			dao.insert(Integer.parseInt(request.getParameter("gNum")),"M",signedid);
+			response.sendRedirect("gatheringinfo.do?gnum="+request.getParameter("gNum"));
 
 		}
 		}else {

@@ -15,6 +15,34 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <title>Insert title here</title>
+<script src="js/jquery-3.6.1.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(function() {
+    console.log("ready....");
+    $("#check_condition").on('click',function(){
+       console.log("click....");
+    	   $.ajax({
+    	          url:"checkCondition.do?sex=${vo.sex}&minAge=${vo.minAge}&maxAge=${vo.maxAge}",
+    	          type:"get",
+    	          dataType:"text",//xml,html,text
+    	          success : function(responseTxt,status,obj){
+    	              if(responseTxt=="{1}"){//가입 가능한 경우
+    	              	console.log("가입 가능");
+   	    				location = "joinPubGathering.do?gNum=${param.gNum}";	
+    	              }else{
+    	              	alert('가입이 불가능합니다.');
+    	              }
+    	           },
+    	           error:function(xhr,status,error){
+    	              console.log("error:function....",status);
+    	              
+    	           }
+    	       });   
+       
+    });
+ });
+	
+</script>
 </head>
 <body>
 	<jsp:include page="../top_menu.jsp"></jsp:include>
@@ -57,6 +85,7 @@
 			</c:if>
 		</tr>
 	</table>
-	<button onclick="location.href='joinPubGathering.do?gNum=${param.gNum}'" class="btn btn-primary">가입하기</button>
+	<button  class="btn btn-primary" id="check_condition">가입하기</button>
+	
 </body>
 </html>
