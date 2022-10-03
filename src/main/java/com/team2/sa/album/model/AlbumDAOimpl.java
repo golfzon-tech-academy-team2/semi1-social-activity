@@ -98,6 +98,7 @@ public class AlbumDAOimpl implements AlbumDAO {
 				vo.setType(rs.getString("type"));
 				vo.setuName(rs.getString("uName"));
 				vo.setuNum(rs.getInt("uNum"));
+				vo.setaNum(rs.getInt("aNum"));
 				vos.add(vo);
 				i++;
 			}
@@ -136,8 +137,58 @@ public class AlbumDAOimpl implements AlbumDAO {
 
 	@Override
 	public AlbumVO selectOne(int aNum) {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("selectAll()...");
+		AlbumVO vo = new AlbumVO();
+		try {
+			conn = DriverManager.getConnection(
+					BoardQuery.URL, 
+					BoardQuery.USER, 
+					BoardQuery.PASSWORD);
+			//여기부터
+			pstmt = conn.prepareStatement(AlbumQuery.selectOne);
+			pstmt.setInt(1, aNum);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				vo.setFileName(rs.getString("fileName"));
+				vo.setgNum(rs.getInt("gNum"));
+				vo.setType(rs.getString("type"));
+				vo.setuName(rs.getString("uName"));
+				vo.setuNum(rs.getInt("uNum"));
+				vo.setaNum(rs.getInt("aNum"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return vo;
 	}
 
 	@Override
@@ -231,6 +282,50 @@ public class AlbumDAOimpl implements AlbumDAO {
 			}
 		}
 		return uName;
+	}
+
+	@Override
+	public int delete(int aNum) {
+		int flag = 0;
+		try {
+			conn = DriverManager.getConnection(
+					BoardQuery.URL, 
+					BoardQuery.USER, 
+					BoardQuery.PASSWORD);
+//			System.out.println("conn successed...");
+			//�Է�, ����, ���� : DML
+			pstmt = conn.prepareStatement(AlbumQuery.delete); //query�� ��
+			pstmt.setInt(1, aNum); //query�� ?ó��
+			flag = pstmt.executeUpdate();//������ ���� ���
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return flag;
 	}
 
 }

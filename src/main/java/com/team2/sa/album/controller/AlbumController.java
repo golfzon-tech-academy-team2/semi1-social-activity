@@ -47,12 +47,31 @@ public class AlbumController extends HttpServlet {
 		if (sPath.equals("/ab_insert.do")) {
 			System.out.println(request.getParameter("gNum"));
 			request.getRequestDispatcher("album/insert.jsp").forward(request, response);
-		}if (sPath.equals("/ab_selectAll.do")) {
+		}else if (sPath.equals("/ab_selectAll.do")) {
 			int gNum = Integer.parseInt(request.getParameter("gNum"));
 			AlbumDAO dao = new AlbumDAOimpl();
 			List<AlbumVO> vos = dao.selectAll(gNum);
 			request.setAttribute("vos", vos);
 			request.getRequestDispatcher("album/selectAll.jsp").forward(request, response);
+		}else if(sPath.equals("/ab_selectOne.do")) {
+			int aNum = Integer.parseInt(request.getParameter("aNum"));
+			AlbumDAO dao = new AlbumDAOimpl();
+			AlbumVO vo = dao.selectOne(aNum);
+			request.setAttribute("vo", vo);
+			request.getRequestDispatcher("album/selectOne.jsp").forward(request, response);
+		}else if(sPath.equals("/ab_delete.do")) {
+			System.out.println(request.getParameter("aNum"));
+			int aNum = Integer.parseInt(request.getParameter("aNum"));
+			int gNum = Integer.parseInt(request.getParameter("gNum"));
+			AlbumDAO dao = new AlbumDAOimpl();
+			if(dao.delete(Integer.parseInt(request.getParameter("aNum")))==1) {
+				System.out.println("success!!");
+				response.sendRedirect("ab_selectAll.do?gNum="+gNum);
+			} else {
+				System.out.println("fail");
+				response.sendRedirect("ab_selectOne.do?aNum="+aNum);//selectOne
+			}
+
 		}
 	}
 
