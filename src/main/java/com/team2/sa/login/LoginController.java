@@ -35,9 +35,16 @@ public class LoginController extends HttpServlet {
 		System.out.println(sPath);
 		
 		if (sPath.equals("/login.do")) {
+			HttpSession session = request.getSession();
+			SigninDAO dao = new SigninDAOimpl();
+			List<NotificationVO> vos = dao.getAlerts((String) session.getAttribute("signedid"));
+			session.setAttribute("notificationVos", vos);
 			request.getRequestDispatcher("login/login.jsp").forward(request, response);
 		} else {
 			HttpSession session = request.getSession();
+			SigninDAO dao = new SigninDAOimpl();
+			List<NotificationVO> vos = dao.getAlerts((String) session.getAttribute("signedid"));
+			session.setAttribute("notificationVos", vos);
 			session.removeAttribute("signedid");
 			response.sendRedirect("index.do");
 		}
@@ -65,7 +72,6 @@ public class LoginController extends HttpServlet {
 				
 				List<NotificationVO> vos = dao.getAlerts((String) session.getAttribute("signedid"));
 				
-				System.out.println(vos);
 				session.setAttribute("notificationVos", vos);
 				response.sendRedirect("index.do");
 			}

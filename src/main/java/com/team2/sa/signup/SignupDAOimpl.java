@@ -37,6 +37,24 @@ public class SignupDAOimpl implements SignupDAO {
 			pstmt.setString(6, vo.getTel());
 			pstmt.setDate(7, (Date) vo.getBday());
 			flag = pstmt.executeUpdate();
+			
+			pstmt = conn.prepareStatement(SignupQuery.SQL_GET_CURRVAL);
+			rs = pstmt.executeQuery();
+			
+			int uNum = 0;
+			
+			while(rs.next()) {
+				uNum = rs.getInt("currval");
+				if (rs.next() == true) {
+					break;
+				}
+			}
+			
+			pstmt = conn.prepareStatement(SignupQuery.SQL_INSERT_NOTI);
+			pstmt.setInt(1, uNum);
+			pstmt.setString(2, "회원가입이 완료되었습니다. 소셜 액티비티 가입을 환영합니다!");
+			
+			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();

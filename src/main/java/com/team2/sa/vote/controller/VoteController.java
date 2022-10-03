@@ -2,13 +2,18 @@ package com.team2.sa.vote.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.team2.sa.login.SigninDAO;
+import com.team2.sa.login.SigninDAOimpl;
+import com.team2.sa.notification.NotificationVO;
 import com.team2.sa.vote.model.VoteDAO;
 import com.team2.sa.vote.model.VoteDAOimpl;
 import com.team2.sa.vote.model.VoteVO;
@@ -36,6 +41,10 @@ public class VoteController extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String sPath = request.getServletPath();
+		HttpSession session = request.getSession();
+		SigninDAO signDAO = new SigninDAOimpl();
+		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
+		session.setAttribute("notificationVos", notificationVos);
 		if (sPath.equals("/v_insert.do")) {
 			request.getRequestDispatcher("vote/insert.jsp").forward(request, response);
 		}else if(sPath.equals("/v_selectOne.do")) {
@@ -64,6 +73,10 @@ public class VoteController extends HttpServlet {
 		String sPath = request.getServletPath();
 		System.out.println(sPath);
 		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		SigninDAO signDAO = new SigninDAOimpl();
+		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
+		session.setAttribute("notificationVos", notificationVos);
 		if (sPath.equals("/v_insertOK.do")) {
 			VoteVO vo = new VoteVO();
 			vo.setgNum(Integer.parseInt(request.getParameter("gNum")));

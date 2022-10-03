@@ -11,4 +11,6 @@ public interface SignupQuery {
 			"insert into userinfo(unum, uname, id, pw, sex, addr, tel, bday) "
 			+ "values(seq_userinfo.nextval, ?, ?, ?, ?, ?, ?, ?)";
 	String SQL_ID_CHECK = "select * from userinfo where id=?";
+	String SQL_GET_CURRVAL = "select seq_userinfo.currval from dual";
+	String SQL_INSERT_NOTI = "insert into notification(nnum, unum, content, when) values(seq_notification.nextval, ?, ?, to_char(current_date,'YYYY-MM-DD HH24:MI'))";
 }

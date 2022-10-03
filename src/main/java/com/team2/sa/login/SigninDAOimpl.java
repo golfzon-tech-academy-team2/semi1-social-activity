@@ -73,7 +73,20 @@ public class SigninDAOimpl implements SigninDAO {
 				vo.setNnum(rs.getInt("nnum"));
 				vo.setUnum(rs.getInt("unum"));
 				vo.setContent(rs.getString("content"));
-				vo.setWhen(rs.getString("when"));
+				
+				if(rs.getInt("mm") < 60) {
+					vo.setWhen(Integer.toString(rs.getInt("mm")) + "분 전");
+				} else {
+					if (rs.getInt("hh") <= 23) {
+						vo.setWhen(Integer.toString(rs.getInt("hh")) + "시간 전");
+					} else {
+						if (rs.getInt("dd") <= 364) {
+							vo.setWhen(Integer.toString(rs.getInt("dd")) + "일 전");
+						} else {
+							vo.setWhen(Integer.toString(rs.getInt("yy")) + "년 전");
+						}
+					}
+				}
 				
 				vos.add(vo);
 			}

@@ -91,12 +91,14 @@ a{
   user-select: none;
   background: #fff;
   border: 1px solid #c7d8e2;
-  width: 243px;
-  height: auto;
+  width: 260px;
+  min-height: auto;
+  max-height : 400px;
   display: none;
   border-radius: 3px;
   box-shadow: 10px 10px 35px rgba(0,0,0,0.125),
               -10px -10px 35px rgba(0,0,0,0.125);
+  overflow: auto;              
 }
 
 .notification_dd:before{
@@ -112,6 +114,7 @@ a{
     border-bottom: 1px solid #f1f2f4;
     padding: 10px;
     display: flex;
+    height : auto;
     align-content: center;
 }
 

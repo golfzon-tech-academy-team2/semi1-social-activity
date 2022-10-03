@@ -25,6 +25,9 @@ import com.team2.sa.gathering.model.PriGatheringDAO;
 import com.team2.sa.gathering.model.PriGatheringDAOimpl;
 import com.team2.sa.gathering.model.PubGatheringDAO;
 import com.team2.sa.gathering.model.PubGatheringDAOimpl;
+import com.team2.sa.login.SigninDAO;
+import com.team2.sa.login.SigninDAOimpl;
+import com.team2.sa.notification.NotificationVO;
 
 /**
  * Servlet implementation class InsertGatheringController
@@ -52,6 +55,9 @@ public class InsertGatheringController extends HttpServlet {
 		String sPath = request.getServletPath();
 		// add restrict access
 		HttpSession session = request.getSession();
+		SigninDAO signDAO = new SigninDAOimpl();
+		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
+		session.setAttribute("notificationVos", notificationVos);
 		String signedid = (String) session.getAttribute("signedid");
 		if (signedid != null) {
 			if (sPath.equals("/create_gathering.do")) {// 메인페이지에서 모임 생성으로 넘어오면 공개형 모임 생성
