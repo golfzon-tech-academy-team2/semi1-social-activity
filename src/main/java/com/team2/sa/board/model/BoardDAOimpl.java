@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.team2.sa.notification.NotificationQuery;
+
 public class BoardDAOimpl implements BoardDAO {
 	private Connection conn;
 	private PreparedStatement pstmt;
@@ -42,6 +44,38 @@ public class BoardDAOimpl implements BoardDAO {
 			pstmt.setInt(4, vo.getuNum());
 			pstmt.setString(5, vo.getIsNotice());
 			flag = pstmt.executeUpdate();
+			
+			pstmt = conn.prepareStatement(NotificationQuery.getGatheringUnum);
+			pstmt.setInt(1,  vo.getgNum());
+			
+			rs = pstmt.executeQuery();
+			
+			List<Integer> uNums = new ArrayList<Integer>();
+			
+			while (rs.next()) {
+				uNums.add(rs.getInt("unum"));
+			}
+			
+			pstmt = conn.prepareStatement(NotificationQuery.SQL_GET_GNAME);
+			pstmt.setInt(1, vo.getgNum());
+			rs = pstmt.executeQuery();
+			
+			String gName = "";
+			
+			while(rs.next()) {
+				gName = rs.getString("gname");
+				if (rs.next() == true) {
+					break;
+				}
+			}
+			
+			for(int uNum : uNums) {
+				pstmt = conn.prepareStatement(NotificationQuery.SQL_INSERT_NOTI);
+				pstmt.setInt(1, uNum);
+				pstmt.setString(2, gName + " 모임에 게시글이 등록되었습니다");
+				
+				pstmt.executeUpdate();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

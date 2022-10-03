@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.team2.sa.notification.NotificationQuery;
+
 public class GatheringUserInfoDAOimpl implements GatheringUserInfoDAO {
 	private Connection conn;
 	private PreparedStatement pstmt;
@@ -40,8 +42,41 @@ public class GatheringUserInfoDAOimpl implements GatheringUserInfoDAO {
 			pstmt.setString(2, roll);
 			pstmt.setString(3, signedid);
 			
+			pstmt.executeUpdate();
+			
+			pstmt = conn.prepareStatement(NotificationQuery.SQL_GET_GNAME);
+			pstmt.setInt(1, gNum);
+			rs = pstmt.executeQuery();
+			
+			String gName = "";
+			
+			while(rs.next()) {
+				gName = rs.getString("gname");
+				if (rs.next() == true) {
+					break;
+				}
+			}
+			
+			pstmt = conn.prepareStatement(NotificationQuery.SQL_GET_UNUM);
+			pstmt.setString(1, signedid);
+			rs = pstmt.executeQuery();
+			
+			int uNum = 0;
+			
+			while(rs.next()) {
+				uNum = rs.getInt("unum");
+				if (rs.next() == true) {
+					break;
+				}
+			}
 			
 			flag = pstmt.executeUpdate();
+			
+			pstmt = conn.prepareStatement(NotificationQuery.SQL_INSERT_NOTI);
+			pstmt.setInt(1, uNum);
+			pstmt.setString(2, gName + " 모임 생성이 완료되었습니다");
+			
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.team2.sa.notification.NotificationQuery;
+
 public class SignupDAOimpl implements SignupDAO {
 
 	private Connection conn;
@@ -38,7 +40,7 @@ public class SignupDAOimpl implements SignupDAO {
 			pstmt.setDate(7, (Date) vo.getBday());
 			flag = pstmt.executeUpdate();
 			
-			pstmt = conn.prepareStatement(SignupQuery.SQL_GET_CURRVAL);
+			pstmt = conn.prepareStatement(NotificationQuery.SQL_GET_CURRVAL);
 			rs = pstmt.executeQuery();
 			
 			int uNum = 0;
@@ -50,7 +52,7 @@ public class SignupDAOimpl implements SignupDAO {
 				}
 			}
 			
-			pstmt = conn.prepareStatement(SignupQuery.SQL_INSERT_NOTI);
+			pstmt = conn.prepareStatement(NotificationQuery.SQL_INSERT_NOTI);
 			pstmt.setInt(1, uNum);
 			pstmt.setString(2, "회원가입이 완료되었습니다. 소셜 액티비티 가입을 환영합니다!");
 			
