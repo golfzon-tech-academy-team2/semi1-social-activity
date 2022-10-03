@@ -40,6 +40,7 @@ public class SelectOneGatheringController extends HttpServlet {
 			GatheringUserInfoVO vo = new GatheringUserInfoVO();
 			vo = dao.selectOne(Integer.parseInt(request.getParameter("gNum")));
 			System.out.println(vo.getgContent());
+			System.out.println(vo.getSex());
 			request.setAttribute("vo", vo);
 			request.getRequestDispatcher("gathering/selectOne.jsp").forward(request, response);
 		}

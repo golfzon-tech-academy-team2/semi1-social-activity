@@ -168,12 +168,20 @@ public class InsertGatheringController extends HttpServlet {
 //			  			response.sendRedirect("s_selectAll_join.do");
 					System.out.println("success");
 					int gnum = dao2.getGnum();
-					dao2.insert(gnum, "O", signedid);
-					response.setContentType("text/html; charset=UTF-8");
-					PrintWriter writer = response.getWriter();
-					writer.println("<script>alert('모임이 생성되었습니다.');location.href='g_selectAll.do';</script>");
-					writer.close();
-					// response.sendRedirect("g_selectAll.do");
+					System.out.println("2번째 작업~"+gnum);
+					if(dao2.insert(gnum, "O", signedid)==1) {
+						response.setContentType("text/html; charset=UTF-8");
+						PrintWriter writer = response.getWriter();
+						writer.println("<script>alert('모임이 생성되었습니다.');location.href='g_selectAll.do';</script>");
+						writer.close();
+						// response.sendRedirect("g_selectAll.do");
+					}else {
+						response.setContentType("text/html; charset=UTF-8");
+						PrintWriter writer = response.getWriter();
+						writer.println("<script>alert('모임 생성에 실패하였습니다.');</script>");
+						writer.close();
+					}
+					
 
 				} else {
 					System.out.println("안됨");
