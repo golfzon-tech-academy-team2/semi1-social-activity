@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.team2.sa.board.model.BoardJoinVO;
 import com.team2.sa.board.model.BoardQuery;
+import com.team2.sa.notification.NotificationQuery;
 import com.team2.sa.vote.model.VoteQuery;
 
 public class AlbumDAOimpl implements AlbumDAO {
@@ -46,6 +47,39 @@ public class AlbumDAOimpl implements AlbumDAO {
 			pstmt.setString(4, vo.getuName());
 			pstmt.setString(5, vo.getType());
 			flag = pstmt.executeUpdate();
+			
+			pstmt = conn.prepareStatement(NotificationQuery.getGatheringUnum);
+			pstmt.setInt(1,  vo.getgNum());
+			
+			rs = pstmt.executeQuery();
+			
+			List<Integer> uNums = new ArrayList<Integer>();
+			
+			while (rs.next()) {
+				uNums.add(rs.getInt("unum"));
+			}
+			
+			pstmt = conn.prepareStatement(NotificationQuery.SQL_GET_GNAME);
+			pstmt.setInt(1, vo.getgNum());
+			rs = pstmt.executeQuery();
+			
+			String gName = "";
+			
+			while(rs.next()) {
+				gName = rs.getString("gname");
+				if (rs.next() == true) {
+					break;
+				}
+			}
+			
+			for(int uNum : uNums) {
+				pstmt = conn.prepareStatement(NotificationQuery.SQL_INSERT_NOTI);
+				pstmt.setInt(1, uNum);
+				pstmt.setString(2, gName + " 모임에 사진이 업데이트되었습니다");
+				
+				pstmt.executeUpdate();
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
