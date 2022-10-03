@@ -35,12 +35,20 @@ public class PubGatheringDAOimpl implements PubGatheringDAO {
 					GatheringQuery.USER, 
 					GatheringQuery.PASSWORD);
 			//�˻� : DQL
-			pstmt = conn.prepareStatement(GatheringQuery.GATHERING_SEARCHLIST);
+			if(sex.equals("X")) {
+				pstmt = conn.prepareStatement(GatheringQuery.GATHERING_SEARCHLIST_NO_SEX);
+				pstmt.setString(1, minAge);
+				pstmt.setString(2, maxAge);
+				rs = pstmt.executeQuery();
+			}else {
+				pstmt = conn.prepareStatement(GatheringQuery.GATHERING_SEARCHLIST);
 
-			pstmt.setString(1, minAge);
-			pstmt.setString(2, maxAge);
-			pstmt.setString(3, sex);
-			rs = pstmt.executeQuery();//������ ���� ���
+				pstmt.setString(1, minAge);
+				pstmt.setString(2, maxAge);
+				pstmt.setString(3, sex);
+				rs = pstmt.executeQuery();//������ ���� ���
+			}
+			
 			
 			while(rs.next()) {//������ ����� �������� �𸣴ϱ�
 				GatheringVO vo = new GatheringVO();
