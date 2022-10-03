@@ -14,6 +14,7 @@ import com.team2.sa.board.model.BoardQuery;
 import com.team2.sa.event.EventVO;
 import com.team2.sa.gathering.model.GatheringVO;
 import com.team2.sa.mypage.MypageQuery;
+import com.team2.sa.notification.NotificationQuery;
 import com.team2.sa.signup.SignupQuery;
 import com.team2.sa.userinfo.member.UserInfoVO;
 
@@ -114,6 +115,25 @@ public class ActivityDAOimpl implements ActivityDAO {
 			pstmt.setInt(1, aNum);
 			pstmt.setInt(2, uNum);
 			rs = pstmt.executeQuery();
+			
+			pstmt = conn.prepareStatement(NotificationQuery.SQL_GET_ANAME);
+			pstmt.setInt(1, aNum);
+			rs = pstmt.executeQuery();
+			
+			String aName = "";
+			
+			while(rs.next()) {
+				aName = rs.getString("aname");
+				if (rs.next() == true) {
+					break;
+				}
+			}
+			
+			pstmt = conn.prepareStatement(NotificationQuery.SQL_INSERT_NOTI);
+			pstmt.setInt(1, uNum);
+			pstmt.setString(2, aName + " 액티비티 생성이 완료되었습니다");
+			
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
