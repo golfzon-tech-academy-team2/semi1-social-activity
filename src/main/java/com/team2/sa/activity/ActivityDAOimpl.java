@@ -284,7 +284,6 @@ public class ActivityDAOimpl implements ActivityDAO {
 					result.setMaxAge(rs.getInt("maxage"));
 					result.setSex(rs.getString("sex"));
 					result.setMaxPerson(rs.getInt("maxperson"));
-
 					vos.add(result);
 				}
 			} else {

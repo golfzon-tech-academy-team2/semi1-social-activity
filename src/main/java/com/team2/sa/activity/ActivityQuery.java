@@ -17,7 +17,7 @@ public interface ActivityQuery {
 	String SQL_SELECT_EVENT = "select e.enum, a.anum, etitle, econtent, gift from event e left join activity a"
 			+ " on e.anum = a.anum where a.anum=?";
 	String SQL_SEARCH_X = "select * from activity where location like ? and minage <= ? and maxage >= ? order by enddate desc";
-	String SQL_SEARCH_O = "select * from activity where sex=? and location like ? minage <= ? and maxage >= ? order by enddate desc";
+	String SQL_SEARCH_O = "select * from activity where sex=? and location like ? and minage <= ? and maxage >= ? order by enddate desc";
 	String SQL_DELETE_ACTIVITY = "delete from activity where anum = ?";
 	String SQL_DELETE_ACTIVITYUSERINFO = "delete from activityuserinfo where anum = ?";
 	String SQL_CHECK_GATHERING = "select count(gnum) as \"checkGathering\" from gatheringuserinfo where "

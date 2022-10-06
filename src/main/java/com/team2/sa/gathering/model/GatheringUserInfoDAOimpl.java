@@ -141,10 +141,10 @@ public class GatheringUserInfoDAOimpl implements GatheringUserInfoDAO {
 			pstmt = conn.prepareStatement(GatheringQuery.GET_GNUM);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				System.out.println("가져온 gnu은");
-				System.out.println(rs.getString("gNum"));
-				System.out.println("입니다.");
-				gNum = Integer.parseInt(rs.getString("gNum"));
+				gNum = rs.getInt("max");
+				if (rs.next() == true) {
+					break;
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
