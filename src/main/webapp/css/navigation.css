@@ -99,6 +99,7 @@ a{
   box-shadow: 10px 10px 35px rgba(0,0,0,0.125),
               -10px -10px 35px rgba(0,0,0,0.125);
   overflow: auto;              
+  z-index:2;
 }
 
 .notification_dd:before{

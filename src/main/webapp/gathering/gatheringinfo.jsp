@@ -26,8 +26,8 @@
 <jsp:include page="../top_menu.jsp"></jsp:include>
 	<fmt:formatDate var="today" value="${today }" pattern="yyyy-MM-dd" />
 	<h3 style="display: inline;">${param.gname}</h3>
-	<h3 style="display: inline;">모임에 오신걸 환영합니다</h3>
 	<div class="container">
+		<h3 style="display: inline;">모임에 오신걸 환영합니다</h3><br>
 		<button class="btn btn-primary"
 			onclick="location.href='createActivity.do?gNum=${param.gnum }'">액티비티
 			생성하기</button>
@@ -51,10 +51,7 @@
 				</tr>
 			</tbody>
 		</table>
-
-		<h2 style="display: inline;">모임</h2>
-		<h2 style="display: inline;">${param.gnum}</h2>
-		<h2 style="display: inline;">의 게시글 목록</h2>
+		<h2 style="display: inline;">게시글 목록</h2>
 		<table class="table">
 			<thead>
 				<tr>
@@ -80,7 +77,7 @@
 			onclick="location.href='b_insert.do?gNum=${param.gnum}'">글쓰기</button>
 
 
-		<h2>액티비티!</h2>
+		<h2>액티비티</h2>
 		<table class="table">
 			<thead>
 				<tr>

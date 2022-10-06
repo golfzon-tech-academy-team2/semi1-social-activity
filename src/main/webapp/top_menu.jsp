@@ -19,16 +19,16 @@ $(document).ready(function(){
 	<div class="navbar">
 	    <div class="navbar_left">
 	    	<div class="logo">
-	        	<a href="index.do">Social Activity</a>
+	        	<a href="index.do" style="text-decoration:none">Social Activity</a>
 	    	</div>
 	    	<div class="createGathering">
-	        	<a href="create_gathering.do">모임 생성</a>
+	        	<a href="create_gathering.do" style="text-decoration:none">모임 생성</a>
 	    	</div>
 	    	<div class="gatheringSearch">
-	        	<a href="g_searchList.do">모임 검색</a>
+	        	<a href="g_searchList.do" style="text-decoration:none">모임 검색</a>
 	    	</div>
 	    	<div class="activitySearch">
-	        	<a href="a_searchList.do">액티비티 검색</a>
+	        	<a href="a_searchList.do" style="text-decoration:none">액티비티 검색</a>
 	    	</div>
 	    </div>
 	
@@ -36,13 +36,13 @@ $(document).ready(function(){
 	  		<div class="login">
 				<c:choose>
 					<c:when test="${signedid == null}">
-						<a href="login.do">로그인</a>
-						<a href="signup.do">회원가입</a>
+						<a href="login.do" style="text-decoration:none">로그인</a>
+						<a href="signup.do" style="text-decoration:none">회원가입</a>
 					</c:when>
 					<c:otherwise>
 						${signedid} 님 환영합니다
-						<a href="pw_check.do" class="nav_menu">마이페이지</a>
-						<a href="logout.do" class="nav_menu">로그아웃</a>
+						<a href="pw_check.do" class="nav_menu" style="text-decoration:none">마이페이지</a>
+						<a href="logout.do" class="nav_menu" style="text-decoration:none">로그아웃</a>
 					</c:otherwise>
 				</c:choose>
 			</div>

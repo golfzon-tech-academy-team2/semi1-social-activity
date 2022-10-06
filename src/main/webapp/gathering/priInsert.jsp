@@ -60,8 +60,6 @@
 				placeholder="모임을 설명해주세요" name="minAge" value=1> <label>최대
 				나이:</label><br> <input type="number" class="form-control" id="maxAge"
 				placeholder="모임을 설명해주세요" name="maxAge" value=100>
-				
-			<div>엔드 페이지 생성 기능 만드세용 ㅎㅎ</div>	
 
 			<button type="submit" class="btn btn-primary">모임 생성</button>
 		</div>

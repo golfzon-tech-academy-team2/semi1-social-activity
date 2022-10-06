@@ -1,11 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>비밀번호 수정</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
+
+
+<link href="css/mod.css" rel="stylesheet">
 <script>
 	function mod_pw() {
 		var modPwForm = document.modpw;
@@ -28,21 +35,24 @@
 </script>
 </head>
 <body>
-	<jsp:include page="../top_menu.jsp"></jsp:include>
-	<h3>비밀번호 수정</h3>
-	
-	<form id="modpw" name="modpw" method="post">
-		<table>
-			<tr>
-				<td><label for="pw">비밀번호 :</label></td>
-				<td><input type="password" id="pw" name="pw" value=""></td>
-			</tr>
-			<tr>
-				<td><label for="pw_check">비밀번호 확인 :</label></td>
-				<td><input type="password" id="pw_check" name="pw_check" value=""></td>
-				<td><input type="button" value="수정하기" onclick="mod_pw()"></td>
-			</tr>
-		</table>
-	</form>
+<body class="text-center">
+	<main class="form-signin w-100 m-auto">
+		<form id="modpw" name="modpw" method="post">
+			<h1 class="h3 mb-3 fw-normal">비밀번호수정</h1>
+			<div class="form-floating">
+				<input type="password" id="pw" name="pw" value=""
+					class="form-control" placeholder="Password"> <label
+					for="floatingPassword">비밀번호</label>
+			</div>
+			<div class="form-floating">
+				<input type="password" id="pw_check" name="pw_check" value=""
+					class="form-control" placeholder="Password"> <label
+					for="floatingPassword">비밀번호확인</label>
+			</div>
+			<button type="button" value="수정하기" onclick="mod_pw()"
+				class="w-100 btn btn-lg btn-primary">수정하기</button>
+
+		</form>
+		</main>>
 </body>
 </html>
