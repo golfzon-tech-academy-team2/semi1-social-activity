@@ -85,6 +85,7 @@ public class InsertGatheringController extends HttpServlet {
 		String sPath = request.getServletPath();
 		System.out.println("post:...");
 		System.out.println(sPath);
+		//공개형 모임 생성 후 동작
 		if (sPath.equals("/insert_pubGOK.do")) {
 			String dir_path = request.getServletContext().getRealPath("/gEmblem");
 			System.out.println(dir_path);
@@ -195,7 +196,9 @@ public class InsertGatheringController extends HttpServlet {
 				}
 
 			}
-		} else if (sPath.equals("/insert_priGOK.do")) {
+		}
+		//비공개형 모임 생성 후 동작
+		else if (sPath.equals("/insert_priGOK.do")) {
 			String dir_path = request.getServletContext().getRealPath("/gEmblem");
 			System.out.println(dir_path);
 			int fileSizeMax = 1024 * 1024 * 100;

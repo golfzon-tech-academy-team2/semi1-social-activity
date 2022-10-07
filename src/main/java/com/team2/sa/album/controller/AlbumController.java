@@ -52,23 +52,29 @@ public class AlbumController extends HttpServlet {
 		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
 		session.setAttribute("notificationVos", notificationVos);
 		String signedid = (String) session.getAttribute("signedid");
-		
+		//앨범 추가
 		if (sPath.equals("/ab_insert.do")) {
 			System.out.println(request.getParameter("gNum"));
 			request.getRequestDispatcher("album/insert.jsp").forward(request, response);
-		}else if (sPath.equals("/ab_selectAll.do")) {
+		}
+		//앨범 모두 보기
+		else if (sPath.equals("/ab_selectAll.do")) {
 			int gNum = Integer.parseInt(request.getParameter("gNum"));
 			AlbumDAO dao = new AlbumDAOimpl();
 			List<AlbumVO> vos = dao.selectAll(gNum);
 			request.setAttribute("vos", vos);
 			request.getRequestDispatcher("album/selectAll.jsp").forward(request, response);
-		}else if(sPath.equals("/ab_selectOne.do")) {
+		}
+		//하나의 갤러리 업로드 보기
+		else if(sPath.equals("/ab_selectOne.do")) {
 			int aNum = Integer.parseInt(request.getParameter("aNum"));
 			AlbumDAO dao = new AlbumDAOimpl();
 			AlbumVO vo = dao.selectOne(aNum);
 			request.setAttribute("vo", vo);
 			request.getRequestDispatcher("album/selectOne.jsp").forward(request, response);
-		}else if(sPath.equals("/ab_delete.do")) {
+		}
+		//업로드된 사진/동영상 삭제
+		else if(sPath.equals("/ab_delete.do")) {
 			System.out.println(request.getParameter("aNum"));
 			int aNum = Integer.parseInt(request.getParameter("aNum"));
 			int gNum = Integer.parseInt(request.getParameter("gNum"));
@@ -100,6 +106,7 @@ public class AlbumController extends HttpServlet {
 		session.setAttribute("notificationVos", notificationVos);
 		String signedid = (String) session.getAttribute("signedid");
 		
+		//앨범 사진/동영상 추가 후 동작
 		if (sPath.equals("/ab_insertOK.do")) {
 			String dir_path = request.getServletContext().getRealPath("/gallery");
 			System.out.println(dir_path);

@@ -47,9 +47,12 @@ public class SignupController extends HttpServlet {
 		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
 		session.setAttribute("notificationVos", notificationVos);
 
+		//회원가입 페이지
 		if (sPath.equals("/signup.do")) {
 			request.getRequestDispatcher("signup/signup.jsp").forward(request, response);
-		} else if (sPath.equals("/idCheck.do")) {
+		}
+		//아이디 중복 체크 페이지
+		else if (sPath.equals("/idCheck.do")) {
 			String id = request.getParameter("user_id");
 			SignupDAO dao = new SignupDAOimpl();
 			System.out.println(id);
@@ -58,8 +61,6 @@ public class SignupController extends HttpServlet {
 	        session.setAttribute("result", result);
 	        
 	        request.getRequestDispatcher("signup/dbCheckid.jsp").forward(request, response);
-		} else if (sPath.equals("/modify.do")) {
-			request.getRequestDispatcher("mypage/modify.do");
 		}
 	}
 
@@ -76,6 +77,7 @@ public class SignupController extends HttpServlet {
 		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
 		session.setAttribute("notificationVos", notificationVos);
 
+		//회원가입 후 동작
 		if (sPath.equals("/signupOK.do")) {
 			request.setCharacterEncoding("UTF-8");
 			System.out.println(request.getParameter("id"));

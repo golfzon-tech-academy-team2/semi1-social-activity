@@ -53,6 +53,7 @@ public class AdminContoller extends HttpServlet {
 		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
 		session.setAttribute("notificationVos", notificationVos);
 		String signedid = (String) session.getAttribute("signedid");
+		//모임 관리 페이지
 		if(sPath.equals("/admin.do")) {
 			GatheringUserInfoVO vo = new GatheringUserInfoVO();
 			AdminDAO dao = new AdminDAOimpl();
@@ -60,7 +61,9 @@ public class AdminContoller extends HttpServlet {
 			List<GatheringUserInfoVO> vos = dao.selectAllGathering(uNum);
 			request.setAttribute("vos", vos);
 			request.getRequestDispatcher("admin/admin.jsp").forward(request, response);
-		}else if(sPath.equals("/ad_selectOne.do")) {
+		}
+		//한 가지 모임 선택
+		else if(sPath.equals("/ad_selectOne.do")) {
 			System.out.println(Integer.parseInt(request.getParameter("gNum")));
 			PubGatheringDAO dao = new PubGatheringDAOimpl();
 			GatheringUserInfoVO vo = new GatheringUserInfoVO();
@@ -68,14 +71,18 @@ public class AdminContoller extends HttpServlet {
 			System.out.println(vo.getgContent());
 			request.setAttribute("vo", vo);
 			request.getRequestDispatcher("admin/selectOne.jsp").forward(request, response);
-		}else if(sPath.equals("/ad_update.do")) {
+		}
+		//모임 수정
+		else if(sPath.equals("/ad_update.do")) {
 			System.out.println(Integer.parseInt(request.getParameter("gNum")));
 			PubGatheringDAO dao = new PubGatheringDAOimpl();
 			GatheringUserInfoVO vo = new GatheringUserInfoVO();
 			vo = dao.selectOne(Integer.parseInt(request.getParameter("gNum")));
 			request.setAttribute("vo", vo);
 			request.getRequestDispatcher("admin/update.jsp").forward(request, response);
-		}else if(sPath.equals("/ad_deleteOK.do")) {
+		}
+		//모임 삭제
+		else if(sPath.equals("/ad_deleteOK.do")) {
 			int gNum = Integer.parseInt(request.getParameter("gNum"));
 			AdminDAO dao = new AdminDAOimpl();
 			if(dao.delete(gNum)==1) {
@@ -96,6 +103,8 @@ public class AdminContoller extends HttpServlet {
 		SigninDAO signDAO = new SigninDAOimpl();
 		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
 		session.setAttribute("notificationVos", notificationVos);
+		
+		//모임 수정 후 동작
 		if(sPath.equals("/ad_updateOK.do")) {
 			String dir_path = request.getServletContext().getRealPath("/gEmblem");
 			System.out.println(dir_path);

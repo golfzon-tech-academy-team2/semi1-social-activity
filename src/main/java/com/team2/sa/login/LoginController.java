@@ -34,13 +34,16 @@ public class LoginController extends HttpServlet {
 		String sPath = request.getServletPath();
 		System.out.println(sPath);
 		
+		//로그인 페이지
 		if (sPath.equals("/login.do")) {
 			HttpSession session = request.getSession();
 			SigninDAO dao = new SigninDAOimpl();
 			List<NotificationVO> vos = dao.getAlerts((String) session.getAttribute("signedid"));
 			session.setAttribute("notificationVos", vos);
 			request.getRequestDispatcher("login/login.jsp").forward(request, response);
-		} else {
+		}
+		//로그아웃 페이지
+		else {
 			HttpSession session = request.getSession();
 			SigninDAO dao = new SigninDAOimpl();
 			List<NotificationVO> vos = dao.getAlerts((String) session.getAttribute("signedid"));
@@ -57,6 +60,7 @@ public class LoginController extends HttpServlet {
 		String sPath = request.getServletPath();
 		System.out.println(sPath);
 		
+		//로그인 후 동작
 		if (sPath.equals("/loginOK.do")) {
 			System.out.println(request.getParameter("id"));
 			System.out.println(request.getParameter("pw"));

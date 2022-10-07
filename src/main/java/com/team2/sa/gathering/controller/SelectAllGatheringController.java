@@ -43,6 +43,7 @@ public class SelectAllGatheringController extends HttpServlet {
 		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
 		session.setAttribute("notificationVos", notificationVos);
 		
+		//모임 전체 보기 동작
 		if (sPath.equals("/g_selectAll.do")) {
 			PubGatheringDAO dao = new PubGatheringDAOimpl();
 			List<GatheringVO> vos = dao.selectAll();
