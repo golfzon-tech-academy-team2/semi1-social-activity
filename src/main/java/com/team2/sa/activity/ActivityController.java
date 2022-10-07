@@ -52,6 +52,7 @@ public class ActivityController extends HttpServlet {
 		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
 		session.setAttribute("notificationVos", notificationVos);
 		
+		//액티비티 생성
 		if(sPath.equals("/createActivity.do")) {
 			String gNum = request.getParameter("gNum");
 			ActivityDAO dao = new ActivityDAOimpl();
@@ -68,7 +69,9 @@ public class ActivityController extends HttpServlet {
 			request.setAttribute("gatheringUserNum", gatheringUserNum);
 			
 			request.getRequestDispatcher("activity/createActivity.jsp").forward(request, response);
-		} else if(sPath.equals("/activityInfo.do")) {
+		}
+		//액티비티 상세정보
+		else if(sPath.equals("/activityInfo.do")) {
 			ActivityDAO dao = new ActivityDAOimpl();
 			ActivityVO vo = dao.selectOne(Integer.parseInt(request.getParameter("aNum")));
 			
@@ -96,7 +99,9 @@ public class ActivityController extends HttpServlet {
 			request.setAttribute("activityMember", memberVos);
 			
 			request.getRequestDispatcher("activity/activityInfo.jsp").forward(request, response);
-		} else if (sPath.equals("/a_searchList.do")) {
+		} 
+		//액티비티 검색
+		else if (sPath.equals("/a_searchList.do")) {
 			request.getRequestDispatcher("activity/a_searchList.jsp").forward(request, response);
 		} else if (sPath.equals("/deleteActivity.do")) {
 			ActivityDAO dao = new ActivityDAOimpl();
@@ -118,7 +123,9 @@ public class ActivityController extends HttpServlet {
 			
 			request.setAttribute("today", date);
 			request.getRequestDispatcher("mypage/mypage.jsp").forward(request, response);
-		} else if (sPath.equals("/joinActivity.do")) {
+		}
+		//액티비티 가입
+		else if (sPath.equals("/joinActivity.do")) {
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
@@ -142,7 +149,9 @@ public class ActivityController extends HttpServlet {
 					out.close();
 				}
 			}
-		} else if (sPath.equals("/modifyActivity.do")) {
+		}
+		//액티비티 수정
+		else if (sPath.equals("/modifyActivity.do")) {
 			ActivityDAO dao = new ActivityDAOimpl();
 			ActivityVO vo = dao.selectOne(Integer.parseInt(request.getParameter("aNum")));
 			request.setAttribute("vo", vo);
@@ -154,7 +163,9 @@ public class ActivityController extends HttpServlet {
 			request.setAttribute("gatheringUserNum", gatheringUserNum);
 			
 			request.getRequestDispatcher("activity/modifyActivity.jsp").forward(request, response);
-		} else if (sPath.equals("/signOutActivity.do")) {
+		}
+		//액티비티 탈퇴
+		else if (sPath.equals("/signOutActivity.do")) {
 			Integer.parseInt(request.getParameter("aNum"));
 			MypageDAO dao = new MypageDAOimpl();
 			
@@ -191,6 +202,7 @@ public class ActivityController extends HttpServlet {
 		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
 		session.setAttribute("notificationVos", notificationVos);
 		
+		//액티비티 생성 완료 후 데이터베이스에 저장
 		if(sPath.equals("/creActOK.do")) {
 			request.setCharacterEncoding("UTF-8");
 			ActivityInhereted vo = new ActivityInhereted();
@@ -218,7 +230,9 @@ public class ActivityController extends HttpServlet {
 			dao.insert(vo, (String) session.getAttribute("signedid"));
 			
 			response.sendRedirect("gatheringinfo.do?gnum=" + request.getParameter("gNum"));
-		} else if(sPath.equals("/a_searchListOK.do")) {
+		}
+		//액티비티 검색 후 동작
+		else if(sPath.equals("/a_searchListOK.do")) {
 			request.setCharacterEncoding("UTF-8");
 			ActivityVO vo = new ActivityVO();
 			vo.setSex((String) request.getParameter("sex"));
@@ -232,7 +246,9 @@ public class ActivityController extends HttpServlet {
 			request.setAttribute("today", date);
 			
 			request.getRequestDispatcher("activity/a_searchListOK.jsp").forward(request, response);
-		} else if (sPath.equals("/modActOK.do")) {
+		}
+		//액티비티 수정 후 동작
+		else if (sPath.equals("/modActOK.do")) {
 			request.setCharacterEncoding("UTF-8");
 			ActivityVO vo = new ActivityVO();
 			vo.setaNum(Integer.parseInt(request.getParameter("aNum")));

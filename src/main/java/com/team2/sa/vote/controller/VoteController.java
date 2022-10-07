@@ -45,15 +45,20 @@ public class VoteController extends HttpServlet {
 		SigninDAO signDAO = new SigninDAOimpl();
 		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
 		session.setAttribute("notificationVos", notificationVos);
+		//투표 생성
 		if (sPath.equals("/v_insert.do")) {
 			request.getRequestDispatcher("vote/insert.jsp").forward(request, response);
-		}else if(sPath.equals("/v_selectOne.do")) {
+		}
+		//투표 상세보기
+		else if(sPath.equals("/v_selectOne.do")) {
 			VoteVO vo = new VoteVO();
 			VoteDAO dao = new VoteDAOimpl();
 			vo = dao.selectOne(Integer.parseInt(request.getParameter("vNum")));
 			request.setAttribute("vo", vo);
 			request.getRequestDispatcher("vote/selectOne.jsp").forward(request, response);
-		}else if(sPath.equals("/v_result.do")) {
+		}
+		//투표 결과 보기
+		else if(sPath.equals("/v_result.do")) {
 			VoteVO vo = new VoteVO();
 			VoteDAO dao = new VoteDAOimpl();
 			vo = dao.selectOne(Integer.parseInt(request.getParameter("vNum")));
@@ -77,6 +82,7 @@ public class VoteController extends HttpServlet {
 		SigninDAO signDAO = new SigninDAOimpl();
 		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
 		session.setAttribute("notificationVos", notificationVos);
+		//투표 추가 후 동작
 		if (sPath.equals("/v_insertOK.do")) {
 			VoteVO vo = new VoteVO();
 			vo.setgNum(Integer.parseInt(request.getParameter("gNum")));
@@ -92,7 +98,9 @@ public class VoteController extends HttpServlet {
 			} else {
 				request.getRequestDispatcher("vote/insert.jsp").forward(request, response);
 			}
-		}else if(sPath.equals("/v_updateOK.do")) {
+		}
+		//투표 수정 후 동작
+		else if(sPath.equals("/v_updateOK.do")) {
 			
 			VoteDAO dao = new VoteDAOimpl();
 			if(dao.update(request.getParameter("vList"), Integer.parseInt(request.getParameter("vNum")))==1) {

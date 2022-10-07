@@ -42,7 +42,7 @@ public class IndexController extends HttpServlet {
 		SigninDAO signDAO = new SigninDAOimpl();
 		List<NotificationVO> vos = signDAO.getAlerts((String) session.getAttribute("signedid"));
 		session.setAttribute("notificationVos", vos);
-		
+		//홈페이지 메인화면 보기
 		if (sPath.equals("/index.do")) {
 			request.getRequestDispatcher("index.jsp").forward(request, response);;
 		}

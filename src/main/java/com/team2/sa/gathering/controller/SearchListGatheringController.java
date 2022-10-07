@@ -43,9 +43,12 @@ public class SearchListGatheringController extends HttpServlet {
 		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
 		session.setAttribute("notificationVos", notificationVos);
 		
+		//모임 검색
 		if(sPath.equals("/g_searchList.do")) {
 			request.getRequestDispatcher("gathering/searchList.jsp").forward(request, response);
-		}else if(sPath.equals("/g_searchListOK.do")) {
+		}
+		//모임 검색 후 동작
+		else if(sPath.equals("/g_searchListOK.do")) {
 			PubGatheringDAO dao = new PubGatheringDAOimpl();
 			String minAge = request.getParameter("minAge");
 			String maxAge = request.getParameter("maxAge");

@@ -44,6 +44,7 @@ public class SelectOneGatheringController extends HttpServlet {
 		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
 		session.setAttribute("notificationVos", notificationVos);
 		
+		//하나의 모임 가입 페이지
 		if(sPath.equals("/g_selectOne.do")) {
 			System.out.println(Integer.parseInt(request.getParameter("gNum")));
 			PubGatheringDAO dao = new PubGatheringDAOimpl();

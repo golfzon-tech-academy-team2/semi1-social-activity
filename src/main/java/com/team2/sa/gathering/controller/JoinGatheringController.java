@@ -47,6 +47,7 @@ public class JoinGatheringController extends HttpServlet {
 		
 		String signedid = (String) session.getAttribute("signedid");
 		if(signedid != null) {
+		//공개형 모임 가입 후 동작
 		if (sPath.equals("/joinPubGathering.do")) {
 			System.out.println(request.getParameter("gNum"));
 			System.out.println(signedid);

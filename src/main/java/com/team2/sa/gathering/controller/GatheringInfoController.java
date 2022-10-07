@@ -52,6 +52,7 @@ public class GatheringInfoController extends HttpServlet {
 		SigninDAO signDAO = new SigninDAOimpl();
 		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
 		session.setAttribute("notificationVos", notificationVos);
+		//모임 상세보기 페이지
 		if(sPath.equals("/gatheringinfo.do")) {
 			Date date = new Date(System.currentTimeMillis());
 			request.setAttribute("today", date);

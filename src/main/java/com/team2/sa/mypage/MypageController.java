@@ -48,17 +48,28 @@ public class MypageController extends HttpServlet {
 		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
 		session.setAttribute("notificationVos", notificationVos);
 		
+		//비밀번호 확인 페이지
 		if (sPath.equals("/pw_check.do")) {
 			request.getRequestDispatcher("mypage/pw_check.jsp").forward(request, response);
-		} else if (sPath.equals("/mod_name.do")) {
+		}
+		//마이페이지 이름 수정
+		else if (sPath.equals("/mod_name.do")) {
 			request.getRequestDispatcher("mypage/mod_name.jsp").forward(request, response);
-		} else if (sPath.equals("/mod_pw.do")) {
+		}
+		//마이페이지 비밀번호 수정
+		else if (sPath.equals("/mod_pw.do")) {
 			request.getRequestDispatcher("mypage/mod_pw.jsp").forward(request, response);
-		} else if (sPath.equals("/mod_addr.do")) {
+		}
+		//마이페이지 주소 수정
+		else if (sPath.equals("/mod_addr.do")) {
 			request.getRequestDispatcher("mypage/mod_addr.jsp").forward(request, response);
-		} else if (sPath.equals("/mod_tel.do")) {
+		}
+		//마이페이지 전화번호 수정
+		else if (sPath.equals("/mod_tel.do")) {
 			request.getRequestDispatcher("mypage/mod_tel.jsp").forward(request, response);
-		} else if (sPath.equals("/signout.do")) {
+		}
+		//마이페이지 회원 탈퇴
+		else if (sPath.equals("/signout.do")) {
 			MypageDAO dao = new MypageDAOimpl();
 			dao.signout((String) session.getAttribute("signedid"));
 			session.removeAttribute("signedid");
@@ -78,6 +89,7 @@ public class MypageController extends HttpServlet {
 		List<NotificationVO> notificationVos = signDAO.getAlerts((String) session.getAttribute("signedid"));
 		session.setAttribute("notificationVos", notificationVos);
 		MypageDAO dao = new MypageDAOimpl();
+		//마이페이지 화면 이동
 		if (sPath.equals("/mypage.do")) {
 			String result = dao.pwcheck((String) session.getAttribute("signedid"));
 			System.out.println(result);
@@ -109,7 +121,9 @@ public class MypageController extends HttpServlet {
 				out.close();
 				
 			}
-		} else if (sPath.equals("/mod_nameOK.do")) {
+		}
+		//이름 수정 후
+		else if (sPath.equals("/mod_nameOK.do")) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			request.setCharacterEncoding("UTF-8");
@@ -119,7 +133,9 @@ public class MypageController extends HttpServlet {
 			out.println("location='index.do';");
 			out.println("</script>");
 			out.close();
-		} else if (sPath.equals("/mod_pwOK.do")) {
+		}
+		//비밀번호 수정 후
+		else if (sPath.equals("/mod_pwOK.do")) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			request.setCharacterEncoding("UTF-8");
@@ -129,7 +145,9 @@ public class MypageController extends HttpServlet {
 			out.println("location='index.do';");
 			out.println("</script>");
 			out.close();
-		} else if (sPath.equals("/mod_addrOK.do")) {
+		}
+		//비밀번호 수정 후
+		else if (sPath.equals("/mod_addrOK.do")) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			request.setCharacterEncoding("UTF-8");
@@ -139,7 +157,9 @@ public class MypageController extends HttpServlet {
 			out.println("location='index.do';");
 			out.println("</script>");
 			out.close();
-		} else if (sPath.equals("/mod_telOK.do")) {
+		}
+		//전화번호 수정 후
+		else if (sPath.equals("/mod_telOK.do")) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			request.setCharacterEncoding("UTF-8");
